@@ -9,6 +9,11 @@ class Client(models.Model):
 
     def __str__(self):
         return self.name
+    
+    @staticmethod
+    def is_own(user):
+        return user.groups.filter(name='clients').exists()
+
 
 class ServiceCompany(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -17,9 +22,17 @@ class ServiceCompany(models.Model):
 
     def __str__(self):
         return self.name
+    
+    @staticmethod
+    def is_own(user):
+        return user.groups.filter(name='service_companies').exists()
 
 class Manager(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    @staticmethod
+    def is_own(user):
+        return user.groups.filter(name='managers').exists()
 
 class CarModel(models.Model):
     name = models.CharField(max_length=255, unique=True, help_text="Car model name")
@@ -121,7 +134,10 @@ class Reclamation(models.Model):
     repair_parts = models.TextField(default="", help_text="Repair parts")
     recovery_date = models.DateTimeField(help_text="Date of recovery")
     car = models.ForeignKey(Car, on_delete=models.CASCADE)
-    service_company = models.ForeignKey(ServiceCompany, on_delete=models.CASCADE)
+    # service_company = models.ForeignKey(ServiceCompany, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.car.car_num} | {self.failure_description}"
 
     @property
     def downtime(self):

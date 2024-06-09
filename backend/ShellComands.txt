@@ -1,5 +1,6 @@
 from main.models import *
 from main.debug_helpers import *
+# from django.contrib.auth.models import User
 
 User.objects.exclude(username="admin").delete()
 
@@ -308,3 +309,53 @@ Maintenance.objects.create(car=car_0045, type=mt_to_1, maintenance_date="2022-10
 Maintenance.objects.create(car=car_0045, type=mt_to_2, maintenance_date="2022-11-09", operating_time=402, 
     work_order_num="#2022-82КЕ69СИЛ", work_order_date="2022-11-07", service_company=None)
 
+# Reclamation
+Reclamation.objects.all().delete()
+
+# Reclamation 1
+Reclamation.objects.all().create(car=car_0017, failure_date="2022-04-01", operating_time=123, failure_node=fn_engine, failure_description="повышенный шум",
+    recovery_method=rm_repair, repair_parts="прокладки, прочие материалы", recovery_date="2022-04-08")
+
+# Reclamation 2
+Reclamation.objects.all().create(car=car_0017, failure_date="2022-04-02", operating_time=129, failure_node=fn_transmission, failure_description="проскальзывание",
+    recovery_method=rm_repair, repair_parts="шестерня ведущая", recovery_date="2022-04-07")
+
+# Reclamation 3
+Reclamation.objects.all().create(car=car_0017, failure_date="2022-03-30", operating_time=112, failure_node=fn_transmission, failure_description="блокировка колес",
+    recovery_method=rm_change, repair_parts="", recovery_date="2022-02-11")
+
+# Reclamation 4
+Reclamation.objects.all().create(car=car_0021, failure_date="2022-02-06", operating_time=123, failure_node=fn_main_bridge, failure_description="блокировка колес",
+    recovery_method=rm_repair, repair_parts="колесо", recovery_date="2022-02-11")
+
+# Reclamation 5
+Reclamation.objects.all().create(car=car_0027, failure_date="2022-05-05", operating_time=38, failure_node=fn_steerable_bridge, failure_description="разрушение подшипника",
+    recovery_method=rm_repair, repair_parts="подшипник", recovery_date="2022-05-07")
+
+# Reclamation 6
+Reclamation.objects.all().create(car=car_0032, failure_date="2022-06-17", operating_time=112, failure_node=fn_steerable_bridge, failure_description="разрушение подшипника",
+    recovery_method=rm_repair, repair_parts="подшипник", recovery_date="2022-06-25")
+
+# Reclamation 7
+Reclamation.objects.all().create(car=car_0003, failure_date="2021-10-26", operating_time=142, failure_node=fn_steerable_bridge, failure_description="разрушение подшипника",
+    recovery_method=rm_repair, repair_parts="подшипник", recovery_date="2021-11-02")
+
+# Reclamation 8
+Reclamation.objects.all().create(car=car_0016, failure_date="2021-12-31", operating_time=61, failure_node=fn_elevator, failure_description="разрушение верхнего ролика",
+    recovery_method=rm_repair, repair_parts="ролик", recovery_date="2022-01-05")
+
+# Reclamation 9
+Reclamation.objects.all().create(car=car_0039, failure_date="2022-07-28", operating_time=56, failure_node=fn_engine, failure_description="течь масла",
+    recovery_method=rm_repair, repair_parts="прокладки", recovery_date="2022-08-01")
+
+# Reclamation 10
+Reclamation.objects.all().create(car=car_0045, failure_date="2022-09-07", operating_time=47, failure_node=fn_hydro_system, failure_description="течь масла",
+    recovery_method=rm_repair, repair_parts="прокладки", recovery_date="2022-09-09")
+
+# Reclamation 11
+Reclamation.objects.all().create(car=car_0019, failure_date="2022-02-01", operating_time=22, failure_node=fn_engine, failure_description="не заводится",
+    recovery_method=rm_change, repair_parts="", recovery_date="2022-02-10")
+
+# Reclamation 12
+Reclamation.objects.all().create(car=car_0008, failure_date="2021-10-11", operating_time=59, failure_node=fn_engine, failure_description="течь масла",
+    recovery_method=rm_repair, repair_parts="прокладки", recovery_date="2021-10-21")
