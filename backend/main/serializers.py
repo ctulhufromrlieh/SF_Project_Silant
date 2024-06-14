@@ -1,26 +1,26 @@
 from .models import *
 from rest_framework import serializers
 
-class CarSerializerFull(serializers.ModelSerializer):
-    car_model__name = serializers.CharField(source='car_model.name')
-    engine_model__name = serializers.CharField(source='engine_model.name')
-    transmission_model__name = serializers.CharField(source='transmission_model.name')
-    main_bridge_model__name = serializers.CharField(source='main_bridge_model.name')
-    steerable_bridge_model__name = serializers.CharField(source='steerable_bridge_model.name')
-    client__id = serializers.IntegerField(source='client.id')
-    client__name = serializers.CharField(source='client.name')
-    service_company__id = serializers.IntegerField(source='service_company.id')
-    service_company__name = serializers.CharField(source='service_company.name')
+# class CarSerializer(serializers.ModelSerializer):
+#     car_model__name = serializers.CharField(source='car_model.name')
+#     engine_model__name = serializers.CharField(source='engine_model.name')
+#     transmission_model__name = serializers.CharField(source='transmission_model.name')
+#     main_bridge_model__name = serializers.CharField(source='main_bridge_model.name')
+#     steerable_bridge_model__name = serializers.CharField(source='steerable_bridge_model.name')
+#     client__id = serializers.IntegerField(source='client.id')
+#     client__name = serializers.CharField(source='client.name')
+#     service_company__id = serializers.IntegerField(source='service_company.id')
+#     service_company__name = serializers.CharField(source='service_company.name')
 
-    class Meta:
-        model = Car
-        # fields = ('id', 'car_model__name', 'car_num', 'engine_model__name', 'engine_num', 'transmission_model__name', 'transmission_num', 
-        #          'main_bridge_model__name', 'main_bridge_num', 'steerable_bridge_model__name', 'steerable_bridge_num', )
-        fields = ('id', 'car_model__name', 'car_num', 'engine_model__name', 'engine_num', 'transmission_model__name', 'transmission_num', 
-                 'main_bridge_model__name', 'main_bridge_num', 'steerable_bridge_model__name', 'steerable_bridge_num', 
-                 'supply_agreement', 'factory_shipment_date', 'consignee', 'shipment_address', 'add_options', 
-                 'client__id', 'client__name', 'service_company__id', 'service_company__name',
-                 )
+#     class Meta:
+#         model = Car
+#         # fields = ('id', 'car_model__name', 'car_num', 'engine_model__name', 'engine_num', 'transmission_model__name', 'transmission_num', 
+#         #          'main_bridge_model__name', 'main_bridge_num', 'steerable_bridge_model__name', 'steerable_bridge_num', )
+#         fields = ('id', 'car_model__name', 'car_num', 'engine_model__name', 'engine_num', 'transmission_model__name', 'transmission_num', 
+#                  'main_bridge_model__name', 'main_bridge_num', 'steerable_bridge_model__name', 'steerable_bridge_num', 
+#                  'supply_agreement', 'factory_shipment_date', 'consignee', 'shipment_address', 'add_options', 
+#                  'client__id', 'client__name', 'service_company__id', 'service_company__name',
+#                  )
         
 class CarSerializerSimple(serializers.ModelSerializer):
     car_model__name = serializers.CharField(source='car_model.name')
@@ -33,6 +33,16 @@ class CarSerializerSimple(serializers.ModelSerializer):
         model = Car
         fields = ('id', 'car_model__name', 'car_num', 'engine_model__name', 'engine_num', 'transmission_model__name', 'transmission_num', 
                  'main_bridge_model__name', 'main_bridge_num', 'steerable_bridge_model__name', 'steerable_bridge_num', )
+
+class CarSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Car
+        fields = ('id', 'car_model', 'car_num', 'engine_model', 'engine_num', 'transmission_model', 'transmission_num', 
+                 'main_bridge_model', 'main_bridge_num', 'steerable_bridge_model', 'steerable_bridge_num', 
+                 'supply_agreement', 'factory_shipment_date', 'consignee', 'shipment_address', 'add_options', 
+                 'client', 'service_company',
+                 )
 
 class MaintenanceSerializer(serializers.ModelSerializer):
     car__id = serializers.IntegerField(source='car.id')

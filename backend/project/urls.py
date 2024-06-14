@@ -18,15 +18,18 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.schemas import get_schema_view
 
-from main.views import CarFullListAPIView, CarSimpleListAPIView, MaintenanceListAPIView, ReclamationListAPIView
+from main.views import CarSimpleListAPIView, CarView, SingleCarView, MaintenanceView, SingleMaintenanceView, ReclamationView, SingleReclamationView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("accounts/", include("allauth.urls")),
-    path('cars/', CarFullListAPIView.as_view(), name='api_cars'),
     path('simple_cars/', CarSimpleListAPIView.as_view(), name='api_simple_cars'),
-    path('maintenances/', MaintenanceListAPIView.as_view(), name='api_maintenances'),
-    path('reclamations/', ReclamationListAPIView.as_view(), name='api_reclamations'),
+    path('cars/', CarView.as_view(), name='api_cars'),
+    path('cars/<int:pk>', SingleCarView.as_view(), name='api_single_car'),
+    path('maintenances/', MaintenanceView.as_view(), name='api_maintenances'),
+    path('maintenances/<int:pk>', SingleMaintenanceView.as_view(), name='api_single_maintenance'),
+    path('reclamations/', ReclamationView.as_view(), name='api_reclamations'),
+    path('reclamations/<int:pk>', SingleReclamationView.as_view(), name='api_single_reclamation'),
     path('openapi', get_schema_view(
         title="Silant",
         description="API for Silant"

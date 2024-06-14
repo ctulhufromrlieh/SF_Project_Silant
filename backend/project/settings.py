@@ -25,7 +25,10 @@ SECRET_KEY = 'django-insecure-bpz(g0kw9pej*gb48(naj+*$8olj2(@m(m_xdyf#k$$bdj-)r(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+]
 
 
 # Application definition
@@ -157,3 +160,8 @@ ACCOUNT_UNIQUE_EMAIL = True
 # A custom variable we created to tell the CustomAccountAdapter whether to
 # allow signups.
 ACCOUNT_ALLOW_SIGNUPS = False
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.AllowAny',),
+    'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework.authentication.SessionAuthentication',),
+}
