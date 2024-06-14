@@ -45,16 +45,19 @@ class CarSerializer(serializers.ModelSerializer):
                  )
 
 class MaintenanceSerializer(serializers.ModelSerializer):
-    car__id = serializers.IntegerField(source='car.id')
+    # car__id = serializers.IntegerField(source='car.id')
     car__num = serializers.CharField(source='car.car_num')
     type__name = serializers.CharField(source='type.name')
-    service_company__id = serializers.SerializerMethodField()
+    # service_company__id = serializers.SerializerMethodField()
     service_company__name = serializers.SerializerMethodField()
 
     class Meta:
         model = Maintenance
-        fields = ('id', 'car__id', 'car__num', 'type__name', 'maintenance_date', 'operating_time', 
-                  'work_order_num', 'work_order_date', 'service_company__id', 'service_company__name',
+        # fields = ('id', 'car__id', 'car__num', 'type__name', 'maintenance_date', 'operating_time', 
+        #           'work_order_num', 'work_order_date', 'service_company__id', 'service_company__name',
+        #          )
+        fields = ('id', 'car', 'car__num', 'type', 'type__name', 'maintenance_date', 'operating_time', 
+                  'work_order_num', 'work_order_date', 'service_company', 'service_company__name',
                  )
         
     def get_service_company__id(self, obj):
@@ -70,7 +73,7 @@ class MaintenanceSerializer(serializers.ModelSerializer):
             return "самостоятельно"
         
 class ReclamationSerializer(serializers.ModelSerializer):
-    car__id = serializers.IntegerField(source='car.id')
+    # car__id = serializers.IntegerField(source='car.id')
     car__num = serializers.CharField(source='car.car_num')
     car__service_company__id = serializers.IntegerField(source='car.service_company.id')
     car__service_company__name = serializers.CharField(source='car.service_company.name')
@@ -79,7 +82,11 @@ class ReclamationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Reclamation
-        fields = ('id', 'car__id', 'car__num', 'car__service_company__id', 'car__service_company__name', 
-                  'failure_date', 'operating_time', 'failure_node__name', 'failure_description', 
-                  'recovery_method__name', 'repair_parts', 'recovery_date'
+        # fields = ('id', 'car__id', 'car__num', 'car__service_company__id', 'car__service_company__name', 
+        #           'failure_date', 'operating_time', 'failure_node__name', 'failure_description', 
+        #           'recovery_method__name', 'repair_parts', 'recovery_date'
+        #          )
+        fields = ('id', 'car', 'car__num', 'car__service_company__id', 'car__service_company__name', 
+                  'failure_date', 'operating_time', 'failure_node', 'failure_node__name', 'failure_description', 
+                  'recovery_method', 'recovery_method__name', 'repair_parts', 'recovery_date'
                  )

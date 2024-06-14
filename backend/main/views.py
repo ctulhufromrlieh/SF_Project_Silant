@@ -43,15 +43,12 @@ class CarView(LoginRequiredMixin, ListCreateAPIView):
         for car in response.data:
             # print(car)
             rec = Car.objects.get(id=car['id'])
-            car['car_model_name'] = rec.car_model.name
-            car['engine_model_name'] = rec.engine_model.name
-            car['transmission_model_name'] = rec.transmission_model.name
-            car['main_bridge_model_name'] = rec.main_bridge_model.name
-            car['steerable_bridge_model_name'] = rec.steerable_bridge_model.name
-            if self.is_visible_car(request.user, car):
-                car['client_name'] = rec.client.name
-                car['service_company_name'] = rec.service_company.name
-            else:
+            # car['car_model_name'] = rec.car_model.name
+            # car['engine_model_name'] = rec.engine_model.name
+            # car['transmission_model_name'] = rec.transmission_model.name
+            # car['main_bridge_model_name'] = rec.main_bridge_model.name
+            # car['steerable_bridge_model_name'] = rec.steerable_bridge_model.name
+            if not self.is_visible_car(request.user, car):
                 car['supply_agreement'] = "<classified>"
                 car['factory_shipment_date'] = "<classified>"
                 car['factory_shipment_date'] = "<classified>"
@@ -60,10 +57,10 @@ class CarView(LoginRequiredMixin, ListCreateAPIView):
                 car['add_options'] = "<classified>"
                 # car['client__id'] = -1
                 # car['client__name'] = "<classified>"
-                car['client_name'] = "<classified>"
+                car['client__name'] = "<classified>"
                 car['client'] = -1
                 # car['service_company__id'] = -1
-                car['service_company_name'] = "<classified>"
+                car['service_company__name'] = "<classified>"
                 car['service_company'] = -1
 
         return response
