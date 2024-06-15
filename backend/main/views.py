@@ -9,12 +9,92 @@ from .models import *
 
 # Create your views here.
 
+class CarModelView(ListCreateAPIView):
+    queryset = CarModel.objects.all()
+    serializer_class = CarModelSerializer
+    permission_classes = [DjangoModelPermissions]
+
+class SingleCarModelView(RetrieveUpdateDestroyAPIView):
+    queryset = CarModel.objects.all()
+    serializer_class = CarModelSerializer
+    permission_classes = [DjangoModelPermissions]
+
+class EngineModelView(ListCreateAPIView):
+    queryset = EngineModel.objects.all()
+    serializer_class = EngineModelSerializer
+    permission_classes = [DjangoModelPermissions]
+
+class SingleEngineModelView(RetrieveUpdateDestroyAPIView):
+    queryset = EngineModel.objects.all()
+    serializer_class = EngineModelSerializer
+    permission_classes = [DjangoModelPermissions]
+
+class TransmissionModelView(ListCreateAPIView):
+    queryset = TransmissionModel.objects.all()
+    serializer_class = TransmissionModelSerializer
+    permission_classes = [DjangoModelPermissions]
+
+class SingleTransmissionModelView(RetrieveUpdateDestroyAPIView):
+    queryset = TransmissionModel.objects.all()
+    serializer_class = TransmissionModelSerializer
+    permission_classes = [DjangoModelPermissions]
+
+class MainBridgeModelView(ListCreateAPIView):
+    queryset = MainBridgeModel.objects.all()
+    serializer_class = MainBridgeModelSerializer
+    permission_classes = [DjangoModelPermissions]
+
+class SingleMainBridgeModelView(RetrieveUpdateDestroyAPIView):
+    queryset = MainBridgeModel.objects.all()
+    serializer_class = MainBridgeModelSerializer
+    permission_classes = [DjangoModelPermissions]
+
+class SteerableBridgeModelView(ListCreateAPIView):
+    queryset = SteerableBridgeModel.objects.all()
+    serializer_class = SteerableBridgeModelSerializer
+    permission_classes = [DjangoModelPermissions]
+
+class SingleSteerableBridgeModelView(RetrieveUpdateDestroyAPIView):
+    queryset = SteerableBridgeModel.objects.all()
+    serializer_class = SteerableBridgeModelSerializer
+    permission_classes = [DjangoModelPermissions]
+
+class MaintenanceTypeView(ListCreateAPIView):
+    queryset = MaintenanceType.objects.all()
+    serializer_class = MaintenanceTypeSerializer
+    permission_classes = [DjangoModelPermissions]
+
+class SingleMaintenanceTypeView(RetrieveUpdateDestroyAPIView):
+    queryset = MaintenanceType.objects.all()
+    serializer_class = MaintenanceTypeSerializer
+    permission_classes = [DjangoModelPermissions]
+
+class FailureNodeView(ListCreateAPIView):
+    queryset = FailureNode.objects.all()
+    serializer_class = FailureNodeSerializer
+    permission_classes = [DjangoModelPermissions]
+
+class SingleFailureNodeView(RetrieveUpdateDestroyAPIView):
+    queryset = FailureNode.objects.all()
+    serializer_class = FailureNodeSerializer
+    permission_classes = [DjangoModelPermissions]
+
+class RecoveryMethodView(ListCreateAPIView):
+    queryset = RecoveryMethod.objects.all()
+    serializer_class = RecoveryMethodSerializer
+    permission_classes = [DjangoModelPermissions]
+
+class SingleRecoveryMethodView(RetrieveUpdateDestroyAPIView):
+    queryset = RecoveryMethod.objects.all()
+    serializer_class = RecoveryMethodSerializer
+    permission_classes = [DjangoModelPermissions]
+
 class CarSimpleListAPIView(ListAPIView):
     queryset = Car.objects.all()
     serializer_class = CarSerializerSimple
     # permission_classes = [NOT(IsAuthenticated)]
 
-class CarView(LoginRequiredMixin, ListCreateAPIView):
+class CarView(ListCreateAPIView):
     queryset = Car.objects.all()
     serializer_class = CarSerializer
     permission_classes = [DjangoModelPermissions]
@@ -24,11 +104,9 @@ class CarView(LoginRequiredMixin, ListCreateAPIView):
             return False
 
         if Client.is_own(user):
-            # return user.client.id == car['client__id']
             return user.client.id == car['client']
         
         if ServiceCompany.is_own(user):
-            # return user.servicecompany.id == car['service_company__id']
             return user.servicecompany.id == car['service_company']
         
         if Manager.is_own(user):
@@ -41,13 +119,7 @@ class CarView(LoginRequiredMixin, ListCreateAPIView):
         response = super().list(request, *args, **kwargs)
 
         for car in response.data:
-            # print(car)
             rec = Car.objects.get(id=car['id'])
-            # car['car_model_name'] = rec.car_model.name
-            # car['engine_model_name'] = rec.engine_model.name
-            # car['transmission_model_name'] = rec.transmission_model.name
-            # car['main_bridge_model_name'] = rec.main_bridge_model.name
-            # car['steerable_bridge_model_name'] = rec.steerable_bridge_model.name
             if not self.is_visible_car(request.user, car):
                 car['supply_agreement'] = "<classified>"
                 car['factory_shipment_date'] = "<classified>"
@@ -55,30 +127,31 @@ class CarView(LoginRequiredMixin, ListCreateAPIView):
                 car['consignee'] = "<classified>"
                 car['shipment_address'] = "<classified>"
                 car['add_options'] = "<classified>"
-                # car['client__id'] = -1
-                # car['client__name'] = "<classified>"
                 car['client__name'] = "<classified>"
                 car['client'] = -1
-                # car['service_company__id'] = -1
                 car['service_company__name'] = "<classified>"
                 car['service_company'] = -1
 
         return response
 
-    def get_queryset(self):
-        return Car.objects.all()
-
 class SingleCarView(RetrieveUpdateDestroyAPIView):
-    queryset = Car.objects.all()
+    # queryset = Car.objects.all()
     serializer_class = CarSerializer
     permission_classes = [DjangoModelPermissions]
 
-# class CarCreateAPIView(CreateAPIView):
-#     queryset = Car.objects.all()
-#     serializer_class = CarSerializerFull
-#     def perform_create(self, serializer):
-#         author = get_object_or_404(Author, id=self.request.data.get('author_id'))
-#         return serializer.save(author=author)
+    def get_queryset(self):
+        user = self.request.user
+
+        if Client.is_own(user):
+            return Car.objects.all().filter(client__user=user)
+        
+        if ServiceCompany.is_own(user):
+            return Maintenance.objects.all().filter(service_company__user=user)
+        
+        if Manager.is_own(user):
+            return Maintenance.objects.all()
+
+        return Maintenance.objects.none()
   
 class MaintenanceView(ListCreateAPIView):
     serializer_class = MaintenanceSerializer

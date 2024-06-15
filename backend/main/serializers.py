@@ -1,26 +1,45 @@
 from .models import *
 from rest_framework import serializers
 
-# class CarSerializer(serializers.ModelSerializer):
-#     car_model__name = serializers.CharField(source='car_model.name')
-#     engine_model__name = serializers.CharField(source='engine_model.name')
-#     transmission_model__name = serializers.CharField(source='transmission_model.name')
-#     main_bridge_model__name = serializers.CharField(source='main_bridge_model.name')
-#     steerable_bridge_model__name = serializers.CharField(source='steerable_bridge_model.name')
-#     client__id = serializers.IntegerField(source='client.id')
-#     client__name = serializers.CharField(source='client.name')
-#     service_company__id = serializers.IntegerField(source='service_company.id')
-#     service_company__name = serializers.CharField(source='service_company.name')
+class CarModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CarModel
+        fields = ('id', 'name', 'description',)
 
-#     class Meta:
-#         model = Car
-#         # fields = ('id', 'car_model__name', 'car_num', 'engine_model__name', 'engine_num', 'transmission_model__name', 'transmission_num', 
-#         #          'main_bridge_model__name', 'main_bridge_num', 'steerable_bridge_model__name', 'steerable_bridge_num', )
-#         fields = ('id', 'car_model__name', 'car_num', 'engine_model__name', 'engine_num', 'transmission_model__name', 'transmission_num', 
-#                  'main_bridge_model__name', 'main_bridge_num', 'steerable_bridge_model__name', 'steerable_bridge_num', 
-#                  'supply_agreement', 'factory_shipment_date', 'consignee', 'shipment_address', 'add_options', 
-#                  'client__id', 'client__name', 'service_company__id', 'service_company__name',
-#                  )
+class EngineModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EngineModel
+        fields = ('id', 'name', 'description',)
+
+class TransmissionModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TransmissionModel
+        fields = ('id', 'name', 'description',)
+
+class MainBridgeModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MainBridgeModel
+        fields = ('id', 'name', 'description',)
+
+class SteerableBridgeModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SteerableBridgeModel
+        fields = ('id', 'name', 'description',)
+
+class MaintenanceTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MaintenanceType
+        fields = ('id', 'name', 'description',)
+
+class FailureNodeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FailureNode
+        fields = ('id', 'name', 'description',)
+
+class RecoveryMethodSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RecoveryMethod
+        fields = ('id', 'name', 'description',)
         
 class CarSerializerSimple(serializers.ModelSerializer):
     car_model__name = serializers.CharField(source='car_model.name')

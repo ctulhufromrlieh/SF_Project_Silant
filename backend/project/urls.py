@@ -18,12 +18,30 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.schemas import get_schema_view
 
-from main.views import CarSimpleListAPIView, CarView, SingleCarView, MaintenanceView, SingleMaintenanceView, ReclamationView, SingleReclamationView
+from main.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("accounts/", include("allauth.urls")),
-    path('simple_cars/', CarSimpleListAPIView.as_view(), name='api_simple_cars'),
+
+    path('car_models/', CarModelView.as_view(), name='api_car_models'),
+    path('car_models/<int:pk>', SingleCarModelView.as_view(), name='api_single_car_model'),
+    path('engine_models/', EngineModelView.as_view(), name='api_engine_models'),
+    path('engine_models/<int:pk>', SingleEngineModelView.as_view(), name='api_single_engine_model'),
+    path('transmission_models/', TransmissionModelView.as_view(), name='api_transmission_models'),
+    path('transmission_models/<int:pk>', SingleTransmissionModelView.as_view(), name='api_single_transmission_model'),
+    path('main_bridge_models/', MainBridgeModelView.as_view(), name='api_main_bridge_models'),
+    path('main_bridge_models/<int:pk>', SingleMainBridgeModelView.as_view(), name='api_single_main_bridge_model'),
+    path('steerable_bridge_models/', SteerableBridgeModelView.as_view(), name='api_steerable_bridge_models'),
+    path('steerable_bridge_models/<int:pk>', SingleSteerableBridgeModelView.as_view(), name='api_single_steerable_bridge_model'),
+    path('maintenance_types/', MaintenanceTypeView.as_view(), name='api_maintenance_types'),
+    path('maintenance_types/<int:pk>', SingleMaintenanceTypeView.as_view(), name='api_single_maintenance_type'),
+    path('failure_nodes/', FailureNodeView.as_view(), name='api_failure_nodes'),
+    path('failure_nodes/<int:pk>', SingleFailureNodeView.as_view(), name='api_single_failure_node'),
+    path('recovery_methods/', RecoveryMethodView.as_view(), name='api_recovery_methods'),
+    path('recovery_methods/<int:pk>', SingleRecoveryMethodView.as_view(), name='api_single_recovery_method'),
+
+    path('simple_cars/', CarSimpleListAPIView.as_view(), name='api_simple_cars'),    
     path('cars/', CarView.as_view(), name='api_cars'),
     path('cars/<int:pk>', SingleCarView.as_view(), name='api_single_car'),
     path('maintenances/', MaintenanceView.as_view(), name='api_maintenances'),
