@@ -42,13 +42,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
-    'corsheaders',
+    'rest_framework.authtoken',
+    # 'corsheaders',
 
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
+   'allauth',
+#    'allauth.account',
+#    'allauth.socialaccount',
     # 'allauth.socialaccount.providers.yandex',
 
+    'accounts',
     'main',
 ]
 
@@ -56,7 +58,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
 
-    'corsheaders.middleware.CorsMiddleware',
+#    'corsheaders.middleware.CorsMiddleware',
 
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -161,7 +163,14 @@ ACCOUNT_UNIQUE_EMAIL = True
 # allow signups.
 ACCOUNT_ALLOW_SIGNUPS = False
 
+# REST_FRAMEWORK = {
+#     'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.AllowAny',),
+#     'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework.authentication.SessionAuthentication',),
+# }
+
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.AllowAny',),
-    'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework.authentication.SessionAuthentication',),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+#        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ),
 }
