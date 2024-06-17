@@ -98,6 +98,7 @@ class ReclamationSerializer(serializers.ModelSerializer):
     car__service_company__name = serializers.CharField(source='car.service_company.name')
     failure_node__name = serializers.CharField(source='failure_node.name')
     recovery_method__name = serializers.CharField(source='recovery_method.name')
+    # downtime = serializers.IntegerField(source='downtime')
 
     class Meta:
         model = Reclamation
@@ -107,5 +108,5 @@ class ReclamationSerializer(serializers.ModelSerializer):
         #          )
         fields = ('id', 'car', 'car__num', 'car__service_company__id', 'car__service_company__name', 
                   'failure_date', 'operating_time', 'failure_node', 'failure_node__name', 'failure_description', 
-                  'recovery_method', 'recovery_method__name', 'repair_parts', 'recovery_date'
+                  'recovery_method', 'recovery_method__name', 'repair_parts', 'recovery_date', 'downtime'
                  )

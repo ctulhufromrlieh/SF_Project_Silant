@@ -16,7 +16,7 @@ class Client(models.Model):
 
 
 class ServiceCompany(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="service_company")
     name = models.CharField(max_length=255, unique=True, help_text="Service company name")
     description = models.TextField(default="", help_text="Service company description", blank=True)
 
