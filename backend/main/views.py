@@ -102,33 +102,20 @@ class CarView(ListCreateAPIView):
     ordering = ["factory_shipment_date",]
 
     def get_queryset(self):
-        # order = self.request.GET.get('orderby', 'give-default-value')
-        # new_context = Update.objects.filter(
-            # state=filter_val,
-        # ).order_by(order)
-        # return new_context
-    
-        return get_car_queryset(self.request, True)
+        return get_car_queryset(self.request, True, True)
 
     def is_visible_car(self, user, car):
         if not user:
             return False
 
-        if user.client:
+        if Client.is_own(user):
             return user.client.id == car['client']
-        if user.service_company:
+        
+        if ServiceCompany.is_own(user):
             return user.servicecompany.id == car['service_company']
-        if user.manager:
+        
+        if Manager.is_own(user):
             return True
-
-        # if Client.is_own(user):
-        #     return user.client.id == car['client']
-        
-        # if ServiceCompany.is_own(user):
-        #     return user.servicecompany.id == car['service_company']
-        
-        # if Manager.is_own(user):
-        #     return True
         
         return False
 
@@ -159,142 +146,34 @@ class SingleCarView(RetrieveUpdateDestroyAPIView):
     permission_classes = [DjangoModelPermissions]
 
     def get_queryset(self):
-        return get_car_queryset(self.request, False)
-
-    # def get_queryset(self):
-    #     user = self.request.user
-
-    #     if user.client:
-    #         return Car.objects.all().filter(client__user=user)
-    #     if user.service_company:
-    #         return Car.objects.all().filter(service_company__user=user)
-    #     if user.manager:
-    #         return Car.objects.all()
-
-    #     # if Client.is_own(user):
-    #     #     return Car.objects.all().filter(client__user=user)
-        
-    #     # if ServiceCompany.is_own(user):
-    #     #     return Maintenance.objects.all().filter(service_company__user=user)
-        
-    #     # if Manager.is_own(user):
-    #     #     return Maintenance.objects.all()
-
-    #     return Car.objects.none()
+        return get_car_queryset(self.request, False, False)
   
 class MaintenanceView(ListCreateAPIView):
     serializer_class = MaintenanceSerializer
     permission_classes = [DjangoModelPermissions]
     ordering = ["maintenance_date",]
 
-    # def get_queryset(self):
-    #     user = self.request.user
-
-    #     if user.client:
-    #         return Maintenance.objects.all().filter(car__client__user=user)
-    #     if user.service_company:
-    #         return Maintenance.objects.all().filter(service_company__user=user)
-    #     if user.manager:
-    #         return Maintenance.objects.all()
-
-    #     # if Client.is_own(user):
-    #     #     return Maintenance.objects.all().filter(car__client__user=user)
-        
-    #     # if ServiceCompany.is_own(user):
-    #     #     return Maintenance.objects.all().filter(service_company__user=user)
-        
-    #     # if Manager.is_own(user):
-    #     #     return Maintenance.objects.all()
-
-    #     return Maintenance.objects.none()
-
     def get_queryset(self):
-        return get_maintenance_queryset(self.request)
+        return get_maintenance_queryset(self.request, True)
     
 class SingleMaintenanceView(RetrieveUpdateDestroyAPIView):
-    # queryset = Maintenance.objects.all()
     serializer_class = MaintenanceSerializer
     permission_classes = [DjangoModelPermissions]
 
-    # def get_queryset(self):
-    #     user = self.request.user
-
-    #     if user.client:
-    #         return Maintenance.objects.all().filter(car__client__user=user)
-    #     if user.service_company:
-    #         return Maintenance.objects.all().filter(service_company__user=user)
-    #     if user.manager:
-    #         return Maintenance.objects.all()
-
-    #     # if Client.is_own(user):
-    #     #     return Maintenance.objects.all().filter(car__client__user=user)
-        
-    #     # if ServiceCompany.is_own(user):
-    #     #     return Maintenance.objects.all().filter(service_company__user=user)
-        
-    #     # if Manager.is_own(user):
-    #     #     return Maintenance.objects.all()
-
-    #     return Maintenance.objects.none()
     def get_queryset(self):
-        return get_maintenance_queryset(self.request)
+        return get_maintenance_queryset(self.request, False)
     
 class ReclamationView(ListCreateAPIView):
     serializer_class = ReclamationSerializer
     permission_classes = [DjangoModelPermissions]
     ordering = ["failure_date",]
 
-    # def get_queryset(self):
-    #     # return Reclamation.objects.all()
-    #     user = self.request.user
-
-    #     if user.client:
-    #         return Reclamation.objects.all().filter(car__client__user=user)
-    #     if user.service_company:
-    #         return Reclamation.objects.all().filter(car__service_company__user=user)
-    #     if user.manager:
-    #         return Reclamation.objects.all()
-
-    #     # if Client.is_own(user):
-    #     #     return Reclamation.objects.all().filter(car__client__user=user)
-        
-    #     # if ServiceCompany.is_own(user):
-    #     #     return Reclamation.objects.all().filter(car__service_company__user=user)
-        
-    #     # if Manager.is_own(user):
-    #     #     return Reclamation.objects.all()
-
-    #     return Reclamation.objects.none()
-
     def get_queryset(self):
-        return get_reclamation_queryset(self.request)
+        return get_reclamation_queryset(self.request, True)
     
 class SingleReclamationView(RetrieveUpdateDestroyAPIView):
-    # queryset = Reclamation.objects.all()
     serializer_class = ReclamationSerializer
     permission_classes = [DjangoModelPermissions]
-
-    # def get_queryset(self):
-    #     # return Reclamation.objects.all()
-    #     user = self.request.user
-
-    #     if user.client:
-    #         return Reclamation.objects.all().filter(car__client__user=user)
-    #     if user.service_company:
-    #         return Reclamation.objects.all().filter(car__service_company__user=user)
-    #     if user.manager:
-    #         return Reclamation.objects.all()
-
-    #     # if Client.is_own(user):
-    #     #     return Reclamation.objects.all().filter(car__client__user=user)
-        
-    #     # if ServiceCompany.is_own(user):
-    #     #     return Reclamation.objects.all().filter(car__service_company__user=user)
-        
-    #     # if Manager.is_own(user):
-    #     #     return Reclamation.objects.all()
-
-    #     return Reclamation.objects.none()
     
     def get_queryset(self):
-        return get_reclamation_queryset(self.request)
+        return get_reclamation_queryset(self.request, False)

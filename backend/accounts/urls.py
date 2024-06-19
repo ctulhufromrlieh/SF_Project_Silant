@@ -22,4 +22,5 @@ from . import views
 urlpatterns = [
     path('login', obtain_auth_token, name="login"),
     path('logout', views.logout, name="logout"),
+    path('account_info', views.account_info, name="account_info")
 ]

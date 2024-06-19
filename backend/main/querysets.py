@@ -6,7 +6,7 @@ def to_int(str_value, def_value):
     else:
         return def_value
 
-def get_car_queryset(request, is_all):
+def get_car_queryset(request, is_all, use_filter):
     res = Car.objects.all()
     
     user = request.user
@@ -21,14 +21,16 @@ def get_car_queryset(request, is_all):
         # if user.manager:
         elif Manager.is_own(user):
             res = res  # if user is manager - no user filtering
+        elif user.is_staff:
+            res = res  # if user is admin - no user filtering
         else:
             return Car.objects.none()  # if user is out of these groups - get nothing
     else:
         if not (user.client or user.service_company or user.manager):
             return Car.objects.none()  # if user is out of these groups - get nothing
 
-    print("engine_model=", request.GET.get('engine_model', "qwe"))
-    print("engine_model_is_null", not request.GET.get('engine_model', "qwe"))
+    if not use_filter:
+        return res
 
     filter_car_num = request.GET.get('car_num', '')
     filter_car_model = request.GET.get('car_model', '')
@@ -36,9 +38,6 @@ def get_car_queryset(request, is_all):
     filter_transmission_model = request.GET.get('transmission_model', '')
     filter_main_bridge_model = request.GET.get('main_bridge_model', '')
     filter_steerable_bridge_model = request.GET.get('steerable_bridge_model', '')
-
-    # print(filter_engine_model)
-    # print(request.GET.get('engine_model', "qwe"))
 
     if filter_car_num:
         res = res.filter(car_num__icontains=filter_car_num)
@@ -70,12 +69,10 @@ def get_car_queryset(request, is_all):
 
     return res
 
-def get_maintenance_queryset(request):
+def get_maintenance_queryset(request, use_filter):
     res = Maintenance.objects.all()
 
     user = request.user
-
-    print("get_maintenance_queryset - START")
 
     # if user.client:
     if Client.is_own(user):
@@ -83,22 +80,23 @@ def get_maintenance_queryset(request):
     # if user.service_company:
     elif ServiceCompany.is_own(user):
         res = res.filter(service_company__user=user)
-    # if user.manager:
     elif Manager.is_own(user):
         res = res  # if user is manager - no user filtering
+    elif user.is_staff:
+        res = res  # if user is admin - no user filtering        
     else:
         return Maintenance.objects.none()  # if user is out of these groups - get nothing
+
+    if not use_filter:
+        return res
 
     filter_car_num = request.GET.get('car_num', '')
     filter_service_company__name = request.GET.get('service_company', '')
     filter_type = request.GET.get('type', '')
     
-    print("filter_car_num=", filter_car_num)
 
     if filter_car_num:
         res = res.filter(car__car_num__icontains=filter_car_num)
-        # res = res.filter(car__car_num=filter_car_num)
-        print(res)
 
     if filter_service_company__name:
         if filter_service_company__name == "<none>":
@@ -113,7 +111,7 @@ def get_maintenance_queryset(request):
 
     return res
 
-def get_reclamation_queryset(request):
+def get_reclamation_queryset(request, use_filter):
     res = Reclamation.objects.all()
 
     user = request.user
@@ -127,8 +125,13 @@ def get_reclamation_queryset(request):
     # if user.manager:
     elif Manager.is_own(user):
         res = res  # if user is manager - no user filtering
+    elif user.is_staff:
+        res = res  # if user is admin - no user filtering
     else:
         return Reclamation.objects.none()  # if user is out of these groups - get nothing
+
+    if not use_filter:
+        return res
 
     filter_car_num = request.GET.get('car_num', '')
     filter_service_company__name = request.GET.get('service_company', '')

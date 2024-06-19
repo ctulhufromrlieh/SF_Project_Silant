@@ -1,0 +1,66 @@
+// $mobile_width: 800px;
+
+$color_blue: #163E6C;
+$color_red: #D20A11;
+$color_white: #EBE6D6;
+
+// $color_teal: #029491;
+// $color_black: #000000;
+// $color_white: #FFFFFF;
+// $color_orange: #FFB64F;
+// $color_cyan: #7CE3E1;
+// $color_blue: #5970FF;
+
+$fontname: "Astra";
+// $fontname2: "Inter";
+
+// @mixin only_desktop {
+//     display: none;
+//     @media screen and (min-width: $mobile_width)  {
+//         display: block;
+//     }
+// }
+
+// @mixin only_mobile {
+//     display: block;
+//     @media screen and (min-width: $mobile_width)  {
+//         display: none;
+//     }
+// }
+
+// @mixin only_desktop_flex {
+//     display: none;
+//     @media screen and (min-width: $mobile_width)  {
+//         display: flex;
+//     }
+// }
+
+// @mixin only_mobile_flex {
+//     display: flex;
+//     @media screen and (min-width: $mobile_width)  {
+//         display: none;
+//     }
+// }
+
+// @mixin sub_heading_description {
+//     font-family: $fontname2;
+//     font-weight: 400;
+//     letter-spacing: 0.01em;
+//     font-size: 18px;
+//     line-height: 21.78px;
+
+//     @media screen and (min-width: $mobile_width)  {
+//         font-size: 20px;
+//         line-height: 24.2px;
+//     }
+// }
+
+// @mixin backward {
+//     position: relative;
+//     z-index: -1;
+// }
+
+// @mixin backward_absolute {
+//     position: absolute;
+//     z-index: -1;
+// }

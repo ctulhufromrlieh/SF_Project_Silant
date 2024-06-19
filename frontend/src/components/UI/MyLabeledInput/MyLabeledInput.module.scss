@@ -1,0 +1,171 @@
+@import "../../../styles/commonTypes.scss";
+
+.container {
+    // position: relative;
+    display: flex;
+    flex-direction: column;
+
+    // overflow: visible;
+}
+
+.label_container {
+    display: flex;
+    align-items: flex-end;
+
+    .label_light {
+        color: #949494;
+        font-family: $fontname2;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 16.94px;
+        letter-spacing: 0.02em;
+    
+        @media screen and (min-width: $mobile_width)  {
+            font-size: 16px;
+            line-height: 19.36px;
+        }   
+    }
+
+    .label_normal {
+        color: $color_black;
+        font-family: $fontname2;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 21.78px;
+        letter-spacing: 0.02em;
+        
+    
+        @media screen and (min-width: $mobile_width)  {
+            letter-spacing: 0.03em;           
+        }   
+    }
+
+    @mixin label_mark() {
+        font-family: $fontname2;
+        font-size: 25px;
+        font-weight: 400;
+        line-height: 30.26px;
+        letter-spacing: 0.02em;
+        
+        @media screen and (min-width: $mobile_width)  {
+            letter-spacing: 0.03em;           
+        }
+    }
+
+    .label_mark_normal {
+        @include label_mark();
+        color: $color_black;
+    }
+
+    .label_mark_error {
+        @include label_mark();
+        color: #FF5959;
+    }
+
+}
+
+@mixin input() {
+    font-family: $fontname2;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.36px;
+    letter-spacing: 0.01em;
+
+    border-radius: 5px;
+    padding-left: 17px;
+    // height: 43px;
+
+    margin-top: 15px;
+    height: 43px;
+
+    @media screen and (min-width: $mobile_width)  {
+        padding-left: 17px;
+    }   
+}
+
+.input_normal {
+    @include input();
+    border: 1px solid #C7C7C7;
+    color: #000000;
+    box-shadow: 0px 0px 20px 0px #0000000D;
+
+    // border: 3px solid teal;
+}
+
+.input_normal:focus {
+    outline: none;  // bad thing
+}
+
+.input_error {
+    @include input();
+    border: 1px solid #FF5959;
+    color: #FF5959;
+    box-shadow: 0px 0px 10px 0px #FF595933;
+
+    // border: 3px solid lime;
+}
+
+.input_error:focus {
+    outline: none;
+    // outline: none !important;
+    // border:1px solid red;
+}
+
+.input_error::placeholder {
+    color: #FF5959;
+}
+
+.error_msg_container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    max-height: 0px;
+    width: 100%;
+
+    // overflow: visible;
+}
+
+@mixin error_msg(){
+    // font-family: $fontname2;
+    // font-size: 14px;
+    // font-weight: 400;
+    // line-height: 16.94px;
+    // letter-spacing: 0.01em;
+    // // text-align: center;
+    // color: #FF5959;
+
+    font-family: $fontname2;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 14.52px;
+    letter-spacing: 0.01em;
+    color: #FF5959;
+    
+    @media screen and (min-width: $mobile_width)  {
+        font-size: 14px;
+        line-height: 16.94px;
+    }   
+
+    // margin: 6px 0px -6px 0px;
+    
+    // height: 0px;
+
+    // overflow: visible;
+
+    position: absolute;
+    // bottom: 
+    top: 6px;
+    z-index: 1;
+    
+    // border: 1px solid blue;
+}
+
+.error_msg_visible {
+    @include error_msg();
+    visibility: visible;
+}
+
+.error_msg_hidden {
+    @include error_msg();
+    visibility: hidden;
+}
