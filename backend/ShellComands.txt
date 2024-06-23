@@ -19,7 +19,7 @@ sc_silant = create_service_company(name="ООО Силант", description="Desc
 sc_fns = create_service_company(name="ООО ФНС", description="Description 3", username="sc3", email="sc3@scs.aa", password="sc3psw")
 
 # Managers
-create_manager(first_name="Иван", last_name="Иванов", username="manager1", email="manager1@managers.aa", password="manager1psw")
+create_manager(first_name="Иван", last_name="Иванов", username="manager1", email="manager1@managers.aa", password="manager1psw", first_name="Кабан", last_name="Кабаныч")
 
 # Car models
 CarModel.objects.all().delete()

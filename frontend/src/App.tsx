@@ -14,13 +14,13 @@ function App() {
 
     useEffect(() => {
         if (isValidAuth()) {
-            // const accessToken = localStorage.getItem("account_accessToken");
+            // const token = localStorage.getItem("account_accessToken");
             // const expire = localStorage.getItem("account_expire");
-            const accessToken = localStorage.getItem(localStorageIdToken);
-            // if (accessToken && expire) {
-            if (accessToken) {
-                // loginUserByToken(accessToken, expire);
-                loginUserByToken(accessToken);
+            const token = localStorage.getItem(localStorageIdToken);
+            // if (token && expire) {
+            if (token) {
+                // loginUserByToken(token, expire);
+                loginUserByToken(token);
             }
         } else {
             loginUserReset();

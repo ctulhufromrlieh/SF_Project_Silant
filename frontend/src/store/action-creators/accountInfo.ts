@@ -6,15 +6,16 @@ import { baseAccUrl } from "../../types/api";
 import { AccountInfoAction, AccountInfoActionTypes } from "../../types/accountInfo";
 // import { Action, BalanceActionTypes } from "../../types/balance";
 
-export const fetchAccountInfo = (accessToken: string) => {
+export const fetchAccountInfo = (token: string) => {
     return async (dispatch: Dispatch<AccountInfoAction>) => {
         try {
+            console.log("fetchAccountInfo: token = ", token);
             checkAuth();
 
             const headers = {
               'Content-type': 'application/json',
               'Accept': 'application/json',
-              'Authorization': 'Token ' + accessToken
+              'Authorization': 'Token ' + token
             }
 
             dispatch({type: AccountInfoActionTypes.FETCH_ACCOUNT_INFO})

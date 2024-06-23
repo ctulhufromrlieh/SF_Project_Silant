@@ -9,7 +9,7 @@ import { privateRoutes, publicRoutes } from "../router";
 import Loader from "./UI/Loader/Loader";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 const AppRouter = () => {
-    // const {accessToken, loading, isLogined} = useTypedSelector(state => state.account);
+    // const {token, loading, isLogined} = useTypedSelector(state => state.account);
     const {loading, isLogined} = useTypedSelector(state => state.account);
 
     if (loading) {
@@ -20,7 +20,7 @@ const AppRouter = () => {
     console.log("url: ", window.location.href);
 
     return (
-        // accessToken 
+        // token 
         isLogined
             ?
             <Routes>

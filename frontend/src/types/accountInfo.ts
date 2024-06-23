@@ -2,6 +2,8 @@ import { AccountInfoResponseData, AccountType } from "./api";
 
 export interface AccountInfoState {
     accountType: AccountType;
+    name: null | string;
+    username: null | string;
     loading: boolean;
     error: null | string;
 }

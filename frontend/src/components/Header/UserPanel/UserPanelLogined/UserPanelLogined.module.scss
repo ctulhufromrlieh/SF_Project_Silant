@@ -1,0 +1,11 @@
+@import "../../../../styles/commonTypes.scss";
+
+.user_panel_logined {
+    width: 200px;
+    height: 100px;
+
+    .logoff_link {
+        color: $color_blue;
+        cursor: pointer;
+    }
+}

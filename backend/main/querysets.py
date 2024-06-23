@@ -26,7 +26,8 @@ def get_car_queryset(request, is_all, use_filter):
         else:
             return Car.objects.none()  # if user is out of these groups - get nothing
     else:
-        if not (user.client or user.service_company or user.manager):
+        if not Client.is_own(user) and not ServiceCompany.is_own(user) and not Manager.is_own(user) and not user.is_staff:
+        # if not (user.client or user.service_company or user.manager):
             return Car.objects.none()  # if user is out of these groups - get nothing
 
     if not use_filter:

@@ -7,7 +7,8 @@ import commonClasses from "../../styles/common.module.scss";
 const Footer: React.FC = () => {
     return (
         <div className={classes.footer}>
-            Footer
+            <div>+7-8352-20-12-09, telegram </div>
+            <div>Мой Силант 2024</div>
         </div>
     );
 }

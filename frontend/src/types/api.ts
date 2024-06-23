@@ -1,11 +1,12 @@
-export const baseUrl: string = 'localhost:8000';
+export const baseUrl: string = 'http://localhost:8000';
 export const baseApiUrl: string = `${baseUrl}/api/v1`;
 export const baseAccUrl: string = `${baseUrl}/api/accounts`;
 export const localStorageIdToken = 'silant_account_accessToken';
 
 export interface LoginResponseData {
-    accessToken: string;
+    // accessToken: string;
     // expire: string;
+    token: string;
 }
 
 export enum AccountType {
@@ -18,6 +19,8 @@ export enum AccountType {
 
 export interface AccountInfoResponseData {
     account_type: AccountType;
+    name: string;
+    username: string;
 }
 
 export interface ReferenceBookRecord {

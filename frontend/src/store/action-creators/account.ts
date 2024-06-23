@@ -3,6 +3,7 @@ import { AccountAction, AccountActionTypes } from "../../types/account";
 import axios from "axios";
 import { NavigateFunction, useNavigate } from "react-router";
 import { LoginResponseData, baseAccUrl, baseApiUrl, localStorageIdToken } from "../../types/api";
+import { RootState } from "../reducers";
 
 
 export const loginUser = (username: string, password: string, navigate: NavigateFunction) => {
@@ -19,7 +20,7 @@ export const loginUser = (username: string, password: string, navigate: Navigate
             const response = await axios.post(`${baseAccUrl}/login`, data, {headers: headers});
             dispatch({type: AccountActionTypes.LOGIN_USER_SUCCESS, payload: response.data})
 
-            // localStorage.setItem("account_accessToken", response.data.accessToken);
+            // localStorage.setItem("account_accessToken", response.data.token);
             // localStorage.setItem("account_expire", response.data.expire);
             localStorage.setItem(localStorageIdToken, response.data.token);
 
@@ -37,13 +38,13 @@ export const loginUser = (username: string, password: string, navigate: Navigate
     }
 }
 
-// export const loginUserByToken = (accessToken: string, expire: string) => {
-export const loginUserByToken = (accessToken: string) => {
+// export const loginUserByToken = (token: string, expire: string) => {
+export const loginUserByToken = (token: string) => {
     return async (dispatch: Dispatch<AccountAction>) => {
         const data: LoginResponseData = {
-            // accessToken: accessToken,
+            // token: token,
             // expire: expire,
-            accessToken: accessToken,
+            token: token,
         }
 
         try {
@@ -61,11 +62,33 @@ export const loginUserByToken = (accessToken: string) => {
 }
 
 export const loginUserReset = () => {
-    return async (dispatch: Dispatch<AccountAction>) => {
+    return async (dispatch: Dispatch<AccountAction>, getState: () => RootState) => {
         dispatch({type: AccountActionTypes.LOGIN_USER_RESET})
         // localStorage.removeItem("account_accessToken");
-        // localStorage.removeItem("account_expire");
-        
+        // localStorage.removeItem("account_expire");       
+
+        const state = getState();
+        // const token = state.account.token;
+        const token = localStorage.getItem(localStorageIdToken);
+        if (token) {
+            const headers = {
+                'Content-type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': 'Token ' + token,
+              }
+
+            console.log("before logout with token ", token);
+  
+            try {
+                console.log("loginUserReset: headers = ", headers)
+                const response = await axios.post(`${baseAccUrl}/logout`, null, {headers: headers});
+            } catch (e) {
+                console.log("loginUserReset: Error: ", e);
+            }
+        }
+
         localStorage.removeItem(localStorageIdToken);
+
+        // dispatch({type: AccountActionTypes.LOGIN_USER_RESET})
     }
 }

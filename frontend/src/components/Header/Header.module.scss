@@ -1,18 +1,39 @@
 @import "../../styles/commonTypes.scss";
 
-// .header {
-//     height: 93px;
-//     display: flex;
-//     align-items: center;
-//     justify-content: space-between;
-//     padding: 0 26px 0 14px;
+.header {
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    // justify-content: space-between;
+    border: 1px solid red;
 
-//     // border: 1px solid red;
+    div {
+        // border: 1px solid green;
+    }
 
-//     @media screen and (min-width: $mobile_width)  {
-//         padding: 0 60px 0 60px;
-//     }
-// }
+    .upper {
+        height: 200px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+        align-items: center;
+    }
+
+    .lower {
+        height: 100px;
+    }
+
+    .logo_div {
+        // height: 100px;
+        // width
+        img {
+            // height: 50%;
+            // transform: scale(0.5);
+        }
+    }
+}
 
 // .header img {
 //     // border: 1px solid blue;

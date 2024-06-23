@@ -1,11 +1,15 @@
 import { useActions } from "../hooks/useActions";
+import { localStorageIdToken } from "../types/api";
 
 const loginUrl = "\login";
 
 export const isValidAuth = (): boolean => {
-    const accessToken = localStorage.getItem("account_accessToken");
+    // const accessToken = localStorage.getItem("account_accessToken");
+    const token = localStorage.getItem(localStorageIdToken);
 
-    return !!accessToken;
+    console.log("localStorage: token = ", token)
+
+    return !!token;
     // const expire = localStorage.getItem("account_expire");
 
     // const delta = 1000 * 60 * 5;

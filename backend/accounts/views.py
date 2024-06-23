@@ -24,13 +24,23 @@ def account_info(request):
         account_type = 'ACCOUNT_TYPE_OTHER'
         print(user)
         if user:
+            name = ''
             if Client.is_own(user):
                 account_type = 'ACCOUNT_TYPE_CLIENT'
+                name = user.client.name
             elif ServiceCompany.is_own(user):
                 account_type = 'ACCOUNT_TYPE_SERVICE_COMPANY'
+                name = user.service_company.name
             elif Manager.is_own(user):
                 account_type = 'ACCOUNT_TYPE_MANAGER'
+                # name = user.manager.name
+                name = user.first_name + ' ' + user.last_name
             elif user.is_staff:
                 account_type = 'ACCOUNT_TYPE_ADMIN'
+                name = user.username
 
-        return Response({"account_type": account_type})
+        return Response({
+            "account_type": account_type,
+            "name": name,
+            "username": user.username
+            })

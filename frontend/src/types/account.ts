@@ -2,7 +2,7 @@ import { LoginResponseData } from "./api";
 
 export interface AccountState {
     isLogined: boolean;
-    accessToken: string;
+    token: string;
     // expire: null | string;
     loading: boolean;
     error: null | string;
