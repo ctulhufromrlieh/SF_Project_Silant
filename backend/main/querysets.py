@@ -6,6 +6,49 @@ def to_int(str_value, def_value):
     else:
         return def_value
 
+def get_simple_car_queryset(request, use_filter):
+    res = Car.objects.all()
+    
+    if not use_filter:
+        return res
+
+    filter_car_num = request.GET.get('car_num', '')
+    # filter_car_model = request.GET.get('car_model', '')
+    # filter_engine_model = request.GET.get('engine_model', '')
+    # filter_transmission_model = request.GET.get('transmission_model', '')
+    # filter_main_bridge_model = request.GET.get('main_bridge_model', '')
+    # filter_steerable_bridge_model = request.GET.get('steerable_bridge_model', '')
+
+    if filter_car_num:
+        res = res.filter(car_num__icontains=filter_car_num)
+    
+    # if filter_car_model:
+    #     filter_car_model_i = to_int(filter_car_model, -1)
+    #     if filter_car_model_i != -1:
+    #         res = res.filter(car_model=filter_car_model_i)
+    
+    # if filter_engine_model:
+    #     filter_engine_model_i = to_int(filter_engine_model, -1)
+    #     if filter_engine_model_i != -1:
+    #         res = res.filter(engine_model=filter_engine_model_i)
+    
+    # if filter_transmission_model:
+    #     filter_transmission_model_i = to_int(filter_transmission_model, -1)
+    #     if filter_transmission_model_i != -1:
+    #         res = res.filter(transmission_model=filter_transmission_model_i)
+    
+    # if filter_main_bridge_model:
+    #     filter_main_bridge_model_i = to_int(filter_main_bridge_model, -1)
+    #     if filter_main_bridge_model_i != -1:
+    #         res = res.filter(main_bridge_model=filter_main_bridge_model_i)
+    
+    # if filter_steerable_bridge_model:
+    #     filter_steerable_bridge_model_i = to_int(filter_steerable_bridge_model, -1)
+    #     if filter_steerable_bridge_model_i != -1:
+    #         res = res.filter(steerable_bridge_model=filter_steerable_bridge_model_i)
+
+    return res
+
 def get_car_queryset(request, is_all, use_filter):
     res = Car.objects.all()
     

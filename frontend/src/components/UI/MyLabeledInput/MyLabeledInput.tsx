@@ -87,6 +87,7 @@ const MyLabeledInput: React.FC<MyLabeledInputProps> = ({id, type="text", labelCa
                 className={makeClassName(inputClassNames[Number(isError)], addInputClassNames)} 
                 onChange={(event) => handleInputChange(event.target.value)}
                 placeholder={placeholder}
+                value={value}
                 {...rest}
             />
             <div className={classes.error_msg_container}>

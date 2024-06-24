@@ -4,11 +4,21 @@ import classes from "./PageMain.module.scss";
 // import commonClasses from "../../../styles/common.module.scss";
 
 import { Link } from "react-router-dom";
+import { useTypedSelector } from "../../../hooks/useTypedSelector";
+import SimpleCarTable from "./SimpleCarTable/SimpleCarTable";
 
 const PageMain: React.FC = () => {
+    const {isLogined, token, loading, error} = useTypedSelector(state => state.account);
+    
+    // console.log("PageMain");
+
     return (
         <div className={classes.page}>
-            Main page
+            {isLogined ? 
+                <div>Authorized cars</div>
+            :
+                <SimpleCarTable/> 
+            }
         </div>
     );
 }

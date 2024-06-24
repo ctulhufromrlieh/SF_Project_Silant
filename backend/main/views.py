@@ -93,7 +93,11 @@ class SingleRecoveryMethodView(RetrieveUpdateDestroyAPIView):
 class CarSimpleListAPIView(ListAPIView):
     queryset = Car.objects.all()
     serializer_class = CarSerializerSimple
+    ordering = ["factory_shipment_date",]
     # permission_classes = [NOT(IsAuthenticated)]
+
+    def get_queryset(self):
+        return get_simple_car_queryset(self.request, True)
 
 class CarView(ListCreateAPIView):
     # queryset = Car.objects.all()

@@ -23,10 +23,39 @@ export interface AccountInfoResponseData {
     username: string;
 }
 
-export interface ReferenceBookRecord {
+// export interface ReferenceBookRecord {
+//     id: number;
+//     name: string;
+//     description: string;
+// }
+
+export enum AuxEntryType {
+    AUX_ENTRY_TYPE_CAR_MODEL = "AUX_ENTRY_TYPE_CAR_MODEL",
+    AUX_ENTRY_TYPE_ENGINE_MODEL = "AUX_ENTRY_TYPE_ENGINE_MODEL",
+    AUX_ENTRY_TYPE_TRANSMISSION_MODEL = "AUX_ENTRY_TYPE_TRANSMISSION_MODEL",
+    AUX_ENTRY_TYPE_MAIN_BRIDGE_MODEL = "AUX_ENTRY_TYPE_MAIN_BRIDGE_MODEL",
+    AUX_ENTRY_TYPE_STEERABLE_BRIDGE_MODEL = "AUX_ENTRY_TYPE_STEERABLE_BRIDGE_MODEL",
+    AUX_ENTRY_TYPE_MAINTENANCE_TYPE = "AUX_ENTRY_TYPE_MAINTENANCE_TYPE",
+    AUX_ENTRY_TYPE_FAILURE_NODE = "AUX_ENTRY_TYPE_FAILURE_NODE",
+    AUX_ENTRY_TYPE_RECOVERY_METHOD = "AUX_ENTRY_TYPE_RECOVERY_METHOD",
+}
+
+export interface AuxEntry {
+    type: AuxEntryType;
     id: number;
     name: string;
     description: string;
+}
+
+export interface AuxEntries {
+    carModels: AuxEntry[];
+    engineModels: AuxEntry[];
+    transmissionModels: AuxEntry[];
+    mainBridgeModels: AuxEntry[];
+    steerableBridgeModels: AuxEntry[];
+    maintenanceTypes: AuxEntry[];
+    failureNodes: AuxEntry[];
+    recoveryMethods: AuxEntry[];
 }
 
 export interface SimpleCar {
