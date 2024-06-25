@@ -75,14 +75,19 @@ export interface SimpleCar {
 export interface Car {
     id: number;
     car_model: number;
+    car_model__name: string;
     car_num: string;
     engine_model: number;
+    engine_model__name: string;
     engine_num: string;
     transmission_model: number;
+    transmission_model__name: string;
     transmission_num: string; 
     main_bridge_model: number;
+    main_bridge_model__name: string;
     main_bridge_num: string;
     steerable_bridge_model: number;
+    steerable_bridge_model__name: string;
     steerable_bridge_num: string; 
     supply_agreement: string;
     factory_shipment_date: string;
@@ -90,7 +95,9 @@ export interface Car {
     shipment_address: string;
     add_options: string;
     client: number;
+    client__name: string;
     service_company: number;
+    service_company__name: string;
 }
 
 export interface Maintenance {

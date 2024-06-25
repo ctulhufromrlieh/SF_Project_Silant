@@ -16,10 +16,11 @@ const UserPanelLogined: React.FC = () => {
     const accountInfo = useTypedSelector(state => state.accountInfo);
     const {loginUserReset} = useActions();
 
-    const {fetchAccountInfo} = useActions();
+    const {fetchAccountInfo, fetchAuxEntries} = useActions();
     useEffect(() => {
         if (!account.loading) {
             fetchAccountInfo(account.token);
+            fetchAuxEntries();
         }
     }, [account.isLogined]);
 

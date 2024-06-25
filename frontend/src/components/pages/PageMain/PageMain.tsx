@@ -6,6 +6,7 @@ import classes from "./PageMain.module.scss";
 import { Link } from "react-router-dom";
 import { useTypedSelector } from "../../../hooks/useTypedSelector";
 import SimpleCarTable from "./SimpleCarTable/SimpleCarTable";
+import LoginedPanel from "./LoginedPanel/LoginedPanel";
 
 const PageMain: React.FC = () => {
     const {isLogined, token, loading, error} = useTypedSelector(state => state.account);
@@ -15,7 +16,7 @@ const PageMain: React.FC = () => {
     return (
         <div className={classes.page}>
             {isLogined ? 
-                <div>Authorized cars</div>
+                <LoginedPanel/>
             :
                 <SimpleCarTable/> 
             }

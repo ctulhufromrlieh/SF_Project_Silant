@@ -115,13 +115,15 @@ class CarView(ListCreateAPIView):
         # return True
 
         if Client.is_own(user):
-            # return user.client.id == car['client']
-            return User.objects.filter(client__id=car['client']).exists()
+            return user.client.id == car['client']
+            # return User.objects.filter(client__id=car['client']).exists()
             # return user.client.id == car['client']
         
         if ServiceCompany.is_own(user):
-            return User.objects.filter(service_company__id=car['service_company']).exists()
-            # return user.service_company.id == car['service_company']
+            # print("car_num = ", car['car_num'])
+            # return User.objects.filter(service_company__id=car['service_company']).exists()
+            # print("car__service_company = ", car['service_company'])
+            return user.service_company.id == car['service_company']
         
         if Manager.is_own(user):
             return True
@@ -136,8 +138,8 @@ class CarView(ListCreateAPIView):
         for car in response.data:
             # rec = Car.objects.get(id=car['id'])
             if not self.is_visible_car(request.user, car):
+                # print('invisible car = ', car)
                 car['supply_agreement'] = "<classified>"
-                car['factory_shipment_date'] = "<classified>"
                 car['factory_shipment_date'] = "<classified>"
                 car['consignee'] = "<classified>"
                 car['shipment_address'] = "<classified>"
