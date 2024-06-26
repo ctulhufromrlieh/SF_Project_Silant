@@ -1,0 +1,49 @@
+.item {
+    display: flex;
+    flex-direction: row;
+    // gap: 5px;
+    
+    border: 1px solid purple;
+
+    div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .id {
+        width: 40px;
+    }
+
+    .car__num {
+        width: 70px;
+    }
+
+    .type__name {
+        width: 70px;
+    }
+
+    .maintenance_date {
+        width: 120px;
+    }
+
+    .operating_time_s {
+        width: 70px;
+    }
+
+    .work_order_num {
+        width: 120px;
+    }
+
+    .work_order_date {
+        width: 100px;
+    }
+
+    .service_company__name {
+        width: 120px;
+    }
+
+    div {
+        border: 1px solid green;
+    }
+}

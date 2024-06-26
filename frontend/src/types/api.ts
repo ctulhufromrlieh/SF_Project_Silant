@@ -121,8 +121,9 @@ export interface Reclamation {
     car__service_company__id: number;
     car__service_company__name: string;
     failure_date: string;
-    operating_time: string;
-    failure_node: string;
+    // operating_time: string;
+    operating_time: number; 
+    failure_node: number;
     failure_node__name: string;
     failure_description: string;
     recovery_method: number;

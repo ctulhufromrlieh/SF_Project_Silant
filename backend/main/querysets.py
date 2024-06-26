@@ -135,7 +135,8 @@ def get_maintenance_queryset(request, use_filter):
         return res
 
     filter_car_num = request.GET.get('car_num', '')
-    filter_service_company__name = request.GET.get('service_company', '')
+    # filter_service_company__name = request.GET.get('service_company', '')
+    filter_service_company__name = request.GET.get('service_company__name', '')
     filter_type = request.GET.get('type', '')
     
 
@@ -178,7 +179,8 @@ def get_reclamation_queryset(request, use_filter):
         return res
 
     filter_car_num = request.GET.get('car_num', '')
-    filter_service_company__name = request.GET.get('service_company', '')
+    # filter_service_company__name = request.GET.get('service_company', '')
+    filter_service_company__name = request.GET.get('service_company__name', '')
     filter_failure_node = request.GET.get('failure_node', '')
     filter_recovery_method = request.GET.get('recovery_method', '')
 

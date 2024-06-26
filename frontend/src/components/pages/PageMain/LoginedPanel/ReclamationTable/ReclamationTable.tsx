@@ -1,0 +1,90 @@
+import React from "react";
+
+import classes from "./ReclamationTable.module.scss";
+// import commonClasses from "../../../styles/common.module.scss";
+
+import MyLabeledInput from "../../../../UI/MyLabeledInput/MyLabeledInput";
+import { useTypedSelector } from "../../../../../hooks/useTypedSelector";
+import { useActions } from "../../../../../hooks/useActions";
+import Loader from "../../../../UI/Loader/Loader";
+import ReclamationItem from "./ReclamationItem/ReclamationItem";
+import MyLabeledSelect, { SelectOption } from "../../../../UI/MyLabeledSelect/MyLabeledSelect";
+import { AuxEntry } from "../../../../../types/api";
+import { AuxEntriesToSelectOptions } from "../../../../../utils/ui";
+import { numberOfNullToString, stringToNumberOrNull } from "../../../../../utils/convert";
+
+const ReclamationTable: React.FC = () => {
+   
+    const {car_num, service_company__name, failure_node, recovery_method} = useTypedSelector(state => state.filterReclamation);
+    const {setRCarNum, setRServiceCompanyName, setRFailureNode, setRRecoveryMethod, fetchReclamations} = useActions();
+    const reclamations = useTypedSelector(state => state.reclamations)
+    const auxEntries = useTypedSelector(state => state.auxEntries)    
+
+    if (reclamations.loading || auxEntries.loading) {
+        return (
+            <Loader/>
+        );
+    }
+
+    const failureNodes = AuxEntriesToSelectOptions(auxEntries.failureNodes);
+    const recoveryMethods = AuxEntriesToSelectOptions(auxEntries.recoveryMethods);
+
+    return (
+        <div>
+            <div className={classes.maintenance_filter}>
+                <MyLabeledInput 
+                    id="filter-reclamation-form__car-num"
+                    type="text"
+                    labelCaption="Номер" 
+                    value={car_num}
+                    setValue={(value) => setRCarNum(value)} 
+                />
+                <MyLabeledInput 
+                    id="filter-reclamation-form__service-company-name"
+                    type="text"
+                    labelCaption="Сервисная компания" 
+                    value={service_company__name}
+                    setValue={(value) => setRServiceCompanyName(value)} 
+                />
+                <MyLabeledSelect
+                    id="filter-reclamation-form__failure-node"
+                    labelCaption="Узел отказа"
+                    value={numberOfNullToString(failure_node)}
+                    setValue={(value) => setRFailureNode(stringToNumberOrNull(value))}
+                    options={failureNodes}
+                    // addContainerClassNames={[]}
+                />
+                <MyLabeledSelect
+                    id="filter-reclamation-form__recovery-method"
+                    labelCaption="Способ восстановления"
+                    value={numberOfNullToString(recovery_method)}
+                    setValue={(value) => setRRecoveryMethod(stringToNumberOrNull(value))}
+                    options={recoveryMethods}
+                    // addContainerClassNames={[]}
+                />
+                <button onClick={() => fetchReclamations()}>Search</button>
+            </div>
+            <div className={classes.reclamation_table}>
+                <ReclamationItem  
+                    id={-1} 
+
+                    car__num={"Зав. № машины"}
+                    car__service_company__name={"Организация, проводившая ремонт"}
+                    failure_date={"Дата отказа"}
+                    operating_time_s={"Наработка, м/час"}
+                    failure_node__name={"Узел отказа"}
+                    failure_description={"Описание отказа"}
+                    recovery_method__name={"Способ восстановления"}
+                    repair_parts={"Используемые запасные части"}
+                    recovery_date={"Дата восстановления"}
+                    downtime_s={"Время простоя техники"}
+                />
+                {reclamations.items.map((item, index) => 
+                    <ReclamationItem key={item.id} {...item} id={index} operating_time_s={String(item.operating_time)} downtime_s={String(item.downtime)} />
+                )}
+            </div>
+        </div>
+    );
+}
+
+export default ReclamationTable;

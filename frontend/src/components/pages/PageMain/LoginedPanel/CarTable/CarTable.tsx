@@ -12,31 +12,10 @@ import CarItem from "./CarItem/CarItem";
 import MyLabeledSelect, { SelectOption } from "../../../../UI/MyLabeledSelect/MyLabeledSelect";
 import { AuxEntry } from "../../../../../types/api";
 import { AuxEntriesToSelectOptions } from "../../../../../utils/ui";
-
-const stringToNumberOrNull = (value: string): number | null => {
-    try {
-        return parseInt(value);
-    } catch {
-        return null;
-    }
-}
-
-const numberOfNullToString = (value: number | null): string => {
-    if (value === null) {
-        return "";
-    } else {
-        return String(value);
-    }
-}
+import { numberOfNullToString, stringToNumberOrNull } from "../../../../../utils/convert";
 
 const CarTable: React.FC = () => {
-    // const carModels: SelectOption[] = [
-    //     {value: Tone.POSITIVE, caption: "позитивная"},
-    //     {value: Tone.NEGATIVE, caption: "негативная"},
-    //     {value: Tone.NEUTRAL, caption: "нейтральная"},
-    //     {value: Tone.ANY, caption: "любая"},
-    // ];
-   
+
     const {car_num, car_model, engine_model, transmission_model, main_bridge_model, steerable_bridge_model} = useTypedSelector(state => state.filterCar);
     const {setCarNum, setCarModel, setEngineModel, setTransmissionModel, setMainBridgeModel, setSteerableBridgeModel, fetchCars} = useActions();
     const cars = useTypedSelector(state => state.cars)
@@ -57,8 +36,8 @@ const CarTable: React.FC = () => {
     const mainBridgeModels = AuxEntriesToSelectOptions(auxEntries.mainBridgeModels);
     const steerableBridgeModels = AuxEntriesToSelectOptions(auxEntries.steerableBridgeModels);
 
-    console.log(auxEntries);
-    console.log(carModels);
+    // console.log(auxEntries);
+    // console.log(carModels);
 
     return (
         <div>

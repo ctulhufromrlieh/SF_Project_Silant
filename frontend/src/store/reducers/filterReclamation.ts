@@ -16,7 +16,7 @@ export const filterReclamationReducer = (state = initialState, action: FilterRec
         case FilterReclamationActionTypes.SET_FAILURE_NODE:
             return {...state, failure_node: action.payload};
         case FilterReclamationActionTypes.SET_RECOVERY_METHOD:
-            return {...state, failure_node: action.payload};
+            return {...state, recovery_method: action.payload};
         default:
             return state;
     }

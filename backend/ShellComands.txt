@@ -322,7 +322,7 @@ Reclamation.objects.all().create(car=car_0017, failure_date="2022-04-02", operat
 
 # Reclamation 3
 Reclamation.objects.all().create(car=car_0017, failure_date="2022-03-30", operating_time=112, failure_node=fn_transmission, failure_description="блокировка колес",
-    recovery_method=rm_change, repair_parts="", recovery_date="2022-02-11")
+    recovery_method=rm_change, repair_parts="", recovery_date="2022-03-31")
 
 # Reclamation 4
 Reclamation.objects.all().create(car=car_0021, failure_date="2022-02-06", operating_time=123, failure_node=fn_main_bridge, failure_description="блокировка колес",

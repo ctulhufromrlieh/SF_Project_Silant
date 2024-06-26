@@ -131,7 +131,7 @@ class Reclamation(models.Model):
     failure_node = models.ForeignKey(FailureNode, on_delete=models.CASCADE)
     failure_description = models.TextField(default="", help_text="Failure description")
     recovery_method = models.ForeignKey(RecoveryMethod, on_delete=models.CASCADE)
-    repair_parts = models.TextField(default="", help_text="Repair parts")
+    repair_parts = models.TextField(default="", help_text="Repair parts", null=True, blank=True)
     recovery_date = models.DateTimeField(help_text="Date of recovery")
     car = models.ForeignKey(Car, on_delete=models.CASCADE)
     # service_company = models.ForeignKey(ServiceCompany, on_delete=models.CASCADE)

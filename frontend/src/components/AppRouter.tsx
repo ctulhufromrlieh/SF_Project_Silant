@@ -33,7 +33,7 @@ const AppRouter = () => {
                 )}
                 <Route 
                     path="*" 
-                    element={<Navigate to="/" 
+                    element={<Navigate to="/cars" 
                     replace />} 
                 />
             </Routes>
