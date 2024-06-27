@@ -3,7 +3,7 @@ import { AuxEntriesAction, AuxEntriesActionTypes } from "../../types/auxEntries"
 import { RootState } from "../reducers";
 import axios from "axios";
 import { checkAuth } from "../../utils/auth";
-import { AuxEntries, baseAccUrl, baseApiUrl } from "../../types/api";
+import { AuxEntries, Client, ServiceCompany, baseAccUrl, baseApiUrl } from "../../types/api";
 
 export const fetchAuxEntries = () => {
     return async (dispatch: Dispatch<AuxEntriesAction>, getState: () => RootState) => {
@@ -31,6 +31,22 @@ export const fetchAuxEntries = () => {
             const responseMaintenanceTypes = await axios.get(`${baseApiUrl}/maintenance_types`, {headers: headers});
             const responseFailureNodes = await axios.get(`${baseApiUrl}/failure_nodes`, {headers: headers});
             const responseRecoveryMethods = await axios.get(`${baseApiUrl}/recovery_methods`, {headers: headers});
+            
+            let dataClients: Client[] = [];
+            try {
+                const responseClients = await axios.get(`${baseApiUrl}/clients`, {headers: headers});
+                dataClients = responseClients.data;
+            } catch {
+                // dataClients = [];
+            }
+            
+            let dataServiceCompanies: ServiceCompany[] = [];
+            try {
+                const responseServiceCompanies = await axios.get(`${baseApiUrl}/service_companies`, {headers: headers});
+            } catch {
+                // dataServiceCompanies = [];
+            }
+            
 
             const entries: AuxEntries = {
                 carModels: responseCarModels.data,
@@ -41,7 +57,8 @@ export const fetchAuxEntries = () => {
                 maintenanceTypes: responseMaintenanceTypes.data,
                 failureNodes: responseFailureNodes.data,
                 recoveryMethods: responseRecoveryMethods.data,
-
+                clients: dataClients,
+                serviceCompanies: dataServiceCompanies,
             }
 
             dispatch({type: AuxEntriesActionTypes.FETCH_AUX_ENTRIES_SUCCESS, payload: entries})

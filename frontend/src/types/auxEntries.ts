@@ -1,4 +1,4 @@
-import { AuxEntry, AuxEntries } from "./api";
+import { AuxEntry, AuxEntries, Client, ServiceCompany } from "./api";
 
 export interface AuxEntriesState {
     carModels: AuxEntry[];
@@ -9,12 +9,15 @@ export interface AuxEntriesState {
     maintenanceTypes: AuxEntry[];
     failureNodes: AuxEntry[];
     recoveryMethods: AuxEntry[];
+    clients: Client[],
+    serviceCompanies: ServiceCompany[],
     loading: boolean;
     error: null | string;
+    isReady: Boolean;
 }
 
 export enum AuxEntriesActionTypes {
-    FETCH_AUX_ENTRIES = "FETCFETCH_AUX_ENTRIESH_CARS",
+    FETCH_AUX_ENTRIES = "FETCFETCH_AUX_ENTRIES_CARS",
     FETCH_AUX_ENTRIES_SUCCESS = "FETCH_AUX_ENTRIES_SUCCESS",
     FETCH_AUX_ENTRIES_ERROR = "FETCH_AUX_ENTRIES_ERROR",
     RESET_AUX_ENTRIES = "RESET_AUX_ENTRIES",

@@ -27,7 +27,7 @@ const MaintenanceTable: React.FC = () => {
         );
     }
 
-    const maintenanceTypes = AuxEntriesToSelectOptions(auxEntries.maintenanceTypes);
+    const maintenanceTypes = AuxEntriesToSelectOptions(auxEntries.maintenanceTypes, true);
 
     // console.log(auxEntries);
     // console.log(carModels);

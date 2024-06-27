@@ -10,6 +10,16 @@ from .querysets import *
 
 # Create your views here.
 
+class ClientView(ListCreateAPIView):
+    queryset = Client.objects.all()
+    serializer_class = ClientSerializer
+    permission_classes = [DjangoModelPermissions]
+
+class ServiceCompanyView(ListCreateAPIView):
+    queryset = ServiceCompany.objects.all()
+    serializer_class = ServiceCompanySerializer
+    permission_classes = [DjangoModelPermissions]
+
 class CarModelView(ListCreateAPIView):
     queryset = CarModel.objects.all()
     serializer_class = CarModelSerializer

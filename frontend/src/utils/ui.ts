@@ -8,13 +8,15 @@ const AuxEntryToSelectOption = (auxEntry: AuxEntry): SelectOption => {
     }
 }
 
-export const AuxEntriesToSelectOptions = (auxEntries: AuxEntry[]): SelectOption[] => {
+export const AuxEntriesToSelectOptions = (auxEntries: AuxEntry[], hasEmpty: Boolean): SelectOption[] => {
 
     let res = auxEntries.map((auxEntry: AuxEntry) => AuxEntryToSelectOption(auxEntry));
-    res.unshift({
-        value: "",
-        caption: "-",
-    })
+    if (hasEmpty) {
+        res.unshift({
+            value: "",
+            caption: "-",
+        });
+    }
     
     return res;
 }

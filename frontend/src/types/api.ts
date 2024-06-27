@@ -3,6 +3,15 @@ export const baseApiUrl: string = `${baseUrl}/api/v1`;
 export const baseAccUrl: string = `${baseUrl}/api/accounts`;
 export const localStorageIdToken = 'silant_account_accessToken';
 
+export interface Client {
+    name: string;
+}
+
+export interface ServiceCompany {
+    name: string;
+    description: string;
+}
+
 export interface LoginResponseData {
     // accessToken: string;
     // expire: string;
@@ -56,6 +65,8 @@ export interface AuxEntries {
     maintenanceTypes: AuxEntry[];
     failureNodes: AuxEntry[];
     recoveryMethods: AuxEntry[];
+    clients: Client[],
+    serviceCompanies: ServiceCompany[],
 }
 
 export interface SimpleCar {

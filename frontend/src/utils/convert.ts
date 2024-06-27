@@ -6,6 +6,10 @@ export const stringToNumberOrNull = (value: string): number | null => {
     }
 }
 
+export const stringToNumber = (value: string): number => {
+    return parseInt(value);
+}
+
 export const numberOfNullToString = (value: number | null): string => {
     if (value === null) {
         return "";

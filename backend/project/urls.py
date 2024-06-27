@@ -24,6 +24,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("api/accounts/", include("accounts.urls")),
 
+    path('api/v1/clients/', ClientView.as_view(), name='api_clients'),
+    path('api/v1/service_companies/', ServiceCompanyView.as_view(), name='api_service_companies'),
     path('api/v1/car_models/', CarModelView.as_view(), name='api_car_models'),
     path('api/v1/car_models/<int:pk>', SingleCarModelView.as_view(), name='api_single_car_model'),
     path('api/v1/engine_models/', EngineModelView.as_view(), name='api_engine_models'),

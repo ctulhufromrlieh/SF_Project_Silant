@@ -4,6 +4,7 @@ export interface CarsState {
     items: Car[];
     loading: boolean;
     error: null | string;
+    ready: boolean;
 }
 
 export enum CarsActionTypes {

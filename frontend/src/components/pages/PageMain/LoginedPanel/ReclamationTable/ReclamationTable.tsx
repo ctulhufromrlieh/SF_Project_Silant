@@ -26,8 +26,8 @@ const ReclamationTable: React.FC = () => {
         );
     }
 
-    const failureNodes = AuxEntriesToSelectOptions(auxEntries.failureNodes);
-    const recoveryMethods = AuxEntriesToSelectOptions(auxEntries.recoveryMethods);
+    const failureNodes = AuxEntriesToSelectOptions(auxEntries.failureNodes, true);
+    const recoveryMethods = AuxEntriesToSelectOptions(auxEntries.recoveryMethods, true);
 
     return (
         <div>

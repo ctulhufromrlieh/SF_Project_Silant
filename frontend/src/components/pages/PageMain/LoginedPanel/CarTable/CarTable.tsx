@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import classes from "./CarTable.module.scss";
 // import commonClasses from "../../../styles/common.module.scss";
@@ -10,16 +10,33 @@ import { useActions } from "../../../../../hooks/useActions";
 import Loader from "../../../../UI/Loader/Loader";
 import CarItem from "./CarItem/CarItem";
 import MyLabeledSelect, { SelectOption } from "../../../../UI/MyLabeledSelect/MyLabeledSelect";
-import { AuxEntry } from "../../../../../types/api";
+import { AuxEntry, Car } from "../../../../../types/api";
 import { AuxEntriesToSelectOptions } from "../../../../../utils/ui";
 import { numberOfNullToString, stringToNumberOrNull } from "../../../../../utils/convert";
+import { ChangeSortTypeProc, SortMethod, cloneObjects, sortObjects } from "../../../../../utils/sort";
 
 const CarTable: React.FC = () => {
 
     const {car_num, car_model, engine_model, transmission_model, main_bridge_model, steerable_bridge_model} = useTypedSelector(state => state.filterCar);
-    const {setCarNum, setCarModel, setEngineModel, setTransmissionModel, setMainBridgeModel, setSteerableBridgeModel, fetchCars} = useActions();
+    const {setCarNum, setCarModel, setEngineModel, setTransmissionModel, setMainBridgeModel, setSteerableBridgeModel, fetchCars, sortCarChangeSortType} = useActions();
+    const {sortElems} = useTypedSelector(state => state.sortCar)
     const cars = useTypedSelector(state => state.cars)
-    const auxEntries = useTypedSelector(state => state.auxEntries)    
+    const auxEntries = useTypedSelector(state => state.auxEntries)
+
+    const propNames: string[] = ["car_model__name", "car_num", "engine_model__name", "engine_num", "transmission_model__name", "transmission_num",
+        "main_bridge_model__name", "main_bridge_num", "steerable_bridge_model__name", "steerable_bridge_num", "factory_shipment_date", "consignee",
+        "shipment_address", "add_options", "client__name", "service_company__name"];
+
+    // let sortedCars: Car[] = cloneObjects<Car>(cars.items);
+    // let sortedCars: Car[] = [];
+
+    // useEffect(() => {
+    //     sortedCars = sortObjects<Car>(cars.items, sortElems, propNames);
+    //     // console.log("sortObjects call");
+    //     console.log("sortedCars = ", sortedCars);
+    // }, [cars, sortElems])
+
+    let sortedCars = sortObjects<Car>(cars.items, sortElems, propNames);
 
     // console.log("items = ", items);
     // console.log("car_num = ", car_num);
@@ -30,14 +47,18 @@ const CarTable: React.FC = () => {
         );
     }
 
-    const carModels = AuxEntriesToSelectOptions(auxEntries.carModels);
-    const engineModels = AuxEntriesToSelectOptions(auxEntries.engineModels);
-    const transmissionModels = AuxEntriesToSelectOptions(auxEntries.transmissionModels);
-    const mainBridgeModels = AuxEntriesToSelectOptions(auxEntries.mainBridgeModels);
-    const steerableBridgeModels = AuxEntriesToSelectOptions(auxEntries.steerableBridgeModels);
+    const carModels = AuxEntriesToSelectOptions(auxEntries.carModels, true);
+    const engineModels = AuxEntriesToSelectOptions(auxEntries.engineModels, true);
+    const transmissionModels = AuxEntriesToSelectOptions(auxEntries.transmissionModels, true);
+    const mainBridgeModels = AuxEntriesToSelectOptions(auxEntries.mainBridgeModels, true);
+    const steerableBridgeModels = AuxEntriesToSelectOptions(auxEntries.steerableBridgeModels, true);
 
     // console.log(auxEntries);
     // console.log(carModels);
+    
+    const changeSortTypeProc: ChangeSortTypeProc = (propName: string, sortMethod: SortMethod): void => {
+        sortCarChangeSortType(propName, sortMethod);
+    }
 
     return (
         <div>
@@ -93,6 +114,7 @@ const CarTable: React.FC = () => {
             </div>
             <div className={classes.car_table}>
                 <CarItem  
+                    index={-1} 
                     id={-1} 
                     car_model__name={"Модель техники"} 
                     car_num={"Зав. № машины"}
@@ -110,9 +132,14 @@ const CarTable: React.FC = () => {
                     add_options={"Комплектация (доп. опции)"}
                     client__name={"Покупатель"}
                     service_company__name={"Сервисная компания"}
+                    sortElements={sortElems}
+                    changeSortTypeProc={changeSortTypeProc}
                 />
-                {cars.items.map((item, index) => 
-                    <CarItem key={item.id} {...item} id={index} />
+                {/* {cars.items.map((item, index) => 
+                    <CarItem key={item.id} {...item} index={index} id={item.id} />
+                )} */}
+                {sortedCars.map((item, index) => 
+                    <CarItem key={item.id} {...item} index={index} id={item.id} />
                 )}
             </div>
         </div>
