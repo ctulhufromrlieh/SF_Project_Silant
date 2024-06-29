@@ -4,6 +4,7 @@ import * as AuxEntriesActionCreators from "./auxEntries";
 import * as FilterCarActionCreators from "./filterCar";
 import * as FilterMaintenanceActionCreators from "./filterMaintenance";
 import * as FilterReclamationActionCreators from "./filterReclamation";
+import * as SortSimpleCarActionCreators from "./sortSimpleCar";
 import * as SortCarActionCreators from "./sortCar";
 import * as SortMaintenanceActionCreators from "./sortMaintenance";
 import * as SortReclamationActionCreators from "./sortReclamation";
@@ -19,6 +20,7 @@ export default {
     ...FilterCarActionCreators,
     ...FilterMaintenanceActionCreators,
     ...FilterReclamationActionCreators,
+    ...SortSimpleCarActionCreators,
     ...SortCarActionCreators,
     ...SortMaintenanceActionCreators,
     ...SortReclamationActionCreators,

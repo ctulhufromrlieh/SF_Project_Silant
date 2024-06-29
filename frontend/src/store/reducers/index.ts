@@ -9,6 +9,7 @@ import { carsReducer } from "./cars";
 import { simpleCarsReducer } from "./simpleCars";
 import { maintenancesReducer } from "./maintenances";
 import { reclamationsReducer } from "./reclamations";
+import { sortSimpleCarReducer } from "./sortSimpleCar";
 import { sortCarReducer } from "./sortCar";
 import { sortMaintenanceReducer } from "./sortMaintenance";
 import { sortReclamationReducer } from "./sortReclamation";
@@ -21,6 +22,7 @@ export const rootReducer = combineReducers({
     filterCar: filterCarReducer,
     filterMaintenance: filterMaintenanceReducer,
     filterReclamation: filterReclamationReducer,
+    sortSimpleCar: sortSimpleCarReducer,
     sortCar: sortCarReducer,
     sortMaintenance: sortMaintenanceReducer,
     sortReclamation: sortReclamationReducer,
