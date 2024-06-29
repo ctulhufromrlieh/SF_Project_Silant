@@ -27,19 +27,7 @@ const CarTable: React.FC = () => {
         "main_bridge_model__name", "main_bridge_num", "steerable_bridge_model__name", "steerable_bridge_num", "factory_shipment_date", "consignee",
         "shipment_address", "add_options", "client__name", "service_company__name"];
 
-    // let sortedCars: Car[] = cloneObjects<Car>(cars.items);
-    // let sortedCars: Car[] = [];
-
-    // useEffect(() => {
-    //     sortedCars = sortObjects<Car>(cars.items, sortElems, propNames);
-    //     // console.log("sortObjects call");
-    //     console.log("sortedCars = ", sortedCars);
-    // }, [cars, sortElems])
-
     let sortedCars = sortObjects<Car>(cars.items, sortElems, propNames);
-
-    // console.log("items = ", items);
-    // console.log("car_num = ", car_num);
 
     if (cars.loading || auxEntries.loading) {
         return (
@@ -53,9 +41,6 @@ const CarTable: React.FC = () => {
     const mainBridgeModels = AuxEntriesToSelectOptions(auxEntries.mainBridgeModels, true);
     const steerableBridgeModels = AuxEntriesToSelectOptions(auxEntries.steerableBridgeModels, true);
 
-    // console.log(auxEntries);
-    // console.log(carModels);
-    
     const changeSortTypeProc: ChangeSortTypeProc = (propName: string, sortMethod: SortMethod): void => {
         sortCarChangeSortType(propName, sortMethod);
     }

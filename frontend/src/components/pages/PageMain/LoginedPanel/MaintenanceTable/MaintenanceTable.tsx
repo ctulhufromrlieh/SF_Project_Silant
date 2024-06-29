@@ -10,14 +10,16 @@ import { useActions } from "../../../../../hooks/useActions";
 import Loader from "../../../../UI/Loader/Loader";
 import MaintenanceItem from "./MaintenanceItem/MaintenanceItem";
 import MyLabeledSelect, { SelectOption } from "../../../../UI/MyLabeledSelect/MyLabeledSelect";
-import { AuxEntry } from "../../../../../types/api";
+import { AuxEntry, Maintenance } from "../../../../../types/api";
 import { AuxEntriesToSelectOptions } from "../../../../../utils/ui";
 import { numberOfNullToString, stringToNumberOrNull } from "../../../../../utils/convert";
+import { ChangeSortTypeProc, SortMethod, sortObjects } from "../../../../../utils/sort";
 
 const MaintenanceTable: React.FC = () => {
    
     const {car_num, service_company__name, type} = useTypedSelector(state => state.filterMaintenance);
-    const {setMCarNum, setMServiceCompanyName, setMType, fetchMaintenances} = useActions();
+    const {setMCarNum, setMServiceCompanyName, setMType, fetchMaintenances, sortMaintenanceChangeSortType} = useActions();
+    const {sortElems} = useTypedSelector(state => state.sortMaintenance)
     const maintenances = useTypedSelector(state => state.maintenances)
     const auxEntries = useTypedSelector(state => state.auxEntries)    
 
@@ -27,10 +29,19 @@ const MaintenanceTable: React.FC = () => {
         );
     }
 
+    const propNames: string[] = ["car__num", "type__name", "maintenance_date", 
+        "operating_time", "work_order_num",  "work_order_date", "service_company__name",];
+
+    let sortedMaintenances = sortObjects<Maintenance>(maintenances.items, sortElems, propNames);
+
     const maintenanceTypes = AuxEntriesToSelectOptions(auxEntries.maintenanceTypes, true);
 
     // console.log(auxEntries);
     // console.log(carModels);
+
+    const changeSortTypeProc: ChangeSortTypeProc = (propName: string, sortMethod: SortMethod): void => {
+        sortMaintenanceChangeSortType(propName, sortMethod);
+    }
 
     return (
         <div>
@@ -61,6 +72,7 @@ const MaintenanceTable: React.FC = () => {
             </div>
             <div className={classes.maintenance_table}>
                 <MaintenanceItem  
+                    index={-1} 
                     id={-1} 
                     car__num={"Зав. № машины"}
                     type__name={"Вид ТО"}
@@ -69,9 +81,14 @@ const MaintenanceTable: React.FC = () => {
                     work_order_num={"№ заказ-наряда"}
                     work_order_date={"дата заказ-наряда"}
                     service_company__name={"Организация, проводившая ТО"}
+                    sortElements={sortElems}
+                    changeSortTypeProc={changeSortTypeProc}
                 />
-                {maintenances.items.map((item, index) => 
-                    <MaintenanceItem key={item.id} {...item} id={index} operating_time_s={String(item.operating_time)} />
+                {/* {maintenances.items.map((item, index) => 
+                    <MaintenanceItem key={item.id} {...item} index={index} id={index} operating_time_s={String(item.operating_time)} />
+                )} */}
+                {sortedMaintenances.map((item, index) => 
+                    <MaintenanceItem key={item.id} {...item} index={index} id={item.id} operating_time_s={String(item.operating_time)} />
                 )}
             </div>
         </div>

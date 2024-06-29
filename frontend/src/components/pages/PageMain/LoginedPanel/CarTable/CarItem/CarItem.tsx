@@ -1,21 +1,10 @@
 import React, { ReactElement } from "react";
 
 import classes from "./CarItem.module.scss";
-import { Car, SimpleCar } from "../../../../../../types/api";
+// import { Car, SimpleCar } from "../../../../../../types/api";
 import { Link } from "react-router-dom";
 import { ChangeSortTypeProc, SortElement, SortMethod, SortProc, getSortMethod } from "../../../../../../utils/sort";
 import SortButton from "../../../../../UI/SortButton/SortButton";
-// import commonClasses from "../../../styles/common.module.scss";
-
-// import { Link } from "react-router-dom";
-// import MyLabeledInput from "../../../UI/MyLabeledInput/MyLabeledInput";
-// import { useTypedSelector } from "../../../../hooks/useTypedSelector";
-// import { useActions } from "../../../../hooks/useActions";
-// import Loader from "../../../UI/Loader/Loader";
-
-// interface SimpleCarItemProps {
-//     item: SimpleCar;
-// };
 
 interface CarItemProps {
     index: number;
@@ -39,52 +28,23 @@ interface CarItemProps {
 
     sortElements?: SortElement[],
     changeSortTypeProc?: ChangeSortTypeProc,
-
-    // setSort_car_model__name?: SortProc;
-    // setSort_car_num?: SortProc;
-    // setSort_engine_model__name?: SortProc;
-    // setSort_engine_num?: SortProc;
-    // setSort_transmission_model__name?: SortProc;
-    // setSort_transmission_num?: SortProc;
-    // setSort_main_bridge_model__name?: SortProc;
-    // setSort_main_bridge_num?: SortProc;
-    // setSort_steerable_bridge_model__name?: SortProc;
-    // setSort_steerable_bridge_num?: SortProc;
-    // setSort_factory_shipment_date?: SortProc;
-    // setSort_consignee?: SortProc;
-    // setSort_shipment_address?: SortProc;
-    // setSort_add_options?: SortProc;
-    // setSort_client__name?: SortProc;
-    // setSort_service_company__name?: SortProc;
 }
 
 const CarItem: React.FC<CarItemProps> = ({index, id, car_model__name, car_num, engine_model__name, engine_num, transmission_model__name, transmission_num,
     main_bridge_model__name, main_bridge_num, steerable_bridge_model__name, steerable_bridge_num, factory_shipment_date, consignee,
     shipment_address, add_options, client__name, service_company__name,
     sortElements, changeSortTypeProc,
-    // setSort_car_model__name, setSort_car_num, setSort_engine_model__name, setSort_engine_num, setSort_transmission_model__name, setSort_transmission_num,
-    // setSort_main_bridge_model__name, setSort_main_bridge_num, setSort_steerable_bridge_model__name, setSort_steerable_bridge_num,
-    // setSort_factory_shipment_date, setSort_consignee, setSort_shipment_address, setSort_add_options, setSort_client__name, setSort_service_company__name,
 }) => {
 
     const hasSortButtons = (index == -1);
 
-    console.log("index = ", index);
+    // console.log("index = ", index);
 
-    // const getElem = (value: SortMethod, setValue: SortProc): ReactElement => {
-    //     if (hasSortButtons && setValue) {
-    //         return (
-    //             <SortButton value={value} setValue={setValue}/>
-    //         );
-    //     } else {
-    //         return <></>;
-    //     }
-    // }
     const getElem = (propName: string): ReactElement => {
         if (hasSortButtons && sortElements && changeSortTypeProc) {
             const value = getSortMethod(sortElements, propName);
             const setValue = (value: SortMethod): void => {
-                console.log(`ChangeSort type for ${propName} to ${value}`)
+                // console.log(`ChangeSort type for ${propName} to ${value}`)
                 changeSortTypeProc(propName, value);
             }
             
@@ -135,9 +95,10 @@ const CarItem: React.FC<CarItemProps> = ({index, id, car_model__name, car_num, e
                     {
                         index != -1 
                     ?
-                    index + 1 
+                        index + 1 
                     :
-                        null}
+                        null
+                    }
                 </Link>
             </div>
             <div className={classes.car_model__name}>{car_model__name} {getElem("car_model__name")}</div>

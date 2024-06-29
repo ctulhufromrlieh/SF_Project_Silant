@@ -9,14 +9,16 @@ import { useActions } from "../../../../../hooks/useActions";
 import Loader from "../../../../UI/Loader/Loader";
 import ReclamationItem from "./ReclamationItem/ReclamationItem";
 import MyLabeledSelect, { SelectOption } from "../../../../UI/MyLabeledSelect/MyLabeledSelect";
-import { AuxEntry } from "../../../../../types/api";
+import { AuxEntry, Reclamation } from "../../../../../types/api";
 import { AuxEntriesToSelectOptions } from "../../../../../utils/ui";
 import { numberOfNullToString, stringToNumberOrNull } from "../../../../../utils/convert";
+import { ChangeSortTypeProc, SortMethod, sortObjects } from "../../../../../utils/sort";
 
 const ReclamationTable: React.FC = () => {
    
     const {car_num, service_company__name, failure_node, recovery_method} = useTypedSelector(state => state.filterReclamation);
-    const {setRCarNum, setRServiceCompanyName, setRFailureNode, setRRecoveryMethod, fetchReclamations} = useActions();
+    const {setRCarNum, setRServiceCompanyName, setRFailureNode, setRRecoveryMethod, fetchReclamations, sortReclamationChangeSortType} = useActions();
+    const {sortElems} = useTypedSelector(state => state.sortReclamation)
     const reclamations = useTypedSelector(state => state.reclamations)
     const auxEntries = useTypedSelector(state => state.auxEntries)    
 
@@ -26,8 +28,17 @@ const ReclamationTable: React.FC = () => {
         );
     }
 
+    const propNames: string[] = ["car__num", "car__service_company__name", "failure_date", "operating_time", 
+        "failure_node__name", "failure_description", "recovery_method__name", "repair_parts", "recovery_date", "downtime",];
+
+    let sortedReclamations = sortObjects<Reclamation>(reclamations.items, sortElems, propNames);
+
     const failureNodes = AuxEntriesToSelectOptions(auxEntries.failureNodes, true);
     const recoveryMethods = AuxEntriesToSelectOptions(auxEntries.recoveryMethods, true);
+
+    const changeSortTypeProc: ChangeSortTypeProc = (propName: string, sortMethod: SortMethod): void => {
+        sortReclamationChangeSortType(propName, sortMethod);
+    }
 
     return (
         <div>
@@ -66,8 +77,8 @@ const ReclamationTable: React.FC = () => {
             </div>
             <div className={classes.reclamation_table}>
                 <ReclamationItem  
+                    index={-1}
                     id={-1} 
-
                     car__num={"Зав. № машины"}
                     car__service_company__name={"Организация, проводившая ремонт"}
                     failure_date={"Дата отказа"}
@@ -78,9 +89,14 @@ const ReclamationTable: React.FC = () => {
                     repair_parts={"Используемые запасные части"}
                     recovery_date={"Дата восстановления"}
                     downtime_s={"Время простоя техники"}
+                    sortElements={sortElems}
+                    changeSortTypeProc={changeSortTypeProc}
                 />
-                {reclamations.items.map((item, index) => 
+                {/* {reclamations.items.map((item, index) => 
                     <ReclamationItem key={item.id} {...item} id={index} operating_time_s={String(item.operating_time)} downtime_s={String(item.downtime)} />
+                )} */}
+                {sortedReclamations.map((item, index) => 
+                    <ReclamationItem key={item.id} {...item} index={index} id={item.id} operating_time_s={String(item.operating_time)} downtime_s={String(item.downtime)} />
                 )}
             </div>
         </div>

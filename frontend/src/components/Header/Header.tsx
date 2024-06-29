@@ -5,6 +5,7 @@ import commonClasses from "../../styles/common.module.scss";
 
 import imgLogo from "../../img/Header/logo.module.png";
 import UserPanel from "./UserPanel/UserPanel";
+import HeaderMenu from "./HeaderMenu/HeaderMenu";
 // import LoginWindow from "./UserPanel/LoginWindow/LoginWindow";
 // import MyModal from "../UI/MyModal/MyModal";
 
@@ -23,6 +24,7 @@ const Header: React.FC = () => {
                     текст: Электронная сервисная книжка "МойСилант"
                 </div>
             </div>
+            <HeaderMenu/>
             {/* <MyModal visible={loginWindowVisible} setVisible={setLoginWindowVisible} contentClassName={classes.menu_background}>
                 <LoginWindow setVisible={setLoginWindowVisible} />
             </MyModal> */}
