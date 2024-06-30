@@ -12,7 +12,7 @@ import CarItem from "./CarItem/CarItem";
 import MyLabeledSelect, { SelectOption } from "../../../UI/MyLabeledSelect/MyLabeledSelect";
 import { AccountType, AuxEntry, Car } from "../../../../types/api";
 import { AuxEntriesToSelectOptions } from "../../../../utils/ui";
-import { dateTimeToDate, numberOfNullToString, stringToNumberOrNull } from "../../../../utils/convert";
+import { dateTimeToDate, numberOrNullToString, stringToNumberOrNull } from "../../../../utils/convert";
 import { ChangeSortTypeProc, SortMethod, cloneObjects, sortObjects } from "../../../../utils/sort";
 import { ModelType, isAllowedChange } from "../../../../utils/permissions";
 
@@ -85,7 +85,7 @@ const CarTable: React.FC = () => {
                 <MyLabeledSelect
                     id="filter-car-form__car-model"
                     labelCaption="Модель техники"
-                    value={numberOfNullToString(car_model)}
+                    value={numberOrNullToString(car_model)}
                     setValue={(value) => setCarModel(stringToNumberOrNull(value))}
                     options={carModels}
                     // addContainerClassNames={[]}
@@ -93,7 +93,7 @@ const CarTable: React.FC = () => {
                 <MyLabeledSelect
                     id="filter-car-form__engine-model"
                     labelCaption="Модель двигателя"
-                    value={numberOfNullToString(engine_model)}
+                    value={numberOrNullToString(engine_model)}
                     setValue={(value) => setEngineModel(stringToNumberOrNull(value))}
                     options={engineModels}
                     // addContainerClassNames={[]}
@@ -101,7 +101,7 @@ const CarTable: React.FC = () => {
                 <MyLabeledSelect
                     id="filter-car-form__transmission-model"
                     labelCaption="Модель трансмиссии (производитель, артикул)"
-                    value={numberOfNullToString(transmission_model)}
+                    value={numberOrNullToString(transmission_model)}
                     setValue={(value) => setTransmissionModel(stringToNumberOrNull(value))}
                     options={transmissionModels}
                     // addContainerClassNames={[]}
@@ -109,7 +109,7 @@ const CarTable: React.FC = () => {
                 <MyLabeledSelect
                     id="filter-car-form__main-bridge-model"
                     labelCaption="Модель ведущего моста"
-                    value={numberOfNullToString(main_bridge_model)}
+                    value={numberOrNullToString(main_bridge_model)}
                     setValue={(value) => setMainBridgeModel(stringToNumberOrNull(value))}
                     options={mainBridgeModels}
                     // addContainerClassNames={[]}
@@ -117,7 +117,7 @@ const CarTable: React.FC = () => {
                 <MyLabeledSelect
                     id="filter-car-form__steerable-bridge-model"
                     labelCaption="Модель управляемого моста"
-                    value={numberOfNullToString(steerable_bridge_model)}
+                    value={numberOrNullToString(steerable_bridge_model)}
                     setValue={(value) => setSteerableBridgeModel(stringToNumberOrNull(value))}
                     options={steerableBridgeModels}
                     // addContainerClassNames={[]}

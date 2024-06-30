@@ -123,7 +123,7 @@ export interface Maintenance {
     operating_time: number; 
     work_order_num: string;
     work_order_date: string;
-    service_company: number;
+    service_company: number | null;
     service_company__name: string;
 }
 
@@ -181,7 +181,7 @@ export const defaultMaintenance: Maintenance = {
     type: -1,
     type__name: "",
     maintenance_date: "",
-    operating_time: -1,
+    operating_time: 0,
     work_order_num: "",
     work_order_date: "",
     service_company: -1,

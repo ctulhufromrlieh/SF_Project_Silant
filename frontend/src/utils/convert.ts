@@ -22,7 +22,7 @@ export const stringToNumberListed = (value: string, selectOptions: SelectOption[
     }
 }
 
-export const numberOfNullToString = (value: number | null): string => {
+export const numberOrNullToString = (value: number | null): string => {
     if (value === null) {
         return "";
     } else {
@@ -63,6 +63,9 @@ export const excludeMaintenanceBadFields = (maintenance: Maintenance): Object =>
     res["car__num"] = "";
     res["type__name"] = "";
     res["service_company__name"] = "";
+    if (res["service_company"] == -1) {
+        res["service_company"] = null;
+    }
 
     return deleteEmptyFileds(res);
 }

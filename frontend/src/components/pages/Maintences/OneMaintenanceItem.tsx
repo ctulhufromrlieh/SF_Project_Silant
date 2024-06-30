@@ -8,7 +8,7 @@ import { useNavigate, useParams } from "react-router";
 import Loader from "../../UI/Loader/Loader";
 import { AuxEntriesToSelectOptions as auxEntriesToSelectOptions, carsToSelectOptions, clientsToSelectOptions, serviceCompaniesToSelectOptions } from "../../../utils/ui";
 import MyLabeledSelect, { SelectOption } from "../../UI/MyLabeledSelect/MyLabeledSelect";
-import { numberOfNullToString, stringToNumber, stringToNumberOrNull, stringToNumberListed, dateTimeToDate } from "../../../utils/convert";
+import { numberOrNullToString, stringToNumber, stringToNumberOrNull, stringToNumberListed, dateTimeToDate } from "../../../utils/convert";
 import MyLabeledInput from "../../UI/MyLabeledInput/MyLabeledInput";
 import { AccountType, Car, Maintenance, defaultCar, defaultMaintenance } from "../../../types/api";
 import { useActions } from "../../../hooks/useActions";
@@ -21,7 +21,7 @@ interface OneMaintenanceItemProps {
 }
 
 const OneMaintenanceItem: React.FC<OneMaintenanceItemProps> = ({method, maintenance}) => {
-    const carItems = useTypedSelector(state => state.cars.items);
+    const carList = useTypedSelector(state => state.cars);
     const accountInfo = useTypedSelector(state => state.accountInfo);
     const auxEntries = useTypedSelector(state => state.auxEntries);
 
@@ -43,43 +43,12 @@ const OneMaintenanceItem: React.FC<OneMaintenanceItemProps> = ({method, maintena
     const [usedMaintenance, setUsedMaintenance] = useState(maintenanceInit);
     const navigate = useNavigate();
 
-    if (!auxEntries.isReady && !auxEntries.loading) {
+    // if (!auxEntries.isReady && !auxEntries.loading &&  !carList.ready && !carList.loading) {
+    if (!auxEntries.isReady || auxEntries.loading || !carList.ready || carList.loading) {
         return (
             <Loader/>
         );
     }
-
-    //     setUsedCar(car);
-    //     // usedCar = car;
-    // }
-
-    // if (cars.loading || auxEntries.loading) {
-    //     return (
-    //         <Loader/>
-    //     );
-    // }
-
-    // let carId = -1;
-    // if (id) {
-    //     carId = parseInt(id);
-    // }
-
-    // if (carId === -1) {
-    //     return (
-    //         <div>
-    //             id машины не задан
-    //         </div>);
-    // }
-
-    // console.log("cars = ", cars);
-    // const usedCar = cars.items.filter(item => item.id === carId)[0];
-
-    // if (cars.items.length === 0) {
-    //     return (
-    //         <div>
-    //             Нет машины с id = {carId}
-    //         </div>);
-    // }
 
     // const canWrite = [AccountType.ACCOUNT_TYPE_MANAGER, AccountType.ACCOUNT_TYPE_ADMIN].includes(accountInfo.accountType);
     const canWrite = isAllowedChange(ModelType.MODEL_TYPE_MAINTENANCE, accountInfo.accountType);
@@ -88,7 +57,7 @@ const OneMaintenanceItem: React.FC<OneMaintenanceItemProps> = ({method, maintena
     let types: SelectOption[] = [{ value: String(usedMaintenance.type), caption: usedMaintenance.type__name }];
     let serviceCompanies: SelectOption[] = [{ value: String(usedMaintenance.service_company), caption: usedMaintenance.service_company__name }];
     if (canWrite) {
-        cars = carsToSelectOptions(carItems, false).sort((a, b) => a.caption.localeCompare(b.caption));
+        cars = carsToSelectOptions(carList.items, false).sort((a, b) => a.caption.localeCompare(b.caption));
         types = auxEntriesToSelectOptions(auxEntries.maintenanceTypes, false);
         serviceCompanies = serviceCompaniesToSelectOptions(auxEntries.serviceCompanies, false);
         serviceCompanies.unshift({ value: String(-1), caption: "Самостоятельно"});
@@ -113,7 +82,9 @@ const OneMaintenanceItem: React.FC<OneMaintenanceItemProps> = ({method, maintena
         navigate("/maintenances");
     }
 
-    console.log("method = ", method);
+    // console.log("method = ", method);
+
+    console.log("stringToNumberListed(numberOfNullToString(usedMaintenance.car), cars)", stringToNumberListed(numberOrNullToString(usedMaintenance.car), cars));
 
     return (
         <div className={classes.page}>
@@ -122,7 +93,7 @@ const OneMaintenanceItem: React.FC<OneMaintenanceItemProps> = ({method, maintena
                 <MyLabeledSelect
                     id="one-maintenance-form__car"
                     labelCaption="Зав. № машины"
-                    value={numberOfNullToString(usedMaintenance.car)}
+                    value={numberOrNullToString(usedMaintenance.car)}
                     setValue={(value) => setUsedMaintenance({...usedMaintenance, car: stringToNumberListed(value, cars)})}
                     options={cars}
                     disabled={!canWrite}
@@ -131,7 +102,7 @@ const OneMaintenanceItem: React.FC<OneMaintenanceItemProps> = ({method, maintena
                 <MyLabeledSelect
                     id="one-maintenance-form__type"
                     labelCaption="Вид ТО"
-                    value={numberOfNullToString(usedMaintenance.type)}
+                    value={numberOrNullToString(usedMaintenance.type)}
                     setValue={(value) => setUsedMaintenance({...usedMaintenance, type: stringToNumberListed(value, types)})}
                     options={types}
                     disabled={!canWrite}
@@ -144,7 +115,15 @@ const OneMaintenanceItem: React.FC<OneMaintenanceItemProps> = ({method, maintena
                     value={dateTimeToDate(usedMaintenance.maintenance_date)}
                     setValue={(value) => setUsedMaintenance({...usedMaintenance, maintenance_date: value})} 
                     disabled={!canWrite}
-                />
+                /> 
+                <MyLabeledInput 
+                    id="one-maintenance-form__main-factory-operating-time"
+                    type="text"
+                    labelCaption="Наработка, м/час"
+                    value={usedMaintenance.operating_time}
+                    setValue={(value) => setUsedMaintenance({...usedMaintenance, operating_time: stringToNumber(value)})} 
+                    disabled={!canWrite}
+                /> operating_time
                 <MyLabeledInput 
                     id="one-maintenance-form__work-order-num"
                     type="text"
@@ -164,7 +143,7 @@ const OneMaintenanceItem: React.FC<OneMaintenanceItemProps> = ({method, maintena
                 <MyLabeledSelect
                     id="one-maintenance-form__service-company"
                     labelCaption="Организация, проводившая ТО"
-                    value={numberOfNullToString(usedMaintenance.service_company)}
+                    value={numberOrNullToString(usedMaintenance.service_company)}
                     setValue={(value) => setUsedMaintenance({...usedMaintenance, service_company: stringToNumberListed(value, serviceCompanies)})} 
                     options={serviceCompanies}
                     disabled={!canWrite}

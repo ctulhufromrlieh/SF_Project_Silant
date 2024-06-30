@@ -8,7 +8,7 @@ import { useNavigate, useParams } from "react-router";
 import Loader from "../../UI/Loader/Loader";
 import { AuxEntriesToSelectOptions as auxEntriesToSelectOptions, clientsToSelectOptions, serviceCompaniesToSelectOptions } from "../../../utils/ui";
 import MyLabeledSelect, { SelectOption } from "../../UI/MyLabeledSelect/MyLabeledSelect";
-import { numberOfNullToString, stringToNumber, stringToNumberOrNull, stringToNumberListed, dateTimeToDate } from "../../../utils/convert";
+import { numberOrNullToString, stringToNumber, stringToNumberOrNull, stringToNumberListed, dateTimeToDate } from "../../../utils/convert";
 import MyLabeledInput from "../../UI/MyLabeledInput/MyLabeledInput";
 import { AccountType, Car, defaultCar } from "../../../types/api";
 import { useActions } from "../../../hooks/useActions";
@@ -92,7 +92,7 @@ const OneCarItem: React.FC<OneCarItemProps> = ({method, car}) => {
                 <MyLabeledSelect
                     id="one-car-form__car-model"
                     labelCaption="Модель техники"
-                    value={numberOfNullToString(usedCar.car_model)}
+                    value={numberOrNullToString(usedCar.car_model)}
                     // setValue={(value) => usedCar.car_model = stringToNumber(value)}
                     // setValue={(value) => setUsedCar({...usedCar, car_model: stringToNumber(value)})}
                     setValue={(value) => setUsedCar({...usedCar, car_model: stringToNumberListed(value, carModels)})}
@@ -112,7 +112,7 @@ const OneCarItem: React.FC<OneCarItemProps> = ({method, car}) => {
                 <MyLabeledSelect
                     id="one-car-form__engine-model"
                     labelCaption="Модель двигателя"
-                    value={numberOfNullToString(usedCar.engine_model)}
+                    value={numberOrNullToString(usedCar.engine_model)}
                     // setValue={(value) => usedCar.engine_model = stringToNumber(value)}
                     // setValue={(value) => setUsedCar({...usedCar, engine_model: stringToNumber(value)})} 
                     setValue={(value) => setUsedCar({...usedCar, engine_model: stringToNumberListed(value, engineModels)})} 
@@ -132,7 +132,7 @@ const OneCarItem: React.FC<OneCarItemProps> = ({method, car}) => {
                 <MyLabeledSelect
                     id="one-car-form__transmission-model"
                     labelCaption="Модель трансмиссии (производитель, артикул)"
-                    value={numberOfNullToString(usedCar.transmission_model)}
+                    value={numberOrNullToString(usedCar.transmission_model)}
                     // setValue={(value) => usedCar.transmission_model = stringToNumber(value)}
                     // setValue={(value) => setUsedCar({...usedCar, transmission_model: stringToNumber(value)})} 
                     setValue={(value) => setUsedCar({...usedCar, transmission_model: stringToNumberListed(value, transmissionModels)})} 
@@ -152,7 +152,7 @@ const OneCarItem: React.FC<OneCarItemProps> = ({method, car}) => {
                 <MyLabeledSelect
                     id="one-car-form__main-bridge-model"
                     labelCaption="Модель ведущего моста"
-                    value={numberOfNullToString(usedCar.main_bridge_model)}
+                    value={numberOrNullToString(usedCar.main_bridge_model)}
                     // setValue={(value) => usedCar.main_bridge_model = stringToNumber(value)}
                     // setValue={(value) => setUsedCar({...usedCar, main_bridge_model: stringToNumber(value)})} 
                     setValue={(value) => setUsedCar({...usedCar, main_bridge_model: stringToNumberListed(value, mainBridgeModels)})} 
@@ -172,7 +172,7 @@ const OneCarItem: React.FC<OneCarItemProps> = ({method, car}) => {
                 <MyLabeledSelect
                     id="one-car-form__steerable-bridge-model"
                     labelCaption="Модель управляемого моста"
-                    value={numberOfNullToString(usedCar.steerable_bridge_model)}
+                    value={numberOrNullToString(usedCar.steerable_bridge_model)}
                     // setValue={(value) => usedCar.steerable_bridge_model = stringToNumber(value)}
                     // setValue={(value) => setUsedCar({...usedCar, steerable_bridge_model: stringToNumber(value)})} 
                     setValue={(value) => setUsedCar({...usedCar, steerable_bridge_model: stringToNumberListed(value, steerableBridgeModels)})} 
@@ -237,7 +237,7 @@ const OneCarItem: React.FC<OneCarItemProps> = ({method, car}) => {
                 <MyLabeledSelect
                     id="one-car-form__service-company"
                     labelCaption="Сервисная компания"
-                    value={numberOfNullToString(usedCar.service_company)}
+                    value={numberOrNullToString(usedCar.service_company)}
                     // setValue={(value) => usedCar.service_company = stringToNumber(value)}
                     // setValue={(value) => setUsedCar({...usedCar, service_company: stringToNumber(value)})} 
                     setValue={(value) => setUsedCar({...usedCar, service_company: stringToNumberListed(value, serviceCompanies)})} 
@@ -248,7 +248,7 @@ const OneCarItem: React.FC<OneCarItemProps> = ({method, car}) => {
                 <MyLabeledSelect
                     id="one-car-form__client"
                     labelCaption="Клиент"
-                    value={numberOfNullToString(usedCar.client)}
+                    value={numberOrNullToString(usedCar.client)}
                     // setValue={(value) => usedCar.client = stringToNumber(value)}
                     // setValue={(value) => setUsedCar({...usedCar, client: stringToNumber(value)})} 
                     setValue={(value) => setUsedCar({...usedCar, client: stringToNumberListed(value, clients)})} 

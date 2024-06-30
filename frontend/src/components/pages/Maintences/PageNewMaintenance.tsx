@@ -15,11 +15,11 @@ const PageNewMaintenance: React.FC = () => {
     const auxEntries = useTypedSelector(state => state.auxEntries);
     const { id } = useParams();
     
-    const { fetchAuxEntries, fetchMaintenances } = useActions();
+    const { fetchAuxEntries, fetchCars, fetchMaintenances } = useActions();
 
     useEffect(() => {
         fetchAuxEntries();
-        // fetchCars();
+        fetchCars();
     }, [auxEntries.isReady || auxEntries.loading || maintenances.loading || maintenances.ready]);
 
     if (!auxEntries.isReady && !auxEntries.loading) {

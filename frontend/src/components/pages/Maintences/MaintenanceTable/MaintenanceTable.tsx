@@ -14,7 +14,7 @@ import { AuxEntriesToSelectOptions } from "../../../../utils/ui";
 import MyLabeledInput from "../../../UI/MyLabeledInput/MyLabeledInput";
 import { ModelType, isAllowedChange } from "../../../../utils/permissions";
 import MyLabeledSelect from "../../../UI/MyLabeledSelect/MyLabeledSelect";
-import { dateTimeToDate, numberOfNullToString, stringToNumberOrNull } from "../../../../utils/convert";
+import { dateTimeToDate, numberOrNullToString, stringToNumberOrNull } from "../../../../utils/convert";
 
 const MaintenanceTable: React.FC = () => {
    
@@ -79,7 +79,7 @@ const MaintenanceTable: React.FC = () => {
                 <MyLabeledSelect
                     id="filter-maintenance-form__maintenance-type"
                     labelCaption="Вид ТО"
-                    value={numberOfNullToString(type)}
+                    value={numberOrNullToString(type)}
                     setValue={(value) => setMType(stringToNumberOrNull(value))}
                     options={maintenanceTypes}
                     // addContainerClassNames={[]}

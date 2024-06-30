@@ -11,7 +11,7 @@ import ReclamationItem from "./ReclamationItem/ReclamationItem";
 import MyLabeledSelect, { SelectOption } from "../../../../UI/MyLabeledSelect/MyLabeledSelect";
 import { AuxEntry, Reclamation } from "../../../../../types/api";
 import { AuxEntriesToSelectOptions } from "../../../../../utils/ui";
-import { numberOfNullToString, stringToNumberOrNull } from "../../../../../utils/convert";
+import { numberOrNullToString, stringToNumberOrNull } from "../../../../../utils/convert";
 import { ChangeSortTypeProc, SortMethod, sortObjects } from "../../../../../utils/sort";
 
 const ReclamationTable: React.FC = () => {
@@ -60,7 +60,7 @@ const ReclamationTable: React.FC = () => {
                 <MyLabeledSelect
                     id="filter-reclamation-form__failure-node"
                     labelCaption="Узел отказа"
-                    value={numberOfNullToString(failure_node)}
+                    value={numberOrNullToString(failure_node)}
                     setValue={(value) => setRFailureNode(stringToNumberOrNull(value))}
                     options={failureNodes}
                     // addContainerClassNames={[]}
@@ -68,7 +68,7 @@ const ReclamationTable: React.FC = () => {
                 <MyLabeledSelect
                     id="filter-reclamation-form__recovery-method"
                     labelCaption="Способ восстановления"
-                    value={numberOfNullToString(recovery_method)}
+                    value={numberOrNullToString(recovery_method)}
                     setValue={(value) => setRRecoveryMethod(stringToNumberOrNull(value))}
                     options={recoveryMethods}
                     // addContainerClassNames={[]}
