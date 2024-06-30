@@ -15,6 +15,10 @@ export const carsReducer = (state = initialState, action: CarsAction): CarsState
             return { loading: false, error: null, items: action.payload, ready: true, };
         case CarsActionTypes.FETCH_CARS_ERROR:
             return { loading: false, error: action.payload, items: [], ready: false, };
+        case CarsActionTypes.CREATE_CAR:
+            return { loading: true, error: null, items: [], ready: false, };
+        case CarsActionTypes.UPDATE_CAR:
+            return { loading: true, error: null, items: [], ready: false, };
         case CarsActionTypes.RESET_CARS:
             return {loading: false, error: null, items: [], ready: false, };
         default:

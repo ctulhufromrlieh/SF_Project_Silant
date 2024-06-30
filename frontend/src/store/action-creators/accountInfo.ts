@@ -4,13 +4,18 @@ import axios from "axios";
 import { checkAuth } from "../../utils/auth";
 import { baseAccUrl } from "../../types/api";
 import { AccountInfoAction, AccountInfoActionTypes } from "../../types/accountInfo";
+import { RootState } from "../reducers";
 // import { Action, BalanceActionTypes } from "../../types/balance";
 
-export const fetchAccountInfo = (token: string) => {
-    return async (dispatch: Dispatch<AccountInfoAction>) => {
+export const fetchAccountInfo = () => {
+    return async (dispatch: Dispatch<AccountInfoAction>, getState: () => RootState) => {
         try {
-            console.log("fetchAccountInfo: token = ", token);
+            // console.log("fetchAccountInfo: token = ", token);
             checkAuth();
+
+            const state = getState();
+            // const isLogined = state.account.isLogined;
+            const token = state.account.token;
 
             const headers = {
               'Content-type': 'application/json',

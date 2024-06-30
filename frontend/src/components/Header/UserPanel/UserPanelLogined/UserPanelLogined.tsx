@@ -19,7 +19,8 @@ const UserPanelLogined: React.FC = () => {
     const {fetchAccountInfo, fetchAuxEntries} = useActions();
     useEffect(() => {
         if (!account.loading) {
-            fetchAccountInfo(account.token);
+            // fetchAccountInfo(account.token);
+            fetchAccountInfo();
             fetchAuxEntries();
         }
     }, [account.isLogined]);

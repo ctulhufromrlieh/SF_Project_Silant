@@ -52,25 +52,29 @@ class RecoveryMethodSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'description',)
         
 class CarSerializerSimple(serializers.ModelSerializer):
-    car_model__name = serializers.CharField(source='car_model.name')
-    engine_model__name = serializers.CharField(source='engine_model.name')
-    transmission_model__name = serializers.CharField(source='transmission_model.name')
-    main_bridge_model__name = serializers.CharField(source='main_bridge_model.name')
-    steerable_bridge_model__name = serializers.CharField(source='steerable_bridge_model.name')
+    car_model__name = serializers.CharField(source='car_model.name', required=False, allow_null=True, )
+    engine_model__name = serializers.CharField(source='engine_model.name', required=False, allow_null=True, )
+    transmission_model__name = serializers.CharField(source='transmission_model.name', required=False, allow_null=True, )
+    main_bridge_model__name = serializers.CharField(source='main_bridge_model.name', required=False, allow_null=True, )
+    steerable_bridge_model__name = serializers.CharField(source='steerable_bridge_model.name', required=False, allow_null=True, )
 
     class Meta:
         model = Car
         fields = ('id', 'car_model__name', 'car_num', 'engine_model__name', 'engine_num', 'transmission_model__name', 'transmission_num', 
                  'main_bridge_model__name', 'main_bridge_num', 'steerable_bridge_model__name', 'steerable_bridge_num', )
-
+        
 class CarSerializer(serializers.ModelSerializer):
-    car_model__name = serializers.CharField(source='car_model.name')
-    engine_model__name = serializers.CharField(source='engine_model.name')
-    transmission_model__name = serializers.CharField(source='transmission_model.name')
-    main_bridge_model__name = serializers.CharField(source='main_bridge_model.name')
-    steerable_bridge_model__name = serializers.CharField(source='steerable_bridge_model.name')
-    client__name = serializers.CharField(source='client.name')
-    service_company__name = serializers.CharField(source='service_company.name')
+    car_model__name = serializers.CharField(source='car_model.name', required=False, allow_null=True, )
+    engine_model__name = serializers.CharField(source='engine_model.name', required=False, allow_null=True, )
+    transmission_model__name = serializers.CharField(source='transmission_model.name', required=False, allow_null=True, )
+    main_bridge_model__name = serializers.CharField(source='main_bridge_model.name', required=False, allow_null=True, )
+    steerable_bridge_model__name = serializers.CharField(source='steerable_bridge_model.name', required=False, allow_null=True, )
+    client__name = serializers.CharField(source='client.name', required=False, allow_null=True, )
+    service_company__name = serializers.CharField(source='service_company.name', required=False, allow_null=True, )
+
+    # def get_validation_exclusions(self):
+    #     exclusions = super(FavoriteListSerializer, self).get_validation_exclusions()
+    #     return exclusions + ['owner']
 
     class Meta:
         model = Car

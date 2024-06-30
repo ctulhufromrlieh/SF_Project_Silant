@@ -36,14 +36,17 @@ export const fetchAuxEntries = () => {
             try {
                 const responseClients = await axios.get(`${baseApiUrl}/clients`, {headers: headers});
                 dataClients = responseClients.data;
-            } catch {
+            } catch (e) {
+                console.log("fetchAuxEntries: get clients")
                 // dataClients = [];
             }
             
             let dataServiceCompanies: ServiceCompany[] = [];
             try {
                 const responseServiceCompanies = await axios.get(`${baseApiUrl}/service_companies`, {headers: headers});
-            } catch {
+                dataServiceCompanies = responseServiceCompanies.data;
+            } catch (e) {
+                console.log("fetchAuxEntries: get service_companies")
                 // dataServiceCompanies = [];
             }
             

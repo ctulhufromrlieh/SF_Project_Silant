@@ -4,10 +4,12 @@ export const baseAccUrl: string = `${baseUrl}/api/accounts`;
 export const localStorageIdToken = 'silant_account_accessToken';
 
 export interface Client {
+    id: number;
     name: string;
 }
 
 export interface ServiceCompany {
+    id: number;
     name: string;
     description: string;
 }
@@ -142,4 +144,32 @@ export interface Reclamation {
     repair_parts: string;
     recovery_date: string;
     downtime: number;
+}
+
+export const defaultCar: Car = {
+    id: -1,
+    car_model: -1,
+    car_model__name: "",
+    car_num: "",
+    engine_model: -1,
+    engine_model__name: "",
+    engine_num: "",
+    transmission_model: -1,
+    transmission_model__name: "",
+    transmission_num: "",
+    main_bridge_model: -1,
+    main_bridge_model__name: "",
+    main_bridge_num: "",
+    steerable_bridge_model: -1,
+    steerable_bridge_model__name: "",
+    steerable_bridge_num: "",
+    supply_agreement: "",
+    factory_shipment_date: "",
+    consignee: "",
+    shipment_address: "",
+    add_options: "",
+    client: -1,
+    client__name: "",
+    service_company: -1,
+    service_company__name: "",
 }

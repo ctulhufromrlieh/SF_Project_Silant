@@ -38,8 +38,6 @@ const CarItem: React.FC<CarItemProps> = ({index, id, car_model__name, car_num, e
 
     const hasSortButtons = (index == -1);
 
-    // console.log("index = ", index);
-
     const getElem = (propName: string): ReactElement => {
         if (hasSortButtons && sortElements && changeSortTypeProc) {
             const value = getSortMethod(sortElements, propName);
@@ -58,36 +56,6 @@ const CarItem: React.FC<CarItemProps> = ({index, id, car_model__name, car_num, e
 
     }
 
-    // return (
-    //     <div className={classes.item}>
-    //         <div className={classes.id}>
-    //             <Link to={`/cars/${id}`}>
-    //                 {
-    //                     index != -1 
-    //                 ?
-    //                 index + 1 
-    //                 :
-    //                     null}
-    //             </Link>
-    //         </div>
-    //         <div className={classes.car_model__name}>{car_model__name}</div>
-    //         <div className={classes.car_num}>{car_num}</div>
-    //         <div className={classes.engine_model__name}>{engine_model__name}</div>
-    //         <div className={classes.engine_num}>{engine_num}</div>
-    //         <div className={classes.transmission_model__name}>{transmission_model__name}</div>
-    //         <div className={classes.transmission_num}>{transmission_num}</div>
-    //         <div className={classes.main_bridge_model__name}>{main_bridge_model__name}</div>
-    //         <div className={classes.main_bridge_num}>{main_bridge_num}</div>
-    //         <div className={classes.steerable_bridge_model__name}>{steerable_bridge_model__name}</div>
-    //         <div className={classes.steerable_bridge_num}>{steerable_bridge_num}</div>
-    //         <div className={classes.factory_shipment_date}>{factory_shipment_date}</div>
-    //         <div className={classes.consignee}>{consignee}</div>
-    //         <div className={classes.shipment_address}>{shipment_address}</div>
-    //         <div className={classes.add_options}>{add_options}</div>
-    //         <div className={classes.client__name}>{client__name}</div>
-    //         <div className={classes.service_company__name}>{service_company__name}</div>
-    //     </div>
-    // );
     return (
         <div className={classes.item}>
             <div className={classes.id}>

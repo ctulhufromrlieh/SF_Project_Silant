@@ -1,19 +1,19 @@
 import React, { useEffect } from "react";
 
-import classes from "./PageOneCar.module.scss";
+import classes from "./PageNewCar.module.scss";
 // import commonClasses from "../../../styles/common.module.scss";
 
 // import { Link } from "react-router-dom";
 // import { useTypedSelector } from "../../../hooks/useTypedSelector";
-import CarTable from "./LoginedPanel/CarTable/CarTable";
+// import CarTable from "./LoginedPanel/CarTable/CarTable";
 import { useTypedSelector } from "../../../hooks/useTypedSelector";
 import { useParams } from "react-router";
 import Loader from "../../UI/Loader/Loader";
-import { AuxEntriesToSelectOptions } from "../../../utils/ui";
-import MyLabeledSelect, { SelectOption } from "../../UI/MyLabeledSelect/MyLabeledSelect";
-import { numberOfNullToString, stringToNumber, stringToNumberOrNull } from "../../../utils/convert";
-import MyLabeledInput from "../../UI/MyLabeledInput/MyLabeledInput";
-import { AccountType, Car } from "../../../types/api";
+// import { AuxEntriesToSelectOptions } from "../../../utils/ui";
+// import MyLabeledSelect, { SelectOption } from "../../UI/MyLabeledSelect/MyLabeledSelect";
+// import { numberOfNullToString, stringToNumber, stringToNumberOrNull } from "../../../utils/convert";
+// import MyLabeledInput from "../../UI/MyLabeledInput/MyLabeledInput";
+import { AccountType, Car, defaultCar } from "../../../types/api";
 import { useActions } from "../../../hooks/useActions";
 import { SingleElemMethod } from "../../../types/common";
 import OneCarItem from "./OneCarItem";
@@ -23,7 +23,7 @@ import OneCarItem from "./OneCarItem";
 //     car?: Car | null,
 // }
 
-const PageOneCar: React.FC = () => {
+const PageNewCar: React.FC = () => {
     const cars = useTypedSelector(state => state.cars);
     const accountInfo = useTypedSelector(state => state.accountInfo);
     const auxEntries = useTypedSelector(state => state.auxEntries);
@@ -31,9 +31,14 @@ const PageOneCar: React.FC = () => {
     
     const { fetchAuxEntries, fetchCars } = useActions();
 
+    // useEffect(() => {
+    //     fetchAuxEntries();
+    //     fetchCars();
+    // }, [auxEntries.isReady || auxEntries.loading || cars.loading || cars.ready]);
+
     useEffect(() => {
         fetchAuxEntries();
-        fetchCars();
+        // fetchCars();
     }, [auxEntries.isReady || auxEntries.loading || cars.loading || cars.ready]);
 
     if (!auxEntries.isReady && !auxEntries.loading) {
@@ -42,39 +47,41 @@ const PageOneCar: React.FC = () => {
         );
     }
 
-    if (cars.loading || auxEntries.loading) {
-        return (
-            <Loader/>
-        );
-    }
+    // if (cars.loading || auxEntries.loading) {
+    //     return (
+    //         <Loader/>
+    //     );
+    // }
 
-    let carId = -1;
-    if (id) {
-        carId = parseInt(id);
-    }
+    // let carId = -1;
+    // if (id) {
+    //     carId = parseInt(id);
+    // }
 
-    if (carId === -1) {
-        return (
-            <div>
-                id машины не задан
-            </div>);
-    }
+    // if (carId === -1) {
+    //     return (
+    //         <div>
+    //             id машины не задан
+    //         </div>);
+    // }
 
-    // console.log("cars = ", cars);
-    const car = cars.items.filter(item => item.id === carId)[0];    
+    // // console.log("cars = ", cars);
+    // const car = cars.items.filter(item => item.id === carId)[0];    
 
-    if (cars.items.length === 0) {
-        return (
-            <div>
-                Нет машины с id = {carId}
-            </div>);
-    }
+    // if (cars.items.length === 0) {
+    //     return (
+    //         <div>
+    //             Нет машины с id = {carId}
+    //         </div>);
+    // }
 
-    const method = SingleElemMethod.SINGLE_ELEM_METHOD_UPDATE;
     // let method = SingleElemMethod.SINGLE_ELEM_METHOD_VIEW;
-    // if ([AccountType.ACCOUNT_TYPE_ADMIN, AccountType.ACCOUNT_TYPE_MANAGER].includes(accountInfo.accountType)){
+    // if (accountInfo.accountType in [AccountType.ACCOUNT_TYPE_ADMIN, AccountType.ACCOUNT_TYPE_MANAGER]){
     //     method = SingleElemMethod.SINGLE_ELEM_METHOD_UPDATE;
     // }
+
+    const car = defaultCar;
+    const method = SingleElemMethod.SINGLE_ELEM_METHOD_CREATE;
 
     return (<OneCarItem car={car} method={method}/>);
 
@@ -247,4 +254,4 @@ const PageOneCar: React.FC = () => {
     // );
 }
 
-export default PageOneCar;
+export default PageNewCar;

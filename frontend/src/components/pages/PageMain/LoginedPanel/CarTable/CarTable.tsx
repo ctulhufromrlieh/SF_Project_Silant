@@ -10,18 +10,33 @@ import { useActions } from "../../../../../hooks/useActions";
 import Loader from "../../../../UI/Loader/Loader";
 import CarItem from "./CarItem/CarItem";
 import MyLabeledSelect, { SelectOption } from "../../../../UI/MyLabeledSelect/MyLabeledSelect";
-import { AuxEntry, Car } from "../../../../../types/api";
+import { AccountType, AuxEntry, Car } from "../../../../../types/api";
 import { AuxEntriesToSelectOptions } from "../../../../../utils/ui";
 import { numberOfNullToString, stringToNumberOrNull } from "../../../../../utils/convert";
 import { ChangeSortTypeProc, SortMethod, cloneObjects, sortObjects } from "../../../../../utils/sort";
+import { ModelType, isAllowedChange } from "../../../../../utils/permissions";
 
 const CarTable: React.FC = () => {
 
     const {car_num, car_model, engine_model, transmission_model, main_bridge_model, steerable_bridge_model} = useTypedSelector(state => state.filterCar);
-    const {setCarNum, setCarModel, setEngineModel, setTransmissionModel, setMainBridgeModel, setSteerableBridgeModel, fetchCars, sortCarChangeSortType} = useActions();
-    const {sortElems} = useTypedSelector(state => state.sortCar)
-    const cars = useTypedSelector(state => state.cars)
-    const auxEntries = useTypedSelector(state => state.auxEntries)
+    const {setCarNum, setCarModel, setEngineModel, setTransmissionModel, setMainBridgeModel, setSteerableBridgeModel, 
+        fetchCars, fetchAccountInfo, fetchAuxEntries, sortCarChangeSortType} = useActions();
+    const {sortElems} = useTypedSelector(state => state.sortCar);
+    const accountInfo = useTypedSelector(state => state.accountInfo)
+    const cars = useTypedSelector(state => state.cars);
+    const auxEntries = useTypedSelector(state => state.auxEntries);
+
+    // useEffect(() => {
+    //     fetchAccountInfo();
+    //     fetchAuxEntries();
+    //     fetchCars();
+    // }, [auxEntries.isReady, auxEntries.loading, cars.loading, cars.ready, accountInfo.accountType, accountInfo.loading ]);
+
+    const fullRefreshCars = () => {
+        fetchAccountInfo();
+        fetchAuxEntries();
+        fetchCars();
+    }
 
     const propNames: string[] = ["car_model__name", "car_num", "engine_model__name", "engine_num", "transmission_model__name", "transmission_num",
         "main_bridge_model__name", "main_bridge_num", "steerable_bridge_model__name", "steerable_bridge_num", "factory_shipment_date", "consignee",
@@ -29,7 +44,7 @@ const CarTable: React.FC = () => {
 
     let sortedCars = sortObjects<Car>(cars.items, sortElems, propNames);
 
-    if (cars.loading || auxEntries.loading) {
+    if (accountInfo.loading || cars.loading || auxEntries.loading) {
         return (
             <Loader/>
         );
@@ -44,6 +59,12 @@ const CarTable: React.FC = () => {
     const changeSortTypeProc: ChangeSortTypeProc = (propName: string, sortMethod: SortMethod): void => {
         sortCarChangeSortType(propName, sortMethod);
     }
+
+    // const canAddNew = accountInfo.accountType in [AccountType.ACCOUNT_TYPE_ADMIN, AccountType.ACCOUNT_TYPE_MANAGER];
+    // const canAddNew = [AccountType.ACCOUNT_TYPE_ADMIN, AccountType.ACCOUNT_TYPE_MANAGER].includes(accountInfo.accountType);
+    const canAddNew = isAllowedChange(ModelType.MODEL_TYPE_CAR, accountInfo.accountType);
+    // console.log("accountInfo.accountType = ", accountInfo.accountType);
+    // console.log("canAddNew = ", canAddNew);
 
     return (
         <div>
@@ -95,7 +116,8 @@ const CarTable: React.FC = () => {
                     options={steerableBridgeModels}
                     // addContainerClassNames={[]}
                 />
-                <button onClick={() => fetchCars()}>Search</button>
+                {/* <button onClick={() => fetchCars()}>Search</button> */}
+                <button onClick={() => fullRefreshCars()}>Искать</button>
             </div>
             <div className={classes.car_table}>
                 <CarItem  
@@ -126,6 +148,15 @@ const CarTable: React.FC = () => {
                 {sortedCars.map((item, index) => 
                     <CarItem key={item.id} {...item} index={index} id={item.id} />
                 )}
+            </div>
+            <div>
+                {
+                    canAddNew 
+                ? 
+                    <Link to={`/cars/new`}>Новая машина</Link>
+                :
+                    null
+                }
             </div>
         </div>
     );

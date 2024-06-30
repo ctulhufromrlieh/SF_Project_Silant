@@ -29,7 +29,8 @@ export const isValidAuth = (): boolean => {
 }
 
 export const checkAuth = () => {
-    if (!isValidAuth()) {
-        return window.location.replace(loginUrl);
-    }
+    return true;
+    // if (!isValidAuth()) {
+    //     return window.location.replace(loginUrl);
+    // }
 }
