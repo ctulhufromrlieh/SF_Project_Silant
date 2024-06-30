@@ -25,6 +25,8 @@ SECRET_KEY = 'django-insecure-bpz(g0kw9pej*gb48(naj+*$8olj2(@m(m_xdyf#k$$bdj-)r(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# DATETIME_FORMAT="%Y-%m-%d"
+
 # ALLOWED_HOSTS = [
 #     'localhost',
 #     'localhost:3000',

@@ -1,38 +1,52 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import classes from "./MaintenanceTable.module.scss";
 // import commonClasses from "../../../styles/common.module.scss";
 
 import { Link } from "react-router-dom";
-import MyLabeledInput from "../../../../UI/MyLabeledInput/MyLabeledInput";
-import { useTypedSelector } from "../../../../../hooks/useTypedSelector";
-import { useActions } from "../../../../../hooks/useActions";
-import Loader from "../../../../UI/Loader/Loader";
 import MaintenanceItem from "./MaintenanceItem/MaintenanceItem";
-import MyLabeledSelect, { SelectOption } from "../../../../UI/MyLabeledSelect/MyLabeledSelect";
-import { AuxEntry, Maintenance } from "../../../../../types/api";
-import { AuxEntriesToSelectOptions } from "../../../../../utils/ui";
-import { numberOfNullToString, stringToNumberOrNull } from "../../../../../utils/convert";
-import { ChangeSortTypeProc, SortMethod, sortObjects } from "../../../../../utils/sort";
+import { useTypedSelector } from "../../../../hooks/useTypedSelector";
+import { useActions } from "../../../../hooks/useActions";
+import Loader from "../../../UI/Loader/Loader";
+import { ChangeSortTypeProc, SortMethod, sortObjects } from "../../../../utils/sort";
+import { Maintenance } from "../../../../types/api";
+import { AuxEntriesToSelectOptions } from "../../../../utils/ui";
+import MyLabeledInput from "../../../UI/MyLabeledInput/MyLabeledInput";
+import { ModelType, isAllowedChange } from "../../../../utils/permissions";
+import MyLabeledSelect from "../../../UI/MyLabeledSelect/MyLabeledSelect";
+import { dateTimeToDate, numberOfNullToString, stringToNumberOrNull } from "../../../../utils/convert";
 
 const MaintenanceTable: React.FC = () => {
    
     const {car_num, service_company__name, type} = useTypedSelector(state => state.filterMaintenance);
-    const {setMCarNum, setMServiceCompanyName, setMType, fetchMaintenances, sortMaintenanceChangeSortType} = useActions();
+    const {setMCarNum, setMServiceCompanyName, setMType, fetchAccountInfo, fetchAuxEntries, fetchMaintenances, sortMaintenanceChangeSortType} = useActions();
     const {sortElems} = useTypedSelector(state => state.sortMaintenance)
+    const accountInfo = useTypedSelector(state => state.accountInfo)
     const maintenances = useTypedSelector(state => state.maintenances)
     const auxEntries = useTypedSelector(state => state.auxEntries)    
 
-    if (maintenances.loading || auxEntries.loading) {
-        return (
-            <Loader/>
-        );
+    useEffect(() => {
+        fetchAccountInfo();
+        fetchAuxEntries();
+        fetchMaintenances();
+    }, []);
+
+    const fullRefreshMaintenances = () => {
+        fetchAccountInfo();
+        fetchAuxEntries();
+        fetchMaintenances();
     }
 
     const propNames: string[] = ["car__num", "type__name", "maintenance_date", 
         "operating_time", "work_order_num",  "work_order_date", "service_company__name",];
 
     let sortedMaintenances = sortObjects<Maintenance>(maintenances.items, sortElems, propNames);
+
+    if (accountInfo.loading || maintenances.loading || auxEntries.loading) {
+        return (
+            <Loader/>
+        );
+    }
 
     const maintenanceTypes = AuxEntriesToSelectOptions(auxEntries.maintenanceTypes, true);
 
@@ -42,6 +56,8 @@ const MaintenanceTable: React.FC = () => {
     const changeSortTypeProc: ChangeSortTypeProc = (propName: string, sortMethod: SortMethod): void => {
         sortMaintenanceChangeSortType(propName, sortMethod);
     }
+
+    const canAddNew = isAllowedChange(ModelType.MODEL_TYPE_MAINTENANCE, accountInfo.accountType);
 
     return (
         <div>
@@ -68,7 +84,8 @@ const MaintenanceTable: React.FC = () => {
                     options={maintenanceTypes}
                     // addContainerClassNames={[]}
                 />
-                <button onClick={() => fetchMaintenances()}>Search</button>
+                {/* <button onClick={() => fetchMaintenances()}>Search</button> */}
+                <button onClick={() => fullRefreshMaintenances()}>Искать</button>
             </div>
             <div className={classes.maintenance_table}>
                 <MaintenanceItem  
@@ -88,8 +105,18 @@ const MaintenanceTable: React.FC = () => {
                     <MaintenanceItem key={item.id} {...item} index={index} id={index} operating_time_s={String(item.operating_time)} />
                 )} */}
                 {sortedMaintenances.map((item, index) => 
-                    <MaintenanceItem key={item.id} {...item} index={index} id={item.id} operating_time_s={String(item.operating_time)} />
+                    <MaintenanceItem key={item.id} {...item} index={index} id={item.id} operating_time_s={String(item.operating_time)} 
+                        maintenance_date={dateTimeToDate(item.maintenance_date)} work_order_date={dateTimeToDate(item.work_order_date)} />
                 )}
+            </div>
+            <div>
+                {
+                    canAddNew 
+                ? 
+                    <Link to={`/maintenances/new`}>Новое ТО</Link>
+                :
+                    null
+                }
             </div>
         </div>
     );

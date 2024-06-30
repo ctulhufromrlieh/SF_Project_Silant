@@ -13,7 +13,7 @@ export enum CarsActionTypes {
     FETCH_CARS_ERROR = "FETCH_CARS_ERROR",
     CREATE_CAR = "CREATE_CAR",
     UPDATE_CAR = "UPDATE_CAR",
-    DELETE_CAR = "UPDATE_CAR",
+    DELETE_CAR = "DELETE_CAR",
     RESET_CARS = "RESET_CARS",
 }
 

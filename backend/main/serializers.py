@@ -89,10 +89,10 @@ class CarSerializer(serializers.ModelSerializer):
 
 class MaintenanceSerializer(serializers.ModelSerializer):
     # car__id = serializers.IntegerField(source='car.id')
-    car__num = serializers.CharField(source='car.car_num')
-    type__name = serializers.CharField(source='type.name')
+    car__num = serializers.CharField(source='car.car_num', required=False, allow_null=True, )
+    type__name = serializers.CharField(source='type.name', required=False, allow_null=True, )
     # service_company__id = serializers.SerializerMethodField()
-    service_company__name = serializers.SerializerMethodField()
+    service_company__name = serializers.SerializerMethodField(required=False, allow_null=True, )
 
     class Meta:
         model = Maintenance

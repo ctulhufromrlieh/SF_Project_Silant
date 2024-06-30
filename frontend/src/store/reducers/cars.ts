@@ -19,6 +19,8 @@ export const carsReducer = (state = initialState, action: CarsAction): CarsState
             return { loading: true, error: null, items: [], ready: false, };
         case CarsActionTypes.UPDATE_CAR:
             return { loading: true, error: null, items: [], ready: false, };
+        case CarsActionTypes.DELETE_CAR:
+            return { loading: true, error: null, items: [], ready: false, };
         case CarsActionTypes.RESET_CARS:
             return {loading: false, error: null, items: [], ready: false, };
         default:

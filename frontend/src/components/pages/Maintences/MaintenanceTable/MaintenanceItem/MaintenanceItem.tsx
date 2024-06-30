@@ -1,9 +1,9 @@
 import React, { ReactElement } from "react";
 
 import classes from "./MaintenanceItem.module.scss";
-import { ChangeSortTypeProc, SortElement, SortMethod, getSortMethod } from "../../../../../../utils/sort";
-import SortButton from "../../../../../UI/SortButton/SortButton";
 import { Link } from "react-router-dom";
+import { ChangeSortTypeProc, SortElement, SortMethod, getSortMethod } from "../../../../../utils/sort";
+import SortButton from "../../../../UI/SortButton/SortButton";
 
 interface MaintenanceItemProps {
     index: number;

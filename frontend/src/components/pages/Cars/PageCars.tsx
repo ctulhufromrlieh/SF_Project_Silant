@@ -5,7 +5,7 @@ import classes from "./PageCars.module.scss";
 
 // import { Link } from "react-router-dom";
 // import { useTypedSelector } from "../../../hooks/useTypedSelector";
-import CarTable from "./LoginedPanel/CarTable/CarTable";
+import CarTable from "../Cars/CarTable/CarTable";
 
 const PageCars: React.FC = () => {
     // const {isLogined, token, loading, error} = useTypedSelector(state => state.account);

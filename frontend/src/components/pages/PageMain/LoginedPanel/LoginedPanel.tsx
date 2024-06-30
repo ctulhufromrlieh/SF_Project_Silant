@@ -1,7 +1,7 @@
 import React from "react";
 
 import classes from "./LoginedPane.module.scss";
-import CarTable from "./CarTable/CarTable";
+import CarTable from "../../Cars/CarTable/CarTable";
 // import commonClasses from "../../../styles/common.module.scss";
 
 const LoginedPanel: React.FC = () => {

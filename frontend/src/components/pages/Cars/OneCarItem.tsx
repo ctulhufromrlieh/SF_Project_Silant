@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 
 import classes from "./OneCarItem.module.scss";
 
-import CarTable from "./LoginedPanel/CarTable/CarTable";
+import CarTable from "../Cars/CarTable/CarTable";
 import { useTypedSelector } from "../../../hooks/useTypedSelector";
 import { useNavigate, useParams } from "react-router";
 import Loader from "../../UI/Loader/Loader";
 import { AuxEntriesToSelectOptions as auxEntriesToSelectOptions, clientsToSelectOptions, serviceCompaniesToSelectOptions } from "../../../utils/ui";
 import MyLabeledSelect, { SelectOption } from "../../UI/MyLabeledSelect/MyLabeledSelect";
-import { numberOfNullToString, stringToNumber, stringToNumberOrNull, stringToNumberListed } from "../../../utils/convert";
+import { numberOfNullToString, stringToNumber, stringToNumberOrNull, stringToNumberListed, dateTimeToDate } from "../../../utils/convert";
 import MyLabeledInput from "../../UI/MyLabeledInput/MyLabeledInput";
 import { AccountType, Car, defaultCar } from "../../../types/api";
 import { useActions } from "../../../hooks/useActions";
@@ -26,14 +26,6 @@ const OneCarItem: React.FC<OneCarItemProps> = ({method, car}) => {
     const auxEntries = useTypedSelector(state => state.auxEntries);
 
     const { createCar, updateCar, deleteCar } = useActions();
-    // const { id } = useParams();
-    
-    // const { fetchAuxEntries, fetchCars } = useActions();
-
-    // useEffect(() => {
-    //     fetchAuxEntries();
-    //     fetchCars();
-    // }, [auxEntries.isReady || auxEntries.loading || cars.loading || cars.ready]);
 
     let carInit = defaultCar;
     if (car) {
@@ -48,40 +40,6 @@ const OneCarItem: React.FC<OneCarItemProps> = ({method, car}) => {
             <Loader/>
         );
     }
-
-    // let usedCar: Car = defaultCar;
-    // if (car) {
-    //     setUsedCar(car);
-    //     // usedCar = car;
-    // }
-
-    // if (cars.loading || auxEntries.loading) {
-    //     return (
-    //         <Loader/>
-    //     );
-    // }
-
-    // let carId = -1;
-    // if (id) {
-    //     carId = parseInt(id);
-    // }
-
-    // if (carId === -1) {
-    //     return (
-    //         <div>
-    //             id машины не задан
-    //         </div>);
-    // }
-
-    // console.log("cars = ", cars);
-    // const usedCar = cars.items.filter(item => item.id === carId)[0];
-
-    // if (cars.items.length === 0) {
-    //     return (
-    //         <div>
-    //             Нет машины с id = {carId}
-    //         </div>);
-    // }
 
     // const canWrite = [AccountType.ACCOUNT_TYPE_MANAGER, AccountType.ACCOUNT_TYPE_ADMIN].includes(accountInfo.accountType);
     const canWrite = isAllowedChange(ModelType.MODEL_TYPE_CAR, accountInfo.accountType);
@@ -130,7 +88,7 @@ const OneCarItem: React.FC<OneCarItemProps> = ({method, car}) => {
     return (
         <div className={classes.page}>
             <h2>Машина</h2>
-            <div className={classes.car_filter}>
+            <div className={classes.car_form}>
                 <MyLabeledSelect
                     id="one-car-form__car-model"
                     labelCaption="Модель техники"
@@ -244,7 +202,7 @@ const OneCarItem: React.FC<OneCarItemProps> = ({method, car}) => {
                     id="one-car-form__main-factory-shipment-date"
                     type="date"
                     labelCaption="Дата отгрузки с завода"
-                    value={usedCar.factory_shipment_date}
+                    value={dateTimeToDate(usedCar.factory_shipment_date)}
                     // setValue={(value) => usedCar.factory_shipment_date = value} 
                     setValue={(value) => setUsedCar({...usedCar, factory_shipment_date: value})} 
                     disabled={!canWrite}
@@ -288,7 +246,7 @@ const OneCarItem: React.FC<OneCarItemProps> = ({method, car}) => {
                     // addContainerClassNames={[]}
                 />
                 <MyLabeledSelect
-                    id="one-car-form__service-company"
+                    id="one-car-form__client"
                     labelCaption="Клиент"
                     value={numberOfNullToString(usedCar.client)}
                     // setValue={(value) => usedCar.client = stringToNumber(value)}

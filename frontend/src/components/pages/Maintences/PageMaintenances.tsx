@@ -1,9 +1,10 @@
 import React from "react";
 
 import classes from "./PageMaintenances.module.scss";
-import MaintenanceTable from "../Maintences/MaintenanceTable/MaintenanceTable";
 
-const PageMaintenances: React.FC = () => {
+import MaintenanceTable from "./MaintenanceTable/MaintenanceTable";
+
+const PageCars: React.FC = () => {
     // const {isLogined, token, loading, error} = useTypedSelector(state => state.account);
     
     return (
@@ -13,4 +14,4 @@ const PageMaintenances: React.FC = () => {
     );
 }
 
-export default PageMaintenances;
+export default PageCars;

@@ -3,8 +3,8 @@ import React, { ReactElement } from "react";
 import classes from "./CarItem.module.scss";
 // import { Car, SimpleCar } from "../../../../../../types/api";
 import { Link } from "react-router-dom";
-import { ChangeSortTypeProc, SortElement, SortMethod, SortProc, getSortMethod } from "../../../../../../utils/sort";
-import SortButton from "../../../../../UI/SortButton/SortButton";
+import { ChangeSortTypeProc, SortElement, SortMethod, SortProc, getSortMethod } from "../../../../../utils/sort";
+import SortButton from "../../../../UI/SortButton/SortButton";
 
 interface CarItemProps {
     index: number;

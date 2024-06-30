@@ -173,3 +173,17 @@ export const defaultCar: Car = {
     service_company: -1,
     service_company__name: "",
 }
+
+export const defaultMaintenance: Maintenance = {
+    id: -1,
+    car: -1,
+    car__num: "",
+    type: -1,
+    type__name: "",
+    maintenance_date: "",
+    operating_time: -1,
+    work_order_num: "",
+    work_order_date: "",
+    service_company: -1,
+    service_company__name: "",
+}

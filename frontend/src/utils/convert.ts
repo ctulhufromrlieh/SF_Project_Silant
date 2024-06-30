@@ -1,5 +1,5 @@
 import { SelectOption } from "../components/UI/MyLabeledSelect/MyLabeledSelect";
-import { Car } from "../types/api";
+import { Car, Maintenance, Reclamation } from "../types/api";
 
 export const stringToNumberOrNull = (value: string): number | null => {
     try {
@@ -55,4 +55,32 @@ export const excludeCarBadFields = (car: Car): Object => {
     res["service_company__name"] = "";
 
     return deleteEmptyFileds(res);
+}
+
+export const excludeMaintenanceBadFields = (maintenance: Maintenance): Object => {
+    let res = maintenance;
+
+    res["car__num"] = "";
+    res["type__name"] = "";
+    res["service_company__name"] = "";
+
+    return deleteEmptyFileds(res);
+}
+
+export const excludeReclamationBadFields = (reclamation: Reclamation): Object => {
+    let res = reclamation;
+
+    // res["car_model__name"] = "";
+    // res["engine_model__name"] = "";
+    // res["transmission_model__name"] = "";
+    // res["main_bridge_model__name"] = "";
+    // res["steerable_bridge_model__name"] = "";
+    // res["client__name"] = "";
+    // res["service_company__name"] = "";
+
+    return deleteEmptyFileds(res);
+}
+
+export const dateTimeToDate = (dateTime: string): string => {
+    return dateTime.split("T")[0];
 }

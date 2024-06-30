@@ -4,17 +4,17 @@ import classes from "./CarTable.module.scss";
 // import commonClasses from "../../../styles/common.module.scss";
 
 import { Link } from "react-router-dom";
-import MyLabeledInput from "../../../../UI/MyLabeledInput/MyLabeledInput";
-import { useTypedSelector } from "../../../../../hooks/useTypedSelector";
-import { useActions } from "../../../../../hooks/useActions";
-import Loader from "../../../../UI/Loader/Loader";
+import MyLabeledInput from "../../../UI/MyLabeledInput/MyLabeledInput";
+import { useTypedSelector } from "../../../../hooks/useTypedSelector";
+import { useActions } from "../../../../hooks/useActions";
+import Loader from "../../../UI/Loader/Loader";
 import CarItem from "./CarItem/CarItem";
-import MyLabeledSelect, { SelectOption } from "../../../../UI/MyLabeledSelect/MyLabeledSelect";
-import { AccountType, AuxEntry, Car } from "../../../../../types/api";
-import { AuxEntriesToSelectOptions } from "../../../../../utils/ui";
-import { numberOfNullToString, stringToNumberOrNull } from "../../../../../utils/convert";
-import { ChangeSortTypeProc, SortMethod, cloneObjects, sortObjects } from "../../../../../utils/sort";
-import { ModelType, isAllowedChange } from "../../../../../utils/permissions";
+import MyLabeledSelect, { SelectOption } from "../../../UI/MyLabeledSelect/MyLabeledSelect";
+import { AccountType, AuxEntry, Car } from "../../../../types/api";
+import { AuxEntriesToSelectOptions } from "../../../../utils/ui";
+import { dateTimeToDate, numberOfNullToString, stringToNumberOrNull } from "../../../../utils/convert";
+import { ChangeSortTypeProc, SortMethod, cloneObjects, sortObjects } from "../../../../utils/sort";
+import { ModelType, isAllowedChange } from "../../../../utils/permissions";
 
 const CarTable: React.FC = () => {
 
@@ -31,6 +31,12 @@ const CarTable: React.FC = () => {
     //     fetchAuxEntries();
     //     fetchCars();
     // }, [auxEntries.isReady, auxEntries.loading, cars.loading, cars.ready, accountInfo.accountType, accountInfo.loading ]);
+
+    useEffect(() => {
+        fetchAccountInfo();
+        fetchAuxEntries();
+        fetchCars();
+    }, []);
 
     const fullRefreshCars = () => {
         fetchAccountInfo();
@@ -146,7 +152,7 @@ const CarTable: React.FC = () => {
                     <CarItem key={item.id} {...item} index={index} id={item.id} />
                 )} */}
                 {sortedCars.map((item, index) => 
-                    <CarItem key={item.id} {...item} index={index} id={item.id} />
+                    <CarItem key={item.id} {...item} index={index} id={item.id} factory_shipment_date={dateTimeToDate(item.factory_shipment_date)} />
                 )}
             </div>
             <div>

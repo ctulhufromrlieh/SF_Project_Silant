@@ -5,7 +5,7 @@ import classes from "./PageOneCar.module.scss";
 
 // import { Link } from "react-router-dom";
 // import { useTypedSelector } from "../../../hooks/useTypedSelector";
-import CarTable from "./LoginedPanel/CarTable/CarTable";
+import CarTable from "../Cars/CarTable/CarTable";
 import { useTypedSelector } from "../../../hooks/useTypedSelector";
 import { useParams } from "react-router";
 import Loader from "../../UI/Loader/Loader";

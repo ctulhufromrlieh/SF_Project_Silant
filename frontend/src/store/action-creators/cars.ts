@@ -53,8 +53,6 @@ export const createCar = (car: Car) => {
             }
 
             dispatch({type: CarsActionTypes.CREATE_CAR, payload: car});
-            // const createResponse = await axios.post(`${baseApiUrl}/cars/`, car, {headers: headers, params: filterCar});
-            // const createResponse = await axios.post(`${baseApiUrl}/cars/`, car, {headers: headers});
             const createResponse = await axios.post(`${baseApiUrl}/cars/`, excludeCarBadFields(car), {headers: headers});
 
             dispatch({type: CarsActionTypes.FETCH_CARS});
@@ -62,7 +60,7 @@ export const createCar = (car: Car) => {
             dispatch({type: CarsActionTypes.FETCH_CARS_SUCCESS, payload: response.data})
 
         } catch (e) {
-            console.log("fetchCars Error: ", e)
+            console.log("createCar Error: ", e)
             dispatch({
                 type: CarsActionTypes.FETCH_CARS_ERROR, 
                 payload: (e)
@@ -97,7 +95,7 @@ export const updateCar = (car: Car) => {
             dispatch({type: CarsActionTypes.FETCH_CARS_SUCCESS, payload: response.data})
 
         } catch (e) {
-            console.log("fetchCars Error: ", e)
+            console.log("updateCar Error: ", e)
             dispatch({
                 type: CarsActionTypes.FETCH_CARS_ERROR, 
                 payload: (e)
@@ -132,7 +130,7 @@ export const deleteCar = (car: Car) => {
             dispatch({type: CarsActionTypes.FETCH_CARS_SUCCESS, payload: response.data})
 
         } catch (e) {
-            console.log("fetchCars Error: ", e)
+            console.log("deleteCar Error: ", e)
             dispatch({
                 type: CarsActionTypes.FETCH_CARS_ERROR, 
                 payload: (e)
