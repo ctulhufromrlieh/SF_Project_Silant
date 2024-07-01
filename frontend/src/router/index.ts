@@ -1,5 +1,5 @@
 import React from "react";
-import { RouteData } from "../types/common";
+import { RouteData, SingleElemMethod } from "../types/common";
 
 import PageMain from "../components/pages/PageMain/PageMain";
 import PageCars from "../components/pages/Cars/PageCars";
@@ -11,12 +11,13 @@ import PageOneMaintenance from "../components/pages/Maintences/PageOneMaintenanc
 import PageReclamations from "../components/pages/Reclamations/PageReclamations";
 import PageNewReclamation from "../components/pages/Reclamations/PageNewReclamation";
 import PageOneReclamation from "../components/pages/Reclamations/PageOneReclamation";
-// import PageLogin from "../components/pages/PageLogin/PageLogin";
-// import PageSearch from "../components/pages/PageSearch/PageSearch";
-// import PageResults from "../components/pages/PageResults/PageResults";
+import { getAuxEntriesCaption, getAuxEntriesLinkTable } from "../types/auxEntries";
+import { AuxEntryType } from "../types/api";
+import AuxEntryTable from "../components/pages/AuxEntries/AuxEntryTable";
+import OneAuxEntryItem from "../components/pages/AuxEntries/OneAuxEntryItem";
+import PageOneAuxEntry from "../components/pages/AuxEntries/PageOneAuxEntry";
 
 export const privateRoutes: RouteData[] = [
-    // {path: "/", component: PageMain, caption: "Главная", isVisible: true},
     {path: "/cars", component: PageCars, caption: "Машины", isVisible: true},
     {path: "/cars/new", component: PageNewCar, caption: "Новая машина", isVisible: false},
     {path: "/cars/:id", component: PageOneCar, caption: "Машина", isVisible: false},
@@ -26,15 +27,70 @@ export const privateRoutes: RouteData[] = [
     {path: "/reclamations", component: PageReclamations, caption: "Рекламации", isVisible: true},
     {path: "/reclamations/new", component: PageNewReclamation, caption: "Новая рекламация", isVisible: false},
     {path: "/reclamations/:id", component: PageOneReclamation, caption: "Рекламации", isVisible: false},
-    // {path: "/tariffs", component: PageMain, caption: "Тарифы", isVisible: true},
-    // {path: "/faq", component: PageMain, caption: "FAQ", isVisible: true},
-    // {path: "/search", component: PageSearch, caption: "Поиск", isVisible: false},
-    // {path: "/results", component: PageResults, caption: "Результаты", isVisible: false},
+]
+
+const makeAuxEntryRouteData = (type: AuxEntryType): RouteData => {
+    return {
+        path: getAuxEntriesLinkTable(type), 
+        // component: AuxEntryTable, 
+        component: AuxEntryTable,
+        caption: getAuxEntriesCaption(type), 
+        isVisible: false, 
+        props: {type: type},
+    }    
+}
+
+const makeAuxEntryRouteDataNew = (type: AuxEntryType): RouteData => {
+    return {
+        path: `${getAuxEntriesLinkTable(type)}/new`, 
+        component: OneAuxEntryItem,
+        caption: getAuxEntriesCaption(type), 
+        isVisible: false, 
+        props: {method: SingleElemMethod.SINGLE_ELEM_METHOD_CREATE, type: type, auxEntry: null,},
+    }    
+}
+
+const makeAuxEntryRouteDataId = (type: AuxEntryType): RouteData => {
+    return {
+        path: `${getAuxEntriesLinkTable(type)}/:id`, 
+        component: PageOneAuxEntry,
+        caption: getAuxEntriesCaption(type), 
+        isVisible: false, 
+        props: { type: type },
+    }    
+}
+
+export const auxEntryRoutes: RouteData[] = [
+    // {path: getAuxEntriesLinkTable(AuxEntryType.AUX_ENTRY_TYPE_CAR_MODEL), component: AuxEntryTable, 
+    //     caption: getAuxEntriesCaption(AuxEntryType.AUX_ENTRY_TYPE_CAR_MODEL), isVisible: false, props:{type: AuxEntryType.AUX_ENTRY_TYPE_CAR_MODEL}},
+    makeAuxEntryRouteData(AuxEntryType.AUX_ENTRY_TYPE_CAR_MODEL),
+    makeAuxEntryRouteData(AuxEntryType.AUX_ENTRY_TYPE_ENGINE_MODEL),
+    makeAuxEntryRouteData(AuxEntryType.AUX_ENTRY_TYPE_TRANSMISSION_MODEL),
+    makeAuxEntryRouteData(AuxEntryType.AUX_ENTRY_TYPE_MAIN_BRIDGE_MODEL),
+    makeAuxEntryRouteData(AuxEntryType.AUX_ENTRY_TYPE_STEERABLE_BRIDGE_MODEL),
+    makeAuxEntryRouteData(AuxEntryType.AUX_ENTRY_TYPE_MAINTENANCE_TYPE),
+    makeAuxEntryRouteData(AuxEntryType.AUX_ENTRY_TYPE_FAILURE_NODE),
+    makeAuxEntryRouteData(AuxEntryType.AUX_ENTRY_TYPE_RECOVERY_METHOD),
+
+    makeAuxEntryRouteDataNew(AuxEntryType.AUX_ENTRY_TYPE_CAR_MODEL),
+    makeAuxEntryRouteDataNew(AuxEntryType.AUX_ENTRY_TYPE_ENGINE_MODEL),
+    makeAuxEntryRouteDataNew(AuxEntryType.AUX_ENTRY_TYPE_TRANSMISSION_MODEL),
+    makeAuxEntryRouteDataNew(AuxEntryType.AUX_ENTRY_TYPE_MAIN_BRIDGE_MODEL),
+    makeAuxEntryRouteDataNew(AuxEntryType.AUX_ENTRY_TYPE_STEERABLE_BRIDGE_MODEL),
+    makeAuxEntryRouteDataNew(AuxEntryType.AUX_ENTRY_TYPE_MAINTENANCE_TYPE),
+    makeAuxEntryRouteDataNew(AuxEntryType.AUX_ENTRY_TYPE_FAILURE_NODE),
+    makeAuxEntryRouteDataNew(AuxEntryType.AUX_ENTRY_TYPE_RECOVERY_METHOD),
+
+    makeAuxEntryRouteDataId(AuxEntryType.AUX_ENTRY_TYPE_CAR_MODEL),
+    makeAuxEntryRouteDataId(AuxEntryType.AUX_ENTRY_TYPE_ENGINE_MODEL),
+    makeAuxEntryRouteDataId(AuxEntryType.AUX_ENTRY_TYPE_TRANSMISSION_MODEL),
+    makeAuxEntryRouteDataId(AuxEntryType.AUX_ENTRY_TYPE_MAIN_BRIDGE_MODEL),
+    makeAuxEntryRouteDataId(AuxEntryType.AUX_ENTRY_TYPE_STEERABLE_BRIDGE_MODEL),
+    makeAuxEntryRouteDataId(AuxEntryType.AUX_ENTRY_TYPE_MAINTENANCE_TYPE),
+    makeAuxEntryRouteDataId(AuxEntryType.AUX_ENTRY_TYPE_FAILURE_NODE),
+    makeAuxEntryRouteDataId(AuxEntryType.AUX_ENTRY_TYPE_RECOVERY_METHOD),
 ]
 
 export const publicRoutes: RouteData[] = [
     {path: "/", component: PageMain, caption: "Главная", isVisible: true},
-    // {path: "/tariffs", component: PageMain, caption: "Тарифы", isVisible: true},
-    // {path: "/faq", component: PageMain, caption: "FAQ", isVisible: true},
-    // {path: "/login", component: PageLogin, caption: "Авторизация", isVisible: false},
 ]

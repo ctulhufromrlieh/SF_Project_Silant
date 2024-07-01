@@ -21,6 +21,7 @@ function App() {
             if (token) {
                 // loginUserByToken(token, expire);
                 loginUserByToken(token);
+                // loginUserReset();
             }
         } else {
             loginUserReset();

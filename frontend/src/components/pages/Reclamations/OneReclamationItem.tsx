@@ -158,7 +158,7 @@ const OneReclamationItem: React.FC<OneReclamationItemProps> = ({method, reclamat
                 /> 
             </div>
             {
-                method == SingleElemMethod.SINGLE_ELEM_METHOD_CREATE 
+                (method == SingleElemMethod.SINGLE_ELEM_METHOD_CREATE) && canWrite
             ?
                 // <button onClick={() => createCar(usedCar)}>Создать</button>
                 <button onClick={() => createMaintenanceAndRefresh(usedReclamation)}>Создать</button>
@@ -166,7 +166,7 @@ const OneReclamationItem: React.FC<OneReclamationItemProps> = ({method, reclamat
                 null
             }
             {
-                method == SingleElemMethod.SINGLE_ELEM_METHOD_UPDATE 
+                (method == SingleElemMethod.SINGLE_ELEM_METHOD_UPDATE) && canWrite
             ?
                 // <button onClick={() => createCar(usedCar)}>Создать</button>
                 <button onClick={() => updateMaintenanceAndRefresh(usedReclamation)}>Обновить</button>
@@ -174,7 +174,7 @@ const OneReclamationItem: React.FC<OneReclamationItemProps> = ({method, reclamat
                 null
             }
             {
-                method == SingleElemMethod.SINGLE_ELEM_METHOD_UPDATE 
+                (method == SingleElemMethod.SINGLE_ELEM_METHOD_UPDATE) && canWrite
             ?
                 // <button onClick={() => createCar(usedCar)}>Создать</button>
                 <button onClick={() => deleteMaintenanceAndRefresh(usedReclamation)}>Удалить</button>

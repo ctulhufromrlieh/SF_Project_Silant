@@ -7,6 +7,8 @@ export enum SingleElemMethod {
 export interface RouteData {
     path: string;
     caption: string;
-    component: React.FC;
+    // component: React.FC | React.FC<any>;
+    component: React.FC<any>;
+    props?: Object | null;
     isVisible?: boolean;
 }

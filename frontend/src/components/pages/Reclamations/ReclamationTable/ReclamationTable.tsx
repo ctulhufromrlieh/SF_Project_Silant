@@ -25,17 +25,18 @@ const ReclamationTable: React.FC = () => {
     const reclamations = useTypedSelector(state => state.reclamations)
     const auxEntries = useTypedSelector(state => state.auxEntries)    
 
-    useEffect(() => {
-        fetchAccountInfo();
-        fetchAuxEntries();
-        fetchReclamations();
-    }, []);
-
     const fullRefreshMaintenances = () => {
         fetchAccountInfo();
         fetchAuxEntries();
         fetchReclamations();
     }
+
+    useEffect(() => {
+        fullRefreshMaintenances();
+        // fetchAccountInfo();
+        // fetchAuxEntries();
+        // fetchReclamations();
+    }, []);
 
     if (accountInfo.loading || reclamations.loading || auxEntries.loading) {
         return (

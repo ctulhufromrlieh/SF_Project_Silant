@@ -39,6 +39,8 @@ def account_info(request):
                 account_type = 'ACCOUNT_TYPE_ADMIN'
                 name = user.username
 
+            print("user = ", user, "account_type = ", account_type)
+
         return Response({
             "account_type": account_type,
             "name": name,

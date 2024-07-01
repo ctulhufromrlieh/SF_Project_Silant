@@ -5,6 +5,7 @@ import { checkAuth } from "../../utils/auth";
 import { baseAccUrl } from "../../types/api";
 import { AccountInfoAction, AccountInfoActionTypes } from "../../types/accountInfo";
 import { RootState } from "../reducers";
+import { loginUserReset } from "./account";
 // import { Action, BalanceActionTypes } from "../../types/balance";
 
 export const fetchAccountInfo = () => {
@@ -29,6 +30,7 @@ export const fetchAccountInfo = () => {
             
             dispatch({type: AccountInfoActionTypes.FETCH_ACCOUNT_INFO_SUCCESS, payload: response.data})
         } catch (e) {
+            await loginUserReset();
             dispatch({
                 type: AccountInfoActionTypes.FETCH_ACCOUNT_INFO_ERROR, 
                 payload: <string>(e)

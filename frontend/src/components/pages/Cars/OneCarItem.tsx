@@ -258,7 +258,7 @@ const OneCarItem: React.FC<OneCarItemProps> = ({method, car}) => {
                 />
             </div>
             {
-                method == SingleElemMethod.SINGLE_ELEM_METHOD_CREATE 
+                (method == SingleElemMethod.SINGLE_ELEM_METHOD_CREATE) && canWrite
             ?
                 // <button onClick={() => createCar(usedCar)}>Создать</button>
                 <button onClick={() => createCarAndRefresh(usedCar)}>Создать</button>
@@ -266,7 +266,7 @@ const OneCarItem: React.FC<OneCarItemProps> = ({method, car}) => {
                 null
             }
             {
-                method == SingleElemMethod.SINGLE_ELEM_METHOD_UPDATE 
+                (method == SingleElemMethod.SINGLE_ELEM_METHOD_UPDATE) && canWrite
             ?
                 // <button onClick={() => createCar(usedCar)}>Создать</button>
                 <button onClick={() => updateCarAndRefresh(usedCar)}>Обновить</button>
@@ -274,7 +274,7 @@ const OneCarItem: React.FC<OneCarItemProps> = ({method, car}) => {
                 null
             }
             {
-                method == SingleElemMethod.SINGLE_ELEM_METHOD_UPDATE 
+                (method == SingleElemMethod.SINGLE_ELEM_METHOD_UPDATE) && canWrite
             ?
                 // <button onClick={() => createCar(usedCar)}>Создать</button>
                 <button onClick={() => deleteCarAndRefresh(usedCar)}>Удалить</button>

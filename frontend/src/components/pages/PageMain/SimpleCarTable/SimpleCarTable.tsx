@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import classes from "./SimpleCarTable.module.scss";
 // import commonClasses from "../../../styles/common.module.scss";
@@ -34,6 +34,13 @@ const SimpleCarTable: React.FC = () => {
     //         <Loader/>
     //     );
     // }
+
+    useEffect(() => {
+        fetchSimpleCars();
+        // fetchAccountInfo();
+        // fetchAuxEntries();
+        // fetchCars();
+    }, []);
 
     if (simpleCars.loading ) {
         return (

@@ -1,5 +1,5 @@
 import { Dispatch } from "redux";
-import { AuxEntriesAction, AuxEntriesActionTypes } from "../../types/auxEntries";
+import { AuxEntriesAction, AuxEntriesActionTypes, ConcreteAuxEntry, getAuxEntriesUrlList, getAuxEntriesUrlSingle, setAuxEntriesListByType } from "../../types/auxEntries";
 import { RootState } from "../reducers";
 import axios from "axios";
 import { checkAuth } from "../../utils/auth";
@@ -69,6 +69,111 @@ export const fetchAuxEntries = () => {
             // navigate("/results")
         } catch (e) {
             console.log("fetchAuxEntries Error: ", e)
+            dispatch({
+                type: AuxEntriesActionTypes.FETCH_AUX_ENTRIES_ERROR, 
+                payload: (e)
+            })
+        }
+    }
+}
+
+export const createAuxEntry = (concreteAuxEntry: ConcreteAuxEntry) => {
+    return async (dispatch: Dispatch<AuxEntriesAction>, getState: () => RootState) => {
+        try {
+            checkAuth();
+
+            const state = getState();
+            const token = state.account.token;
+
+            const headers = {
+                'Content-type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': 'Token ' + token
+            }
+
+            dispatch({type: AuxEntriesActionTypes.CREATE_AUX_ENTRY, payload: concreteAuxEntry});
+            const createResponse = await axios.post(getAuxEntriesUrlList(concreteAuxEntry.type), concreteAuxEntry.value, {headers: headers});
+
+            dispatch({type: AuxEntriesActionTypes.RESET_AUX_ENTRIES});
+
+            // dispatch({type: AuxEntriesActionTypes.FETCH_AUX_ENTRIES});
+            // const response = await axios.get(getAuxEntriesUrlList(concreteAuxEntry.type), {headers: headers});
+            // let auxEntries = state.auxEntries;
+            // setAuxEntriesListByType(concreteAuxEntry.type, auxEntries, response.data);
+            // dispatch({type: AuxEntriesActionTypes.FETCH_AUX_ENTRIES_SUCCESS, payload: auxEntries})
+
+        } catch (e) {
+            console.log("createAuxEntry Error: ", e)
+            dispatch({
+                type: AuxEntriesActionTypes.FETCH_AUX_ENTRIES_ERROR, 
+                payload: (e)
+            })
+        }
+    }
+}
+
+export const updateAuxEntry = (concreteAuxEntry: ConcreteAuxEntry) => {
+    return async (dispatch: Dispatch<AuxEntriesAction>, getState: () => RootState) => {
+        try {
+            checkAuth();
+
+            const state = getState();
+            const token = state.account.token;
+
+            const headers = {
+                'Content-type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': 'Token ' + token
+            }
+
+            dispatch({type: AuxEntriesActionTypes.UPDATE_AUX_ENTRY, payload: concreteAuxEntry});
+            const createResponse = await axios.put(getAuxEntriesUrlSingle(concreteAuxEntry.type, concreteAuxEntry.value.id), concreteAuxEntry.value, {headers: headers});
+
+            dispatch({type: AuxEntriesActionTypes.RESET_AUX_ENTRIES});
+
+            // dispatch({type: AuxEntriesActionTypes.FETCH_AUX_ENTRIES});
+            // const response = await axios.get(getAuxEntriesUrlList(concreteAuxEntry.type), {headers: headers});
+            // let auxEntries = state.auxEntries;
+            // setAuxEntriesListByType(concreteAuxEntry.type, auxEntries, response.data);
+            // dispatch({type: AuxEntriesActionTypes.FETCH_AUX_ENTRIES_SUCCESS, payload: auxEntries})
+
+        } catch (e) {
+            console.log("updateAuxEntry Error: ", e)
+            dispatch({
+                type: AuxEntriesActionTypes.FETCH_AUX_ENTRIES_ERROR, 
+                payload: (e)
+            })
+        }
+    }
+}
+
+export const deleteAuxEntry = (concreteAuxEntry: ConcreteAuxEntry) => {
+    return async (dispatch: Dispatch<AuxEntriesAction>, getState: () => RootState) => {
+        try {
+            checkAuth();
+
+            const state = getState();
+            const token = state.account.token;
+
+            const headers = {
+                'Content-type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': 'Token ' + token
+            }
+
+            dispatch({type: AuxEntriesActionTypes.DELETE_AUX_ENTRY, payload: concreteAuxEntry});
+            const createResponse = await axios.delete(getAuxEntriesUrlSingle(concreteAuxEntry.type, concreteAuxEntry.value.id), {headers: headers});
+
+            dispatch({type: AuxEntriesActionTypes.RESET_AUX_ENTRIES});
+
+            // dispatch({type: AuxEntriesActionTypes.FETCH_AUX_ENTRIES});
+            // const response = await axios.get(getAuxEntriesUrlList(concreteAuxEntry.type), {headers: headers});
+            // let auxEntries = state.auxEntries;
+            // setAuxEntriesListByType(concreteAuxEntry.type, auxEntries, response.data);
+            // dispatch({type: AuxEntriesActionTypes.FETCH_AUX_ENTRIES_SUCCESS, payload: auxEntries})
+
+        } catch (e) {
+            console.log("deleteAuxEntry Error: ", e)
             dispatch({
                 type: AuxEntriesActionTypes.FETCH_AUX_ENTRIES_ERROR, 
                 payload: (e)

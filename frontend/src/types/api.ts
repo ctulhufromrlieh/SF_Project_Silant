@@ -41,6 +41,7 @@ export interface AccountInfoResponseData {
 // }
 
 export enum AuxEntryType {
+    AUX_ENTRY_TYPE_UNKNOWN = "AUX_ENTRY_TYPE_UNKNOWN",
     AUX_ENTRY_TYPE_CAR_MODEL = "AUX_ENTRY_TYPE_CAR_MODEL",
     AUX_ENTRY_TYPE_ENGINE_MODEL = "AUX_ENTRY_TYPE_ENGINE_MODEL",
     AUX_ENTRY_TYPE_TRANSMISSION_MODEL = "AUX_ENTRY_TYPE_TRANSMISSION_MODEL",
@@ -52,7 +53,7 @@ export enum AuxEntryType {
 }
 
 export interface AuxEntry {
-    type: AuxEntryType;
+    // type: AuxEntryType;
     id: number;
     name: string;
     description: string;
@@ -144,6 +145,12 @@ export interface Reclamation {
     repair_parts: string;
     recovery_date: string;
     downtime: number | null;
+}
+
+export const defaultAuxEntry: AuxEntry = {
+    id: -1,
+    name: "",
+    description: "",
 }
 
 export const defaultCar: Car = {

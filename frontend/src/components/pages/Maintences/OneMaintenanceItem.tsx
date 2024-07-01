@@ -150,7 +150,7 @@ const OneMaintenanceItem: React.FC<OneMaintenanceItemProps> = ({method, maintena
                 />
             </div>
             {
-                method == SingleElemMethod.SINGLE_ELEM_METHOD_CREATE 
+                (method == SingleElemMethod.SINGLE_ELEM_METHOD_CREATE) && canWrite
             ?
                 // <button onClick={() => createCar(usedCar)}>Создать</button>
                 <button onClick={() => createMaintenanceAndRefresh(usedMaintenance)}>Создать</button>
@@ -158,7 +158,7 @@ const OneMaintenanceItem: React.FC<OneMaintenanceItemProps> = ({method, maintena
                 null
             }
             {
-                method == SingleElemMethod.SINGLE_ELEM_METHOD_UPDATE 
+                (method == SingleElemMethod.SINGLE_ELEM_METHOD_UPDATE) && canWrite
             ?
                 // <button onClick={() => createCar(usedCar)}>Создать</button>
                 <button onClick={() => updateMaintenanceAndRefresh(usedMaintenance)}>Обновить</button>
@@ -166,7 +166,7 @@ const OneMaintenanceItem: React.FC<OneMaintenanceItemProps> = ({method, maintena
                 null
             }
             {
-                method == SingleElemMethod.SINGLE_ELEM_METHOD_UPDATE 
+                (method == SingleElemMethod.SINGLE_ELEM_METHOD_UPDATE) && canWrite
             ?
                 // <button onClick={() => createCar(usedCar)}>Создать</button>
                 <button onClick={() => deleteMaintenanceAndRefresh(usedMaintenance)}>Удалить</button>

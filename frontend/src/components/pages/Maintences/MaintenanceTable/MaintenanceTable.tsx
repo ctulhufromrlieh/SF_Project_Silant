@@ -25,17 +25,18 @@ const MaintenanceTable: React.FC = () => {
     const maintenances = useTypedSelector(state => state.maintenances)
     const auxEntries = useTypedSelector(state => state.auxEntries)    
 
-    useEffect(() => {
-        fetchAccountInfo();
-        fetchAuxEntries();
-        fetchMaintenances();
-    }, []);
-
     const fullRefreshMaintenances = () => {
         fetchAccountInfo();
         fetchAuxEntries();
         fetchMaintenances();
     }
+
+    useEffect(() => {
+        fullRefreshMaintenances();
+        // fetchAccountInfo();
+        // fetchAuxEntries();
+        // fetchMaintenances();
+    }, []);
 
     const propNames: string[] = ["car__num", "type__name", "maintenance_date", 
         "operating_time", "work_order_num",  "work_order_date", "service_company__name",];

@@ -6,6 +6,7 @@ export interface AccountInfoState {
     username: null | string;
     loading: boolean;
     error: null | string;
+    ready: boolean;
 }
 
 export enum AccountInfoActionTypes {

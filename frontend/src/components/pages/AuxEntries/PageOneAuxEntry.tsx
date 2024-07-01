@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-import classes from "./PageOneCar.module.scss";
+import classes from "./PageOneAuxEntry.module.scss";
 // import commonClasses from "../../../styles/common.module.scss";
 
 // import { Link } from "react-router-dom";
@@ -13,28 +13,29 @@ import { AuxEntriesToSelectOptions } from "../../../utils/ui";
 import MyLabeledSelect, { SelectOption } from "../../UI/MyLabeledSelect/MyLabeledSelect";
 import { numberOrNullToString, stringToNumber, stringToNumberOrNull } from "../../../utils/convert";
 import MyLabeledInput from "../../UI/MyLabeledInput/MyLabeledInput";
-import { AccountType, Car } from "../../../types/api";
+import { AccountType, AuxEntryType, Car } from "../../../types/api";
 import { useActions } from "../../../hooks/useActions";
 import { SingleElemMethod } from "../../../types/common";
-import OneCarItem from "./OneCarItem";
+import OneAuxEntryItem from "./OneAuxEntryItem";
+import { getAuxEntriesListByType } from "../../../types/auxEntries";
 
-// interface PageOneCarProps {
-//     method: SingleElemMethod,
-//     car?: Car | null,
-// }
+interface PageOneAuxEntryProps {
+    type: AuxEntryType;
+}
 
-const PageOneCar: React.FC = () => {
-    const cars = useTypedSelector(state => state.cars);
+const PageOneAuxEntry: React.FC<PageOneAuxEntryProps> = ({type}) => {
+    // const cars = useTypedSelector(state => state.cars);
     const accountInfo = useTypedSelector(state => state.accountInfo);
     const auxEntries = useTypedSelector(state => state.auxEntries);
     const { id } = useParams();
     
-    const { fetchAuxEntries, fetchCars } = useActions();
+    // const { fetchAuxEntries, fetchCars } = useActions();
+    const { fetchAuxEntries } = useActions();
 
     useEffect(() => {
         fetchAuxEntries();
-        fetchCars();
-    }, [auxEntries.isReady || auxEntries.loading || cars.loading || cars.ready]);
+        // fetchCars();
+    }, [auxEntries.isReady || auxEntries.loading]);
 
     if (!auxEntries.isReady && !auxEntries.loading) {
         return (
@@ -42,35 +43,36 @@ const PageOneCar: React.FC = () => {
         );
     }
 
-    if (cars.loading || auxEntries.loading) {
-        return (
-            <Loader/>
-        );
-    }
+    // if (cars.loading || auxEntries.loading) {
+    //     return (
+    //         <Loader/>
+    //     );
+    // }
 
-    let carId = -1;
+    let auxEntryId = -1;
     if (id) {
-        carId = parseInt(id);
+        auxEntryId = parseInt(id);
     }
 
-    if (carId === -1) {
+    if (auxEntryId === -1) {
         return (
             <div>
-                id машины не задан
+                id записи не задан
             </div>);
     }
 
-    const car = cars.items.filter(item => item.id === carId)[0];    
+    const auxEntryItems = getAuxEntriesListByType(type, auxEntries).filter(item => item.id === auxEntryId);
 
-    if (cars.items.length === 0) {
+    if (auxEntryItems.length === 0) {
         return (
             <div>
-                Нет машины с id = {carId}
+                Нет записи с id = {auxEntryId}
             </div>);
     }
+    const auxEntry = auxEntryItems[0];
 
     const method = SingleElemMethod.SINGLE_ELEM_METHOD_UPDATE;
-    return (<OneCarItem car={car} method={method}/>);
+    return (<OneAuxEntryItem type={type} auxEntry={auxEntry} method={method} />);
 }
 
-export default PageOneCar;
+export default PageOneAuxEntry;

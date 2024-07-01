@@ -32,17 +32,24 @@ const CarTable: React.FC = () => {
     //     fetchCars();
     // }, [auxEntries.isReady, auxEntries.loading, cars.loading, cars.ready, accountInfo.accountType, accountInfo.loading ]);
 
-    useEffect(() => {
-        fetchAccountInfo();
-        fetchAuxEntries();
-        fetchCars();
-    }, []);
+    // useEffect(() => {
+    //     fetchAccountInfo();
+    //     fetchAuxEntries();
+    //     fetchCars();
+    // }, []);
 
     const fullRefreshCars = () => {
         fetchAccountInfo();
         fetchAuxEntries();
         fetchCars();
     }
+
+    useEffect(() => {
+        fullRefreshCars();
+        // fetchAccountInfo();
+        // fetchAuxEntries();
+        // fetchCars();
+    }, []);
 
     const propNames: string[] = ["car_model__name", "car_num", "engine_model__name", "engine_num", "transmission_model__name", "transmission_num",
         "main_bridge_model__name", "main_bridge_num", "steerable_bridge_model__name", "steerable_bridge_num", "factory_shipment_date", "consignee",

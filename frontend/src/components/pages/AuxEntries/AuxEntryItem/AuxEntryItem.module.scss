@@ -1,0 +1,29 @@
+.item {
+    display: flex;
+    flex-direction: row;
+    // gap: 5px;
+    
+    border: 1px solid purple;
+
+    div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .id {
+        width: 40px;
+    }
+
+    .name {
+        width: 100px;
+    }
+
+    .description {
+        width: 100px;
+    }
+
+    div {
+        border: 1px solid green;
+    }
+}
