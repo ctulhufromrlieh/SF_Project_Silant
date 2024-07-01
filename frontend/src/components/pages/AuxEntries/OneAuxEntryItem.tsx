@@ -85,21 +85,21 @@ const OneAuxEntryItem: React.FC<OneAuxEntryItemProps> = ({method, type, auxEntry
                 />
             </div>
             {
-                method == SingleElemMethod.SINGLE_ELEM_METHOD_CREATE 
+                (method == SingleElemMethod.SINGLE_ELEM_METHOD_CREATE) && canWrite
             ?
                 <button onClick={() => createAuxEntryAndRefresh(usedAuxEntry)}>Создать</button>
             :
                 null
             }
             {
-                method == SingleElemMethod.SINGLE_ELEM_METHOD_UPDATE 
+                (method == SingleElemMethod.SINGLE_ELEM_METHOD_UPDATE) && canWrite
             ?
                 <button onClick={() => updateAuxEntryAndRefresh(usedAuxEntry)}>Обновить</button>
             :
                 null
             }
             {
-                method == SingleElemMethod.SINGLE_ELEM_METHOD_UPDATE 
+                (method == SingleElemMethod.SINGLE_ELEM_METHOD_UPDATE) && canWrite
             ?
                 <button onClick={() => deleteAuxEntryAndRefresh(usedAuxEntry)}>Удалить</button>
             :
