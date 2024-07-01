@@ -117,11 +117,11 @@ class MaintenanceSerializer(serializers.ModelSerializer):
         
 class ReclamationSerializer(serializers.ModelSerializer):
     # car__id = serializers.IntegerField(source='car.id')
-    car__num = serializers.CharField(source='car.car_num')
-    car__service_company__id = serializers.IntegerField(source='car.service_company.id')
-    car__service_company__name = serializers.CharField(source='car.service_company.name')
-    failure_node__name = serializers.CharField(source='failure_node.name')
-    recovery_method__name = serializers.CharField(source='recovery_method.name')
+    car__num = serializers.CharField(source='car.car_num', required=False, allow_null=True, )
+    car__service_company__id = serializers.IntegerField(source='car.service_company.id', required=False, allow_null=True, )
+    car__service_company__name = serializers.CharField(source='car.service_company.name', required=False, allow_null=True, )
+    failure_node__name = serializers.CharField(source='failure_node.name', required=False, allow_null=True, )
+    recovery_method__name = serializers.CharField(source='recovery_method.name', required=False, allow_null=True, )
     # downtime = serializers.IntegerField(source='downtime')
 
     class Meta:

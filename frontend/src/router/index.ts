@@ -2,13 +2,15 @@ import React from "react";
 import { RouteData } from "../types/common";
 
 import PageMain from "../components/pages/PageMain/PageMain";
-import PageMaintenances from "../components/pages/PageMain/PageMaintenances";
-import PageReclamations from "../components/pages/PageMain/PageReclamations";
 import PageCars from "../components/pages/Cars/PageCars";
 import PageNewCar from "../components/pages/Cars/PageNewCar";
 import PageOneCar from "../components/pages/Cars/PageOneCar";
+import PageMaintenances from "../components/pages/Maintences/PageMaintenances";
 import PageNewMaintenance from "../components/pages/Maintences/PageNewMaintenance";
 import PageOneMaintenance from "../components/pages/Maintences/PageOneMaintenance";
+import PageReclamations from "../components/pages/Reclamations/PageReclamations";
+import PageNewReclamation from "../components/pages/Reclamations/PageNewReclamation";
+import PageOneReclamation from "../components/pages/Reclamations/PageOneReclamation";
 // import PageLogin from "../components/pages/PageLogin/PageLogin";
 // import PageSearch from "../components/pages/PageSearch/PageSearch";
 // import PageResults from "../components/pages/PageResults/PageResults";
@@ -22,8 +24,8 @@ export const privateRoutes: RouteData[] = [
     {path: "/maintenances/new", component: PageNewMaintenance, caption: "Новое ТО", isVisible: false},
     {path: "/maintenances/:id", component: PageOneMaintenance, caption: "ТО", isVisible: false},
     {path: "/reclamations", component: PageReclamations, caption: "Рекламации", isVisible: true},
-    // {path: "/reclamations", component: PageOneReclamation, caption: "Новая рекламация", isVisible: false},
-    // {path: "/reclamations", component: PageNewReclamation, caption: "Рекламации", isVisible: false},
+    {path: "/reclamations/new", component: PageNewReclamation, caption: "Новая рекламация", isVisible: false},
+    {path: "/reclamations/:id", component: PageOneReclamation, caption: "Рекламации", isVisible: false},
     // {path: "/tariffs", component: PageMain, caption: "Тарифы", isVisible: true},
     // {path: "/faq", component: PageMain, caption: "FAQ", isVisible: true},
     // {path: "/search", component: PageSearch, caption: "Поиск", isVisible: false},

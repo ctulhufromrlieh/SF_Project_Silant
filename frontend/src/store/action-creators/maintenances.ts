@@ -87,7 +87,7 @@ export const updateMaintenance = (maintenance: Maintenance) => {
             }
 
             dispatch({type: MaintenancesActionTypes.UPDATE_MAINTENANCE, payload: maintenance});
-            const createResponse = await axios.put(`${baseApiUrl}/maintenances/${maintenance.id}`, excludeMaintenanceBadFields(maintenance), {headers: headers});
+            const updateResponse = await axios.put(`${baseApiUrl}/maintenances/${maintenance.id}`, excludeMaintenanceBadFields(maintenance), {headers: headers});
 
             dispatch({type: MaintenancesActionTypes.FETCH_MAINTENANCES});
             const response = await axios.get(`${baseApiUrl}/maintenances/`, {headers: headers, params: filterMaintenance});
@@ -120,7 +120,7 @@ export const deleteMaintenance = (maintenance: Maintenance) => {
             }
 
             dispatch({type: MaintenancesActionTypes.DELETE_MAINTENANCE, payload: maintenance});
-            const createResponse = await axios.delete(`${baseApiUrl}/maintenances/${maintenance.id}`, {headers: headers});
+            const deleteResponse = await axios.delete(`${baseApiUrl}/maintenances/${maintenance.id}`, {headers: headers});
 
             dispatch({type: MaintenancesActionTypes.FETCH_MAINTENANCES});
             const response = await axios.get(`${baseApiUrl}/maintenances/`, {headers: headers, params: filterMaintenance});

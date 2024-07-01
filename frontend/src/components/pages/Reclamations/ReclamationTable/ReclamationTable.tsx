@@ -1,28 +1,43 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import classes from "./ReclamationTable.module.scss";
 // import commonClasses from "../../../styles/common.module.scss";
 
-import MyLabeledInput from "../../../../UI/MyLabeledInput/MyLabeledInput";
-import { useTypedSelector } from "../../../../../hooks/useTypedSelector";
-import { useActions } from "../../../../../hooks/useActions";
-import Loader from "../../../../UI/Loader/Loader";
 import ReclamationItem from "./ReclamationItem/ReclamationItem";
-import MyLabeledSelect, { SelectOption } from "../../../../UI/MyLabeledSelect/MyLabeledSelect";
-import { AuxEntry, Reclamation } from "../../../../../types/api";
-import { AuxEntriesToSelectOptions } from "../../../../../utils/ui";
-import { numberOrNullToString, stringToNumberOrNull } from "../../../../../utils/convert";
-import { ChangeSortTypeProc, SortMethod, sortObjects } from "../../../../../utils/sort";
+import { useTypedSelector } from "../../../../hooks/useTypedSelector";
+import { useActions } from "../../../../hooks/useActions";
+import Loader from "../../../UI/Loader/Loader";
+import { ChangeSortTypeProc, SortMethod, sortObjects } from "../../../../utils/sort";
+import { Reclamation } from "../../../../types/api";
+import { AuxEntriesToSelectOptions } from "../../../../utils/ui";
+import MyLabeledInput from "../../../UI/MyLabeledInput/MyLabeledInput";
+import MyLabeledSelect from "../../../UI/MyLabeledSelect/MyLabeledSelect";
+import { numberOrNullToString, stringToNumberOrNull } from "../../../../utils/convert";
+import { Link } from "react-router-dom";
+import { ModelType, isAllowedChange } from "../../../../utils/permissions";
 
 const ReclamationTable: React.FC = () => {
    
     const {car_num, service_company__name, failure_node, recovery_method} = useTypedSelector(state => state.filterReclamation);
-    const {setRCarNum, setRServiceCompanyName, setRFailureNode, setRRecoveryMethod, fetchReclamations, sortReclamationChangeSortType} = useActions();
+    const {setRCarNum, setRServiceCompanyName, setRFailureNode, setRRecoveryMethod, fetchAccountInfo, fetchAuxEntries, fetchReclamations, sortReclamationChangeSortType} = useActions();
     const {sortElems} = useTypedSelector(state => state.sortReclamation)
+    const accountInfo = useTypedSelector(state => state.accountInfo)
     const reclamations = useTypedSelector(state => state.reclamations)
     const auxEntries = useTypedSelector(state => state.auxEntries)    
 
-    if (reclamations.loading || auxEntries.loading) {
+    useEffect(() => {
+        fetchAccountInfo();
+        fetchAuxEntries();
+        fetchReclamations();
+    }, []);
+
+    const fullRefreshMaintenances = () => {
+        fetchAccountInfo();
+        fetchAuxEntries();
+        fetchReclamations();
+    }
+
+    if (accountInfo.loading || reclamations.loading || auxEntries.loading) {
         return (
             <Loader/>
         );
@@ -39,6 +54,8 @@ const ReclamationTable: React.FC = () => {
     const changeSortTypeProc: ChangeSortTypeProc = (propName: string, sortMethod: SortMethod): void => {
         sortReclamationChangeSortType(propName, sortMethod);
     }
+
+    const canAddNew = isAllowedChange(ModelType.MODEL_TYPE_RECLAMATION, accountInfo.accountType);    
 
     return (
         <div>
@@ -98,6 +115,15 @@ const ReclamationTable: React.FC = () => {
                 {sortedReclamations.map((item, index) => 
                     <ReclamationItem key={item.id} {...item} index={index} id={item.id} operating_time_s={String(item.operating_time)} downtime_s={String(item.downtime)} />
                 )}
+            </div>
+            <div>
+                {
+                    canAddNew 
+                ? 
+                    <Link to={`/reclamations/new`}>Новая рекламация</Link>
+                :
+                    null
+                }
             </div>
         </div>
     );

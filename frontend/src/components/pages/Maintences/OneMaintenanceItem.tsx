@@ -88,7 +88,7 @@ const OneMaintenanceItem: React.FC<OneMaintenanceItemProps> = ({method, maintena
 
     return (
         <div className={classes.page}>
-            <h2>Машина</h2>
+            <h2>ТО</h2>
             <div className={classes.maintenance_form}>
                 <MyLabeledSelect
                     id="one-maintenance-form__car"
@@ -109,7 +109,7 @@ const OneMaintenanceItem: React.FC<OneMaintenanceItemProps> = ({method, maintena
                     // addContainerClassNames={[]}
                 />
                 <MyLabeledInput 
-                    id="one-maintenance-form__main-factory-maintenance-date"
+                    id="one-maintenance-form__main-maintenance-date"
                     type="date"
                     labelCaption="Дата проведения ТО"
                     value={dateTimeToDate(usedMaintenance.maintenance_date)}
@@ -117,13 +117,13 @@ const OneMaintenanceItem: React.FC<OneMaintenanceItemProps> = ({method, maintena
                     disabled={!canWrite}
                 /> 
                 <MyLabeledInput 
-                    id="one-maintenance-form__main-factory-operating-time"
+                    id="one-maintenance-form__main-operating-time"
                     type="text"
                     labelCaption="Наработка, м/час"
                     value={usedMaintenance.operating_time}
                     setValue={(value) => setUsedMaintenance({...usedMaintenance, operating_time: stringToNumber(value)})} 
                     disabled={!canWrite}
-                /> operating_time
+                /> 
                 <MyLabeledInput 
                     id="one-maintenance-form__work-order-num"
                     type="text"
@@ -133,7 +133,7 @@ const OneMaintenanceItem: React.FC<OneMaintenanceItemProps> = ({method, maintena
                     disabled={!canWrite}
                 />
                 <MyLabeledInput 
-                    id="one-maintenance-form__main-factory-work-order-date"
+                    id="one-maintenance-form__main-work-order-date"
                     type="date"
                     labelCaption="дата заказ-наряда"
                     value={dateTimeToDate(usedMaintenance.work_order_date)}

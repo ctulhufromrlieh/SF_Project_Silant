@@ -131,7 +131,7 @@ export interface Reclamation {
     id: number;
     car: number;
     car__num: string;
-    car__service_company__id: number;
+    car__service_company__id: number | null;
     car__service_company__name: string;
     failure_date: string;
     // operating_time: string;
@@ -143,7 +143,7 @@ export interface Reclamation {
     recovery_method__name: string;
     repair_parts: string;
     recovery_date: string;
-    downtime: number;
+    downtime: number | null;
 }
 
 export const defaultCar: Car = {
@@ -186,4 +186,22 @@ export const defaultMaintenance: Maintenance = {
     work_order_date: "",
     service_company: -1,
     service_company__name: "",
+}
+
+export const defaultReclamation: Reclamation = {
+    id: -1,
+    car: -1,
+    car__num: "",
+    car__service_company__id: -1,
+    car__service_company__name: "",
+    failure_date: "",
+    operating_time: 0,
+    failure_node: -1,
+    failure_node__name: "",
+    failure_description: "",
+    recovery_method: -1,
+    recovery_method__name: "",
+    repair_parts: "",
+    recovery_date: "",
+    downtime: -1,
 }

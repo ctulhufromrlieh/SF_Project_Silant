@@ -73,6 +73,13 @@ export const excludeMaintenanceBadFields = (maintenance: Maintenance): Object =>
 export const excludeReclamationBadFields = (reclamation: Reclamation): Object => {
     let res = reclamation;
 
+    res["car__num"] = "";
+    res["car__service_company__name"] = "";
+    res["car__service_company__id"] = null;
+    res["failure_node__name"] = "";
+    res["recovery_method__name"] = "";
+    res["downtime"] = null;
+
     // res["car_model__name"] = "";
     // res["engine_model__name"] = "";
     // res["transmission_model__name"] = "";

@@ -86,8 +86,8 @@ export const updateReclamation = (reclamation: Reclamation) => {
                 'Authorization': 'Token ' + token
             }
 
-            dispatch({type: ReclamationsActionTypes.CREATE_RECLAMATION, payload: reclamation});
-            const createResponse = await axios.put(`${baseApiUrl}/reclamations/${reclamation.id}`, excludeReclamationBadFields(reclamation), {headers: headers});
+            dispatch({type: ReclamationsActionTypes.UPDATE_RECLAMATION, payload: reclamation});
+            const updateResponse = await axios.put(`${baseApiUrl}/reclamations/${reclamation.id}`, excludeReclamationBadFields(reclamation), {headers: headers});
 
             dispatch({type: ReclamationsActionTypes.FETCH_RECLAMATIONS});
             const response = await axios.get(`${baseApiUrl}/reclamations/`, {headers: headers, params: filterReclamation});
@@ -119,8 +119,8 @@ export const deleteReclamation = (reclamation: Reclamation) => {
                 'Authorization': 'Token ' + token
             }
 
-            dispatch({type: ReclamationsActionTypes.CREATE_RECLAMATION, payload: reclamation});
-            const createResponse = await axios.delete(`${baseApiUrl}/reclamations/${reclamation.id}`, {headers: headers});
+            dispatch({type: ReclamationsActionTypes.DELETE_RECLAMATION, payload: reclamation});
+            const deleteResponse = await axios.delete(`${baseApiUrl}/reclamations/${reclamation.id}`, {headers: headers});
 
             dispatch({type: ReclamationsActionTypes.FETCH_RECLAMATIONS});
             const response = await axios.get(`${baseApiUrl}/reclamations/`, {headers: headers, params: filterReclamation});
