@@ -1,17 +1,30 @@
 @import "./commonTypes.scss";
 
-// .only_desktop {
-//     @include only_desktop;
-// }
+.filter_form_container {
+    display: flex;
+    justify-content: center;
+}
 
-// .only_mobile {
-//     @include only_mobile;
-// }
+.filter_form {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 
-// .only_desktop_flex {
-//     @include only_desktop_flex;
-// }
+    width: 340px;
+    box-sizing: border-box;
+    padding: 10px;
+    margin: 10px;
 
-// .only_mobile_flex {
-//     @include only_mobile_flex;
-// }
+    border: 2px solid $color_red;
+    border-radius: 5px;
+}
+
+.table {
+    width: 100%;
+
+    font-family: $fontname;
+
+    .header {
+        background-color: $color_blue;
+    }
+}

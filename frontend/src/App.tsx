@@ -1,15 +1,13 @@
 import React, { useEffect } from 'react';
-import './App.css';
+import './App.scss';
 import Header from './components/Header/Header';
 import { BrowserRouter } from 'react-router-dom';
 import AppRouter from './components/AppRouter';
 import Footer from './components/Footer/Footer';
 import { useActions } from './hooks/useActions';
-import { loginUserReset } from './store/action-creators/account';
 import { isValidAuth } from './utils/auth';
 import { localStorageIdToken } from './types/api';
 import { useTypedSelector } from './hooks/useTypedSelector';
-import Loader from './components/UI/Loader/Loader';
 import HeaderMenu from './components/Header/HeaderMenu/HeaderMenu';
 
 function App() {
@@ -50,18 +48,17 @@ function App() {
         console.log("accountInfo = ", accountInfo);
     }
     
-
-    // if (account.loading || accountInfo.loading) {
-    //     return <Loader/>;
-    // }
-
     return (
         <BrowserRouter>
             <div className="app">
-                <Header/>                
+                <Header/>
                 <div className="main">
                     <HeaderMenu/>
-                    <AppRouter/>
+                    <div className="page_container">
+                        <div className="page">
+                            <AppRouter/>
+                        </div>
+                    </div>
                 </div>
                 <Footer/>
             </div>

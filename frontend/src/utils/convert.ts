@@ -1,5 +1,6 @@
 import { SelectOption } from "../components/UI/MyLabeledSelect/MyLabeledSelect";
 import { Car, Maintenance, Reclamation } from "../types/api";
+import { PropRecord } from "./tables";
 
 export const stringToNumberOrNull = (value: string): number | null => {
     try {
@@ -93,4 +94,25 @@ export const excludeReclamationBadFields = (reclamation: Reclamation): Object =>
 
 export const dateTimeToDate = (dateTime: string): string => {
     return dateTime.split("T")[0];
+}
+
+export const carToPropValues = (car: Car): PropRecord => {
+    return {
+        car_model__name: car.car_model__name,
+        car_num: car.car_num,
+        engine_model__name: car.engine_model__name,
+        engine_num: car.engine_num,
+        transmission_model__name: car.transmission_model__name,
+        transmission_num: car.transmission_num,
+        main_bridge_model__name: car.main_bridge_model__name,
+        main_bridge_num: car.main_bridge_num,
+        steerable_bridge_model__name: car.steerable_bridge_model__name,
+        steerable_bridge_num: car.steerable_bridge_num,
+        factory_shipment_date: dateTimeToDate(car.factory_shipment_date),
+        consignee: car.consignee,
+        shipment_address: car.shipment_address,
+        add_options: car.add_options,
+        client__name: car.client__name,
+        service_company__name: car.service_company__name,
+    }
 }

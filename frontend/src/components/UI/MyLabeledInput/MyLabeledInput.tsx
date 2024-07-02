@@ -29,14 +29,7 @@ const MyLabeledInput: React.FC<MyLabeledInputProps> = ({id, type="text", labelCa
     errorCaption = "", errorPlaceholder = "", value = "", setValue = undefined, isError = false, setIsError = undefined, 
     addContainerClassNames = [], addLabelClassNames = [], addInputClassNames = [], addErrorMsgClassNames = [], ...rest}: MyLabeledInputProps) => {
 
-    let labelTypeClassName = "";
-    if (labelType === LabelType.LIGHT) {
-        labelTypeClassName = classes.label_light;
-    } else if (labelType === LabelType.NORMAL) {
-        labelTypeClassName = classes.label_normal;
-    } else {
-        throw new Error("MyLabeledInput: Wrong type of labelType");
-    }
+    let labelTypeClassName = classes.label_normal;
 
     const labelMarkClassNames = [
         classes.label_mark_normal,

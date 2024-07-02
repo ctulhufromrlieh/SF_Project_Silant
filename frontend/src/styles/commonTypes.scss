@@ -1,18 +1,12 @@
-// $mobile_width: 800px;
-
 $color_blue: #163E6C;
 $color_red: #D20A11;
 $color_white: #EBE6D6;
 
-// $color_teal: #029491;
-// $color_black: #000000;
-// $color_white: #FFFFFF;
-// $color_orange: #FFB64F;
-// $color_cyan: #7CE3E1;
-// $color_blue: #5970FF;
-
 $fontname: "Astra";
-// $fontname2: "Inter";
+
+@mixin filter_form {
+    width: 320px;
+}
 
 // @mixin only_desktop {
 //     display: none;
