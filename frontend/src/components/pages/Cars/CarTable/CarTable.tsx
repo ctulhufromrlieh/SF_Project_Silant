@@ -3,12 +3,14 @@ import React, { useEffect } from "react";
 import classes from "./CarTable.module.scss";
 import commonClasses from "../../../../styles/common.module.scss";
 
+import carItemClasses from "./CarItem/CarItem.module.scss";
+
 import { Link } from "react-router-dom";
 import MyLabeledInput from "../../../UI/MyLabeledInput/MyLabeledInput";
 import { useTypedSelector } from "../../../../hooks/useTypedSelector";
 import { useActions } from "../../../../hooks/useActions";
 import Loader from "../../../UI/Loader/Loader";
-import CarItem from "./CarItem/CarItem";
+import CarItem from "./CarItem/1CarItem";
 import MyLabeledSelect, { SelectOption } from "../../../UI/MyLabeledSelect/MyLabeledSelect";
 import { AccountType, AuxEntry, Car } from "../../../../types/api";
 import { AuxEntriesToSelectOptions } from "../../../../utils/ui";
@@ -16,6 +18,7 @@ import { carToPropValues, dateTimeToDate, numberOrNullToString, stringToNumberOr
 import { ChangeSortTypeProc, SortMethod, cloneObjects, sortObjects } from "../../../../utils/sort";
 import { ModelType, isAllowedChange } from "../../../../utils/permissions";
 import MyButton from "../../../UI/MyButton/MyButton";
+import TableItem from "../../Common/TableItem";
 
 const CarTable: React.FC = () => {
 
@@ -188,7 +191,7 @@ const CarTable: React.FC = () => {
                     sortElements={sortElems}
                     changeSortTypeProc={changeSortTypeProc}
                 /> */}
-                <CarItem  
+                <TableItem  
                     index={-1} 
                     id={-1} 
                     propValues={{
@@ -209,6 +212,8 @@ const CarTable: React.FC = () => {
                         client__name: "Покупатель",
                         service_company__name: "Сервисная компания",
                     }}
+                    classes={carItemClasses}
+                    basePath={"/cars"}
                     sortElements={sortElems}
                     changeSortTypeProc={changeSortTypeProc}
                 />
@@ -243,7 +248,7 @@ const CarTable: React.FC = () => {
                     <CarItem key={item.id} {...item} index={index} id={item.id} factory_shipment_date={dateTimeToDate(item.factory_shipment_date)} />
                 )} */}
                 {sortedCars.map((item, index) => 
-                    <CarItem key={item.id} {...item} index={index} id={item.id} propValues={carToPropValues(item)} />
+                    <TableItem key={item.id} {...item} index={index} id={item.id} propValues={carToPropValues(item)} classes={carItemClasses} basePath={"/cars"} />
                 )}
             </div>
             <div>
