@@ -25,30 +25,6 @@ const UserPanel: React.FC = () => {
             <UserPanelAnonymous />
         );
     }
-
-    // return (
-    //     <div>
-    //         <div>
-    //             <p className={classes.authorize_link} onClick={() => setLoginWindowVisible(true)}>авторизация</p>
-    //         </div>
-    //         <MyModal visible={loginWindowVisible} setVisible={setLoginWindowVisible} contentClassName={classes.menu_background}>
-    //             <LoginWindow setVisible={setLoginWindowVisible} />
-    //         </MyModal> 
-    //         {/* <div className={classes.header}>
-    //             <div className={classes.upper}>
-    //                 <div className={classes.logo_div}><img src={imgLogo} alt="Site logo"/></div>
-    //                 <div>+7-8352-20-12-09, telegram </div>
-    //                 <div onClick={() => setLoginWindowVisible(true)}>авторизация</div>
-    //             </div>
-    //             <div>
-    //                 текст: Электронная сервисная книжка "МойСилант"
-    //             </div>
-    //         </div>
-    //         <MyModal visible={loginWindowVisible} setVisible={setLoginWindowVisible} contentClassName={classes.menu_background}>
-    //             <LoginWindow setVisible={setLoginWindowVisible} />
-    //         </MyModal> */}
-    //     </div>
-    // );
 }
 
 export default UserPanel;

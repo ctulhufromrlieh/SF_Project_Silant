@@ -26,7 +26,7 @@ const ReclamationTable: React.FC = () => {
     const auxEntries = useTypedSelector(state => state.auxEntries)    
 
     const fullRefreshMaintenances = () => {
-        fetchAccountInfo();
+        // fetchAccountInfo();
         fetchAuxEntries();
         fetchReclamations();
     }

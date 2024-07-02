@@ -24,7 +24,7 @@ const AuxEntryTable: React.FC<AuxEntryProps> = ({type}) => {
     const { fetchAccountInfo, fetchAuxEntries } = useActions();
 
     const fullRefreshAuxEntries = () => {
-        fetchAccountInfo();
+        // fetchAccountInfo();
         fetchAuxEntries();
     }
 

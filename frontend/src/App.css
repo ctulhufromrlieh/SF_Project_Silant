@@ -3,13 +3,21 @@
     margin: 0;
 }
 
-/* @font-face {
+@font-face {
 	font-family: 'Astra';
     src: url("fonts/PT-Astra-Sans_Regular.ttf");
-} */
+}
+
+.app {
+    /* font-family: Astra; */
+    display: flex;
+    justify-content: center;    
+    flex-direction: column;
+}
 
 .main {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }

@@ -26,7 +26,7 @@ const MaintenanceTable: React.FC = () => {
     const auxEntries = useTypedSelector(state => state.auxEntries)    
 
     const fullRefreshMaintenances = () => {
-        fetchAccountInfo();
+        // fetchAccountInfo();
         fetchAuxEntries();
         fetchMaintenances();
     }

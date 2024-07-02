@@ -1,32 +1,51 @@
 @import "../../styles/commonTypes.scss";
 
-.footer {
+.footer_container {
+    width: 100%;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: center;
+}
 
+.footer {
+    max-width: 1440px;
     width: 100%;
     height: 80px;
 
-    border: 1px solid green;
-//     background-color: $color_teal;   
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    // justify-content: space-around;
+    align-items: center;
 
-//     height: 137px;
-//     // border: 1px red solid;
+    background-color: $color_blue;
+    border: 2px solid $color_red;
+    border-radius: 10px;
 
-//     display:flex; 
-//     // flex-direction:row;      
-//     justify-content: space-between;
-//     align-items: center;
+    margin-top: 12px;
+    padding: 25px;
 
-//     padding: 0 19px 0 18px;
+    font-family: $fontname;
+    // font-size: 24px;
+    color: $color_white;
+    
+    @media (max-width: 420px) {
+        height: 50px;
+        padding: 12px;
+    }
 
-//     @media screen and (min-width: $mobile_width)  {
-//         padding: 0 45px 0 60px;
-//     }
-// }
+    .left {
+        font-size: 18px;
+        
+        @media (max-width: 420px) {
+            font-size: 12px;
+        }
+    }
 
-// .footer img {
-//     // border: 1px solid purple;
+    .right {
+        font-size: 18px;
+
+        @media (max-width: 420px) {
+            font-size: 12px;
+        }
+    }
 }

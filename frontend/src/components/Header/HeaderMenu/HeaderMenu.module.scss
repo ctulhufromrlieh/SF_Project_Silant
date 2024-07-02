@@ -1,7 +1,9 @@
 @import "../../../styles/commonTypes.scss";
 
 .menu {
+    font-family: $fontname;
     display: flex; 
+    // color: $color_white;
     // @include only_desktop_flex;
     gap: 49px;
     align-items: center;

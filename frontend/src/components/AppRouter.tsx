@@ -14,7 +14,8 @@ import { RouteData } from "../types/common";
 import { ModelType, isAllowedChange } from "../utils/permissions";
 const AppRouter = () => {
     // const {token, loading, isLogined} = useTypedSelector(state => state.account);
-    const {loading, isLogined} = useTypedSelector(state => state.account);
+    // const {loading, isLogined} = useTypedSelector(state => state.account);
+    const account = useTypedSelector(state => state.account);
     const accountInfo = useTypedSelector(state => state.accountInfo);
     // const { fetchAccountInfo } = useActions();
     
@@ -24,17 +25,19 @@ const AppRouter = () => {
     //     }
     // }, []);
 
-    if (loading) {
+    if (account.loading || accountInfo.loading) {
         return <Loader />;
     }
 
-    console.log("accountInfo=", accountInfo);
+    // console.log("accountInfo=", accountInfo);
     // let usedPrivateRoutes: RouteData[] = [...privateRoutes];
     // if (isAllowedChange(ModelType.MODEL_TYPE_AUX_ENTRY, accountInfo.accountType)) {
     //     usedPrivateRoutes = [...usedPrivateRoutes, ...auxEntryRoutes];
     // }
     let usedPrivateRoutes: RouteData[] = [...privateRoutes];
-    usedPrivateRoutes = [...usedPrivateRoutes, ...auxEntryRoutes];
+    if (isAllowedChange(ModelType.MODEL_TYPE_AUX_ENTRY, accountInfo.accountType)) {
+        usedPrivateRoutes = [...usedPrivateRoutes, ...auxEntryRoutes];
+    }
 
     // console.log("AppRouter: isLogined = ", isLogined);
     // console.log("url: ", window.location.href);
@@ -42,7 +45,7 @@ const AppRouter = () => {
 
     return (
         // token 
-        isLogined
+        account.isLogined
             ?
             <Routes>
                 {/* {privateRoutes.map(({path, component: Component}) =>  */}

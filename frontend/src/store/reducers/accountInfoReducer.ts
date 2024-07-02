@@ -19,6 +19,9 @@ export const accountInfoReducer = (state = initialState, action: AccountInfoActi
         case AccountInfoActionTypes.FETCH_ACCOUNT_INFO_ERROR:
             // console.log(action.payload);
             return { loading: false, error: action.payload, accountType: AccountType.ACCOUNT_TYPE_OTHER, name: null, username: null, ready: false,  };
+        case AccountInfoActionTypes.RESET_ACCOUNT_INFO:
+            // console.log(action.payload);
+            return { loading: false, error: null, accountType: AccountType.ACCOUNT_TYPE_OTHER, name: null, username: null, ready: false,  };
         default:
             return state;
     }

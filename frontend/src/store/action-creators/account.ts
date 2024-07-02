@@ -4,6 +4,7 @@ import axios from "axios";
 import { NavigateFunction, useNavigate } from "react-router";
 import { LoginResponseData, baseAccUrl, baseApiUrl, localStorageIdToken } from "../../types/api";
 import { RootState } from "../reducers";
+import { resetAccountInfo } from "./accountInfo";
 
 
 export const loginUser = (username: string, password: string, navigate: NavigateFunction) => {
@@ -23,6 +24,8 @@ export const loginUser = (username: string, password: string, navigate: Navigate
             // localStorage.setItem("account_accessToken", response.data.token);
             // localStorage.setItem("account_expire", response.data.expire);
             localStorage.setItem(localStorageIdToken, response.data.token);
+
+            await resetAccountInfo();
 
             // const navigate = useNavigate();
             // console.log("loginUser: before navigate");
@@ -50,6 +53,8 @@ export const loginUserByToken = (token: string) => {
         try {
             dispatch({type: AccountActionTypes.LOGIN_USER});
             dispatch({type: AccountActionTypes.LOGIN_USER_SUCCESS, payload: data});
+
+            await resetAccountInfo();
         } catch (e) {
             // console.log(e);
             dispatch({

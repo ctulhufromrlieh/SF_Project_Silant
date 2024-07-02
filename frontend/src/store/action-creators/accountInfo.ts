@@ -11,7 +11,7 @@ import { loginUserReset } from "./account";
 export const fetchAccountInfo = () => {
     return async (dispatch: Dispatch<AccountInfoAction>, getState: () => RootState) => {
         try {
-            // console.log("fetchAccountInfo: token = ", token);
+            // console.log("fetchAccountInfo: start");
             checkAuth();
 
             const state = getState();
@@ -29,8 +29,23 @@ export const fetchAccountInfo = () => {
             const response = await axios.get(`${baseAccUrl}/account_info`, {headers: headers});
             
             dispatch({type: AccountInfoActionTypes.FETCH_ACCOUNT_INFO_SUCCESS, payload: response.data})
+            // console.log("fetchAccountInfo: success!")
         } catch (e) {
-            await loginUserReset();
+            loginUserReset();
+            dispatch({
+                type: AccountInfoActionTypes.FETCH_ACCOUNT_INFO_ERROR, 
+                payload: <string>(e)
+            })
+        }
+    }
+}
+
+export const resetAccountInfo = () => {
+    return async (dispatch: Dispatch<AccountInfoAction>, getState: () => RootState) => {
+        try {
+            dispatch({type: AccountInfoActionTypes.RESET_ACCOUNT_INFO, })
+        } catch (e) {
+            loginUserReset();
             dispatch({
                 type: AccountInfoActionTypes.FETCH_ACCOUNT_INFO_ERROR, 
                 payload: <string>(e)

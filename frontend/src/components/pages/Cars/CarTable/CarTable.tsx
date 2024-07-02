@@ -39,7 +39,7 @@ const CarTable: React.FC = () => {
     // }, []);
 
     const fullRefreshCars = () => {
-        fetchAccountInfo();
+        // fetchAccountInfo();
         fetchAuxEntries();
         fetchCars();
     }
