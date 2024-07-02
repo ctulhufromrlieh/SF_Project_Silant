@@ -16,6 +16,7 @@ import { AuxEntryType } from "../types/api";
 import AuxEntryTable from "../components/pages/AuxEntries/AuxEntryTable";
 import OneAuxEntryItem from "../components/pages/AuxEntries/OneAuxEntryItem";
 import PageOneAuxEntry from "../components/pages/AuxEntries/PageOneAuxEntry";
+import PageAuxEntries from "../components/pages/AuxEntries/PageAuxEntries";
 
 export const privateRoutes: RouteData[] = [
     {path: "/cars", component: PageCars, caption: "Машины", isVisible: true},
@@ -61,8 +62,8 @@ const makeAuxEntryRouteDataId = (type: AuxEntryType): RouteData => {
 }
 
 export const auxEntryRoutes: RouteData[] = [
-    // {path: getAuxEntriesLinkTable(AuxEntryType.AUX_ENTRY_TYPE_CAR_MODEL), component: AuxEntryTable, 
-    //     caption: getAuxEntriesCaption(AuxEntryType.AUX_ENTRY_TYPE_CAR_MODEL), isVisible: false, props:{type: AuxEntryType.AUX_ENTRY_TYPE_CAR_MODEL}},
+    {path: "/aux_entries", component: PageAuxEntries, caption: "Справочники", isVisible: true},
+
     makeAuxEntryRouteData(AuxEntryType.AUX_ENTRY_TYPE_CAR_MODEL),
     makeAuxEntryRouteData(AuxEntryType.AUX_ENTRY_TYPE_ENGINE_MODEL),
     makeAuxEntryRouteData(AuxEntryType.AUX_ENTRY_TYPE_TRANSMISSION_MODEL),

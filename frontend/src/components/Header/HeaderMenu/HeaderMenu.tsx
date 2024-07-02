@@ -2,7 +2,7 @@ import React from "react";
 
 import classes from "./HeaderMenu.module.scss";
 import { Link } from "react-router-dom";
-import { privateRoutes, publicRoutes } from "../../../router";
+import { auxEntryRoutes, privateRoutes, publicRoutes } from "../../../router";
 import Navbar from "../../UI/Navbar/Navbar";
 import { useTypedSelector } from "../../../hooks/useTypedSelector";
 
@@ -30,7 +30,8 @@ const HeaderMenu: React.FC = () => {
     //     usedRoutes = publicRoutes;
     // }
 
-    const usedRoutes = privateRoutes;
+    // const usedRoutes = privateRoutes;
+    const usedRoutes = [...privateRoutes, ...auxEntryRoutes];
 
     return (
         <Navbar routes={usedRoutes} listClassName={classes.menu} itemClassName={classes.item} />
