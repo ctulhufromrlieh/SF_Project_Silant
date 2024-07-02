@@ -1,10 +1,12 @@
 import React, { ReactElement } from "react";
 
 // import classes from "./CarItem.module.scss";
+import commonClasses from "../../../styles/common.module.scss";
 import { Link } from "react-router-dom";
 import { ChangeSortTypeProc, SortElement, SortMethod, getSortMethod } from "../../../utils/sort";
 import SortButton from "../../UI/SortButton/SortButton";
 import { PropRecord } from "../../../utils/tables";
+import { makeClassName } from "../../../utils/classes";
 
 interface CarItemProps {
     index: number;
@@ -40,28 +42,77 @@ const TableItem: React.FC<CarItemProps> = ({index, id, propValues, classes, base
 
     }
 
-    const getElem = (propName: string): ReactElement => {
+    const getCellClassName = (propName: string): string => {
+        let res = "";
+        
+        if (isHeader) {
+            res = commonClasses.header;
+        } else {
+            res = commonClasses.cell;
+        }
+
+
+        if (propName=="") {
+            res = makeClassName(res, [classes["id"]]);
+        } else {
+            res = makeClassName(res, [classes[propName]]);
+        }
+
+        return res;
+    }
+
+    const getElem = (propName: string, id: number): ReactElement => {
+       
         return (
-            <div className={classes[propName]}>{propValues[propName]} {getSortButton(propName)}</div>
+            <div key={propName} className={getCellClassName(propName)}>
+                {/* {propValues[propName]} {getSortButton(propName)} */}
+                {/* <Link to={`${basePath}/${id}`}>
+                    {propValues[propName]} 
+                </Link> */}
+                {
+                    !isHeader 
+                ?
+                    <Link to={`${basePath}/${id}`}>
+                        {propValues[propName]}
+                    </Link>
+                :
+                    propValues[propName]
+                }
+                {getSortButton(propName)}
+            </div>
         );
     }
+
+    // const getElem = (propName: string): ReactElement => {
+       
+    //     return (
+    //         <div key={propName} className={getCellClassName(propName)}>
+    //             {/* {propValues[propName]} {getSortButton(propName)} */}
+    //             <Link to={`${basePath}/${id}`}>
+    //                 {propValues[propName]} 
+    //             </Link>
+    //             {getSortButton(propName)}
+    //         </div>
+    //     );
+    // }
 
     const propNames = Object.entries(propValues).map((item => item[0]));
 
     return (
-        <div className={classes.item}>
-            <div className={classes.id}>
-                <Link to={`${basePath}/${id}`}>
-                    {
-                        index != -1 
-                    ?
-                        index + 1 
-                    :
-                        null
-                    }
-                </Link>
+        <div className={commonClasses.item}>
+            <div className={getCellClassName("")}>
+                {
+                    !isHeader 
+                ?
+                    <Link to={`${basePath}/${id}`}>
+                        {index + 1}
+                    </Link>
+                :
+                    "#"
+                }
             </div>
-            {propNames.map(item => <div key={item}>{getElem(item)}</div>)}
+            {propNames.map(item => getElem(item, id))}
+            {/* {propNames.map(item => <Link to={`${basePath}/${id}`}>{getElem(item)}</Link>)} */}
         </div>
     );
 }

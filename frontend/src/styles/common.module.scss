@@ -20,11 +20,60 @@
 }
 
 .table {
-    width: 100%;
+    // width: 100%;
+    // overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 
     font-family: $fontname;
 
-    .header {
-        background-color: $color_blue;
+    border: 1px solid $color_blue;
+
+    .item {
+        display: flex;
+        flex-direction: row;
+
+        .header {
+            display: flex;
+            align-items: center;
+            // justify-content: center;
+            justify-content: space-between;
+            flex-direction: column;
+    
+            background-color: $color_blue;
+            border: 1px solid $color_red;
+            color: $color_red;
+            font-size: 16px;
+    
+            // height: 100%;
+            min-height: 100%;
+            box-sizing: border-box;
+            padding: 5px;
+    
+            text-overflow: ellipsis;
+            overflow: hidden;
+            // white-space: nowrap;
+        }
+    
+        .cell {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+    
+            border: 1px solid $color_blue;
+            color: $color_blue;
+            font-size: 14px;
+            text-decoration: none;
+    
+            // height: 100%;
+            min-height: 100%;
+            box-sizing: border-box;
+            padding: 5px;
+
+            text-overflow: ellipsis;
+            overflow: hidden;
+            // white-space: nowrap;
+        }
     }
 }

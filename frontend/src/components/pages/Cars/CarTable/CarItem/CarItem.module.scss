@@ -1,22 +1,26 @@
-.item {
-    display: flex;
-    flex-direction: row;
+// .item {
+    // display: flex;
+    // flex-direction: row;
     // gap: 5px;
     
-    border: 1px solid purple;
+    // border: 1px solid purple;
 
-    div {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+    // div {
+    //     display: flex;
+    //     align-items: center;
+    //     justify-content: center;
+    // }
 
     .id {
         width: 40px;
+        // min-width: 40px;
+        // max-width: 40px;
     }
 
     .car_model__name {
         width: 70px;
+        // min-width: 70px;
+        // max-width: 70px;
     }
 
     .car_num {
@@ -82,4 +86,4 @@
     // div {
     //     border: 1px solid green;
     // }
-}
+// }

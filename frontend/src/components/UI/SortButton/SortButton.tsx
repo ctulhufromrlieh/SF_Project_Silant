@@ -12,7 +12,7 @@ interface SortButtonProps {
 
 const SortButton: React.FC<SortButtonProps> = ({ value, setValue }) => { 
 
-    let symbol = "X";
+    let symbol = "-";
     if (value == SortMethod.SORT_METHOD_ASC) {
         symbol = "▲";
     } else if (value == SortMethod.SORT_METHOD_DESC) {

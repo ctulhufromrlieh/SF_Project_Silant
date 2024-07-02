@@ -3,84 +3,16 @@
 .sort_button {
     width: 20px;
     height: 20px;
+
+    // border: 1px solid $color_red;
+    background-color: $color_red;
+
+    cursor: pointer;
+    font-family: $fontname;
+    font-size: 20px;
+    color: $color_white;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-
-// .btn_common {
-//     // border-radius: 5px;
-//     border: none;
-
-//     font-family: $fontname2;
-//     letter-spacing: 0.01em;   
-
-//     cursor: pointer;
-
-//     // width: 355px;
-//     // height: 59px;
-// }
-
-// .btn_common:disabled {
-//     opacity: 0.5;
-// }
-
-// .btn_border_radius_normal {
-//     border-radius: 5px;
-// }
-
-// .btn_border_radius_large {
-//     border-radius: 10px;
-// }
-
-// .btn_size_small {
-//     font-weight: 400;
-//     font-size: 14px;
-//     line-height: 16.94px;
-//     letter-spacing: 0.01em;
-
-//     @media screen and (min-width: $mobile_width)  {
-//         font-size: 16px;
-//         line-height: 19.36px;
-//         letter-spacing: 0.02em;
-//     }
-// }
-
-// .btn_size_normal {
-//     font-weight: 400;
-//     font-size: 18px;
-//     line-height: 21.78px;
-
-//     @media screen and (min-width: $mobile_width)  {
-//         font-size: 20px;
-//         line-height: 24.2px;
-//     }
-// }
-
-// .btn_size_large {
-//     font-weight: 500;
-//     font-size: 20px;
-//     line-height: 24.2px;
-
-//     @media screen and (min-width: $mobile_width)  {
-//         font-size: 22px;
-//         line-height: 26.63px;
-//     }
-// }
-
-// .btn_color_blue_white {
-//     background-color: $color_blue;
-//     color: $color_white;
-// }
-
-// .btn_color_cyan_black {
-//     background-color: $color_cyan;
-//     color: $color_black;
-// }
-
-// .btn_color_gray_black {
-//     background-color: #D2D2D2;
-//     color: $color_black;
-// }
-
-// .btn_color_sea_white {
-//     background-color: #3BA5E0;
-//     color: $color_white;
-// }
