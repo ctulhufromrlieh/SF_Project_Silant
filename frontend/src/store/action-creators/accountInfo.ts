@@ -42,6 +42,7 @@ export const fetchAccountInfo = () => {
 
 export const resetAccountInfo = () => {
     return async (dispatch: Dispatch<AccountInfoAction>, getState: () => RootState) => {
+        console.log("resetAccountInfo: start")
         try {
             dispatch({type: AccountInfoActionTypes.RESET_ACCOUNT_INFO, })
         } catch (e) {

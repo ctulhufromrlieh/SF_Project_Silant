@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 
 import classes from "./UserPanelAnonymous.module.scss";
-// import commonClasses from "../../../styles/common.module.scss";
 import MyModal from "../../../UI/MyModal/MyModal";
-// import { useTypedSelector } from "../../../../hooks/useTypedSelector";
 import LoginWindow from "./LoginWindow/LoginWindow";
 
 

@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 
 import classes from "./Header.module.scss";
-import commonClasses from "../../styles/common.module.scss";
 
 import imgLogo from "../../img/Header/logo.module.png";
 import UserPanel from "./UserPanel/UserPanel";
-import HeaderMenu from "./HeaderMenu/HeaderMenu";
 
 const Header: React.FC = () => {
 
@@ -23,7 +21,6 @@ const Header: React.FC = () => {
                     <h2>текст: Электронная сервисная книжка "МойСилант"</h2>
                 </div>
             </div>
-            {/* <HeaderMenu/> */}
         </div>
     );
 }

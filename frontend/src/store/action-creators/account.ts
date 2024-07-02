@@ -5,10 +5,11 @@ import { NavigateFunction, useNavigate } from "react-router";
 import { LoginResponseData, baseAccUrl, baseApiUrl, localStorageIdToken } from "../../types/api";
 import { RootState } from "../reducers";
 import { resetAccountInfo } from "./accountInfo";
+import { AccountInfoAction, AccountInfoActionTypes } from "../../types/accountInfo";
 
 
 export const loginUser = (username: string, password: string, navigate: NavigateFunction) => {
-    return async (dispatch: Dispatch<AccountAction>) => {
+    return async (dispatch: Dispatch<AccountAction | AccountInfoAction>) => {
         try {
             const headers = {
               'Content-type': 'application/json',
@@ -25,7 +26,8 @@ export const loginUser = (username: string, password: string, navigate: Navigate
             // localStorage.setItem("account_expire", response.data.expire);
             localStorage.setItem(localStorageIdToken, response.data.token);
 
-            await resetAccountInfo();
+            // resetAccountInfo();
+            dispatch({ type: AccountInfoActionTypes.RESET_ACCOUNT_INFO });
 
             // const navigate = useNavigate();
             // console.log("loginUser: before navigate");
@@ -43,7 +45,7 @@ export const loginUser = (username: string, password: string, navigate: Navigate
 
 // export const loginUserByToken = (token: string, expire: string) => {
 export const loginUserByToken = (token: string) => {
-    return async (dispatch: Dispatch<AccountAction>) => {
+    return async (dispatch: Dispatch<AccountAction | AccountInfoAction>) => {
         const data: LoginResponseData = {
             // token: token,
             // expire: expire,
@@ -54,7 +56,8 @@ export const loginUserByToken = (token: string) => {
             dispatch({type: AccountActionTypes.LOGIN_USER});
             dispatch({type: AccountActionTypes.LOGIN_USER_SUCCESS, payload: data});
 
-            await resetAccountInfo();
+            // await resetAccountInfo();
+            dispatch({ type: AccountInfoActionTypes.RESET_ACCOUNT_INFO });
         } catch (e) {
             // console.log(e);
             dispatch({
@@ -67,7 +70,7 @@ export const loginUserByToken = (token: string) => {
 }
 
 export const loginUserReset = () => {
-    return async (dispatch: Dispatch<AccountAction>, getState: () => RootState) => {
+    return async (dispatch: Dispatch<AccountAction | AccountInfoAction>, getState: () => RootState) => {
         dispatch({type: AccountActionTypes.LOGIN_USER_RESET})
         // localStorage.removeItem("account_accessToken");
         // localStorage.removeItem("account_expire");       
@@ -93,6 +96,9 @@ export const loginUserReset = () => {
         }
 
         localStorage.removeItem(localStorageIdToken);
+
+        // await resetAccountInfo();
+        dispatch({ type: AccountInfoActionTypes.RESET_ACCOUNT_INFO });
 
         // dispatch({type: AccountActionTypes.LOGIN_USER_RESET})
     }
