@@ -21,31 +21,6 @@ def get_simple_car_queryset(request, use_filter):
 
     if filter_car_num:
         res = res.filter(car_num__icontains=filter_car_num)
-    
-    # if filter_car_model:
-    #     filter_car_model_i = to_int(filter_car_model, -1)
-    #     if filter_car_model_i != -1:
-    #         res = res.filter(car_model=filter_car_model_i)
-    
-    # if filter_engine_model:
-    #     filter_engine_model_i = to_int(filter_engine_model, -1)
-    #     if filter_engine_model_i != -1:
-    #         res = res.filter(engine_model=filter_engine_model_i)
-    
-    # if filter_transmission_model:
-    #     filter_transmission_model_i = to_int(filter_transmission_model, -1)
-    #     if filter_transmission_model_i != -1:
-    #         res = res.filter(transmission_model=filter_transmission_model_i)
-    
-    # if filter_main_bridge_model:
-    #     filter_main_bridge_model_i = to_int(filter_main_bridge_model, -1)
-    #     if filter_main_bridge_model_i != -1:
-    #         res = res.filter(main_bridge_model=filter_main_bridge_model_i)
-    
-    # if filter_steerable_bridge_model:
-    #     filter_steerable_bridge_model_i = to_int(filter_steerable_bridge_model, -1)
-    #     if filter_steerable_bridge_model_i != -1:
-    #         res = res.filter(steerable_bridge_model=filter_steerable_bridge_model_i)
 
     return res
 

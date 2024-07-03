@@ -115,8 +115,11 @@ class CarView(ListCreateAPIView):
     permission_classes = [DjangoModelPermissions]
     ordering = ["factory_shipment_date",]
 
+    # def get_queryset(self):
+    #     return get_car_queryset(self.request, True, True)
+
     def get_queryset(self):
-        return get_car_queryset(self.request, True, True)
+        return get_car_queryset(self.request, False, True)
 
     def is_visible_car(self, user, car):
         if not user:
@@ -141,25 +144,25 @@ class CarView(ListCreateAPIView):
         return False
 
 
-    def list(self, request, *args, **kwargs):
-        response = super().list(request, *args, **kwargs)
+    # def list(self, request, *args, **kwargs):
+    #     response = super().list(request, *args, **kwargs)
 
-        # hide foreign cars
-        for car in response.data:
-            # rec = Car.objects.get(id=car['id'])
-            if not self.is_visible_car(request.user, car):
-                # print('invisible car = ', car)
-                car['supply_agreement'] = "<classified>"
-                car['factory_shipment_date'] = "<classified>"
-                car['consignee'] = "<classified>"
-                car['shipment_address'] = "<classified>"
-                car['add_options'] = "<classified>"
-                car['client__name'] = "<classified>"
-                car['client'] = -1
-                car['service_company__name'] = "<classified>"
-                car['service_company'] = -1
+    #     # hide foreign cars
+    #     for car in response.data:
+    #         # rec = Car.objects.get(id=car['id'])
+    #         if not self.is_visible_car(request.user, car):
+    #             # print('invisible car = ', car)
+    #             car['supply_agreement'] = "<classified>"
+    #             car['factory_shipment_date'] = "<classified>"
+    #             car['consignee'] = "<classified>"
+    #             car['shipment_address'] = "<classified>"
+    #             car['add_options'] = "<classified>"
+    #             car['client__name'] = "<classified>"
+    #             car['client'] = -1
+    #             car['service_company__name'] = "<classified>"
+    #             car['service_company'] = -1
 
-        return response
+    #     return response
 
 class SingleCarView(RetrieveUpdateDestroyAPIView):
     # queryset = Car.objects.all()
