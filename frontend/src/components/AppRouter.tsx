@@ -13,12 +13,16 @@ const AppRouter = () => {
         return <Loader />;
     }
 
+    console.log("before usedPrivateRoutes calc");
+    console.log("account=", account);
+    console.log("accountInfo=", accountInfo);
+
     let usedPrivateRoutes: RouteData[] = [...privateRoutes];
     if (isAllowedChange(ModelType.MODEL_TYPE_AUX_ENTRY, accountInfo.accountType)) {
         usedPrivateRoutes = [...usedPrivateRoutes, ...auxEntryRoutes];
     }
 
-    // console.log("usedPrivateRoutes=", usedPrivateRoutes);
+    console.log("usedPrivateRoutes=", usedPrivateRoutes);
 
     return (
         // token 

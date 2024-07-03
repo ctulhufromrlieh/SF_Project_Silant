@@ -76,8 +76,8 @@ export const AuxEntriesReducer = (state = initialState, action: AuxEntriesAction
         case AuxEntriesActionTypes.FETCH_AUX_ENTRIES_ERROR:
             return { ...initialState, loading: false, error: action.payload, isReady: false, };
         case AuxEntriesActionTypes.CREATE_AUX_ENTRY:
+            return { ...initialState, loading: true, error: null, isReady: false, };    
             // return addAuxEntryState(state, action.payload);
-            return { ...initialState, loading: true, error: null, isReady: false, };
         case AuxEntriesActionTypes.UPDATE_AUX_ENTRY:
             return { ...initialState, loading: true, error: null, isReady: false, };
             // return addAuxEntryState(
@@ -88,7 +88,7 @@ export const AuxEntriesReducer = (state = initialState, action: AuxEntriesAction
             return { ...initialState, loading: true, error: null, isReady: false, };
             // return deleteAuxEntryState(state, action.payload);
         case AuxEntriesActionTypes.RESET_AUX_ENTRIES:
-            return initialState;
+            return {...initialState };
         default:
             return state;
     }

@@ -68,7 +68,7 @@ const OneReclamationItem: React.FC<OneReclamationItemProps> = ({method, reclamat
 
     const updateMaintenanceAndRefresh = (reclamation: Reclamation) => {
         updateReclamation(reclamation);
-        // navigate("/cars");
+        navigate("/reclamation");
     }
 
     const deleteMaintenanceAndRefresh = (reclamation: Reclamation) => {

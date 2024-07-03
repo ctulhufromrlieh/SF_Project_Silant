@@ -1,9 +1,53 @@
 import { Dispatch } from "redux";
 import { AuxEntriesAction, AuxEntriesActionTypes, ConcreteAuxEntry, getAuxEntriesUrlList, getAuxEntriesUrlSingle, setAuxEntriesListByType } from "../../types/auxEntries";
 import { RootState } from "../reducers";
-import axios from "axios";
+import axios, { AxiosHeaders } from "axios";
 import { checkAuth } from "../../utils/auth";
 import { AuxEntries, Client, ServiceCompany, baseAccUrl, baseApiUrl } from "../../types/api";
+
+const receiveAuxEntries = async (headers: any): Promise<AuxEntries> => {
+    const responseCarModels = await axios.get(`${baseApiUrl}/car_models`, {headers: headers});
+    const responseEngineModels = await axios.get(`${baseApiUrl}/engine_models`, {headers: headers});
+    const responseTransmissionModels = await axios.get(`${baseApiUrl}/transmission_models`, {headers: headers});
+    const responseMainBridgeModels = await axios.get(`${baseApiUrl}/main_bridge_models`, {headers: headers});
+    const responseSteerableBridgeModels = await axios.get(`${baseApiUrl}/steerable_bridge_models`, {headers: headers});
+    const responseMaintenanceTypes = await axios.get(`${baseApiUrl}/maintenance_types`, {headers: headers});
+    const responseFailureNodes = await axios.get(`${baseApiUrl}/failure_nodes`, {headers: headers});
+    const responseRecoveryMethods = await axios.get(`${baseApiUrl}/recovery_methods`, {headers: headers});
+    
+    let dataClients: Client[] = [];
+    try {
+        const responseClients = await axios.get(`${baseApiUrl}/clients`, {headers: headers});
+        dataClients = responseClients.data;
+    } catch (e) {
+        console.log("fetchAuxEntries: get clients")
+        // dataClients = [];
+    }
+    
+    let dataServiceCompanies: ServiceCompany[] = [];
+    try {
+        const responseServiceCompanies = await axios.get(`${baseApiUrl}/service_companies`, {headers: headers});
+        dataServiceCompanies = responseServiceCompanies.data;
+    } catch (e) {
+        console.log("fetchAuxEntries: get service_companies")
+        // dataServiceCompanies = [];
+    }    
+
+    const entries: AuxEntries = {
+        carModels: responseCarModels.data,
+        engineModels: responseEngineModels.data,
+        transmissionModels: responseTransmissionModels.data,
+        mainBridgeModels: responseMainBridgeModels.data,
+        steerableBridgeModels: responseSteerableBridgeModels.data,
+        maintenanceTypes: responseMaintenanceTypes.data,
+        failureNodes: responseFailureNodes.data,
+        recoveryMethods: responseRecoveryMethods.data,
+        clients: dataClients,
+        serviceCompanies: dataServiceCompanies,
+    }
+
+    return entries;
+}
 
 export const fetchAuxEntries = () => {
     return async (dispatch: Dispatch<AuxEntriesAction>, getState: () => RootState) => {
@@ -19,53 +63,58 @@ export const fetchAuxEntries = () => {
                 'Content-type': 'application/json',
                 'Accept': 'application/json',
                 'Authorization': 'Token ' + token
-              }
+            }
 
             dispatch({type: AuxEntriesActionTypes.FETCH_AUX_ENTRIES});
 
-            const responseCarModels = await axios.get(`${baseApiUrl}/car_models`, {headers: headers});
-            const responseEngineModels = await axios.get(`${baseApiUrl}/engine_models`, {headers: headers});
-            const responseTransmissionModels = await axios.get(`${baseApiUrl}/transmission_models`, {headers: headers});
-            const responseMainBridgeModels = await axios.get(`${baseApiUrl}/main_bridge_models`, {headers: headers});
-            const responseSteerableBridgeModels = await axios.get(`${baseApiUrl}/steerable_bridge_models`, {headers: headers});
-            const responseMaintenanceTypes = await axios.get(`${baseApiUrl}/maintenance_types`, {headers: headers});
-            const responseFailureNodes = await axios.get(`${baseApiUrl}/failure_nodes`, {headers: headers});
-            const responseRecoveryMethods = await axios.get(`${baseApiUrl}/recovery_methods`, {headers: headers});
+            // const responseCarModels = await axios.get(`${baseApiUrl}/car_models`, {headers: headers});
+            // const responseEngineModels = await axios.get(`${baseApiUrl}/engine_models`, {headers: headers});
+            // const responseTransmissionModels = await axios.get(`${baseApiUrl}/transmission_models`, {headers: headers});
+            // const responseMainBridgeModels = await axios.get(`${baseApiUrl}/main_bridge_models`, {headers: headers});
+            // const responseSteerableBridgeModels = await axios.get(`${baseApiUrl}/steerable_bridge_models`, {headers: headers});
+            // const responseMaintenanceTypes = await axios.get(`${baseApiUrl}/maintenance_types`, {headers: headers});
+            // const responseFailureNodes = await axios.get(`${baseApiUrl}/failure_nodes`, {headers: headers});
+            // const responseRecoveryMethods = await axios.get(`${baseApiUrl}/recovery_methods`, {headers: headers});
             
-            let dataClients: Client[] = [];
-            try {
-                const responseClients = await axios.get(`${baseApiUrl}/clients`, {headers: headers});
-                dataClients = responseClients.data;
-            } catch (e) {
-                console.log("fetchAuxEntries: get clients")
-                // dataClients = [];
-            }
+            // let dataClients: Client[] = [];
+            // try {
+            //     const responseClients = await axios.get(`${baseApiUrl}/clients`, {headers: headers});
+            //     dataClients = responseClients.data;
+            // } catch (e) {
+            //     console.log("fetchAuxEntries: get clients")
+            //     // dataClients = [];
+            // }
             
-            let dataServiceCompanies: ServiceCompany[] = [];
-            try {
-                const responseServiceCompanies = await axios.get(`${baseApiUrl}/service_companies`, {headers: headers});
-                dataServiceCompanies = responseServiceCompanies.data;
-            } catch (e) {
-                console.log("fetchAuxEntries: get service_companies")
-                // dataServiceCompanies = [];
-            }
+            // let dataServiceCompanies: ServiceCompany[] = [];
+            // try {
+            //     const responseServiceCompanies = await axios.get(`${baseApiUrl}/service_companies`, {headers: headers});
+            //     dataServiceCompanies = responseServiceCompanies.data;
+            // } catch (e) {
+            //     console.log("fetchAuxEntries: get service_companies")
+            //     // dataServiceCompanies = [];
+            // }
             
 
-            const entries: AuxEntries = {
-                carModels: responseCarModels.data,
-                engineModels: responseEngineModels.data,
-                transmissionModels: responseTransmissionModels.data,
-                mainBridgeModels: responseMainBridgeModels.data,
-                steerableBridgeModels: responseSteerableBridgeModels.data,
-                maintenanceTypes: responseMaintenanceTypes.data,
-                failureNodes: responseFailureNodes.data,
-                recoveryMethods: responseRecoveryMethods.data,
-                clients: dataClients,
-                serviceCompanies: dataServiceCompanies,
-            }
+            // const entries: AuxEntries = {
+            //     carModels: responseCarModels.data,
+            //     engineModels: responseEngineModels.data,
+            //     transmissionModels: responseTransmissionModels.data,
+            //     mainBridgeModels: responseMainBridgeModels.data,
+            //     steerableBridgeModels: responseSteerableBridgeModels.data,
+            //     maintenanceTypes: responseMaintenanceTypes.data,
+            //     failureNodes: responseFailureNodes.data,
+            //     recoveryMethods: responseRecoveryMethods.data,
+            //     clients: dataClients,
+            //     serviceCompanies: dataServiceCompanies,
+            // }
+
+            const entries = await receiveAuxEntries(headers);
+
+            // console.log("fetch: entries: ", entries);
 
             dispatch({type: AuxEntriesActionTypes.FETCH_AUX_ENTRIES_SUCCESS, payload: entries})
 
+            console.log("fetchAuxEntries: end");
             // navigate("/results")
         } catch (e) {
             console.log("fetchAuxEntries Error: ", e)
@@ -94,13 +143,17 @@ export const createAuxEntry = (concreteAuxEntry: ConcreteAuxEntry) => {
             dispatch({type: AuxEntriesActionTypes.CREATE_AUX_ENTRY, payload: concreteAuxEntry});
             const createResponse = await axios.post(getAuxEntriesUrlList(concreteAuxEntry.type), concreteAuxEntry.value, {headers: headers});
 
-            dispatch({type: AuxEntriesActionTypes.RESET_AUX_ENTRIES});
+            // dispatch({type: AuxEntriesActionTypes.RESET_AUX_ENTRIES});
 
             // dispatch({type: AuxEntriesActionTypes.FETCH_AUX_ENTRIES});
             // const response = await axios.get(getAuxEntriesUrlList(concreteAuxEntry.type), {headers: headers});
             // let auxEntries = state.auxEntries;
             // setAuxEntriesListByType(concreteAuxEntry.type, auxEntries, response.data);
             // dispatch({type: AuxEntriesActionTypes.FETCH_AUX_ENTRIES_SUCCESS, payload: auxEntries})
+
+            dispatch({type: AuxEntriesActionTypes.FETCH_AUX_ENTRIES});
+            const entries = await receiveAuxEntries(headers);
+            dispatch({type: AuxEntriesActionTypes.FETCH_AUX_ENTRIES_SUCCESS, payload: entries})
 
         } catch (e) {
             console.log("createAuxEntry Error: ", e)
@@ -126,16 +179,24 @@ export const updateAuxEntry = (concreteAuxEntry: ConcreteAuxEntry) => {
                 'Authorization': 'Token ' + token
             }
 
-            dispatch({type: AuxEntriesActionTypes.UPDATE_AUX_ENTRY, payload: concreteAuxEntry});
-            const createResponse = await axios.put(getAuxEntriesUrlSingle(concreteAuxEntry.type, concreteAuxEntry.value.id), concreteAuxEntry.value, {headers: headers});
+            // dispatch({type: AuxEntriesActionTypes.RESET_AUX_ENTRIES});
 
-            dispatch({type: AuxEntriesActionTypes.RESET_AUX_ENTRIES});
+            dispatch({type: AuxEntriesActionTypes.UPDATE_AUX_ENTRY, payload: concreteAuxEntry});
+            const updateResponse = await axios.put(getAuxEntriesUrlSingle(concreteAuxEntry.type, concreteAuxEntry.value.id), concreteAuxEntry.value, {headers: headers});
+
+            // console.log("updateAuxEntry: concreteAuxEntry.value = ", concreteAuxEntry.value);
+
+            // dispatch({type: AuxEntriesActionTypes.RESET_AUX_ENTRIES});
 
             // dispatch({type: AuxEntriesActionTypes.FETCH_AUX_ENTRIES});
             // const response = await axios.get(getAuxEntriesUrlList(concreteAuxEntry.type), {headers: headers});
             // let auxEntries = state.auxEntries;
             // setAuxEntriesListByType(concreteAuxEntry.type, auxEntries, response.data);
             // dispatch({type: AuxEntriesActionTypes.FETCH_AUX_ENTRIES_SUCCESS, payload: auxEntries})
+
+            dispatch({type: AuxEntriesActionTypes.FETCH_AUX_ENTRIES});
+            const entries = await receiveAuxEntries(headers);
+            dispatch({type: AuxEntriesActionTypes.FETCH_AUX_ENTRIES_SUCCESS, payload: entries});
 
         } catch (e) {
             console.log("updateAuxEntry Error: ", e)
@@ -162,15 +223,19 @@ export const deleteAuxEntry = (concreteAuxEntry: ConcreteAuxEntry) => {
             }
 
             dispatch({type: AuxEntriesActionTypes.DELETE_AUX_ENTRY, payload: concreteAuxEntry});
-            const createResponse = await axios.delete(getAuxEntriesUrlSingle(concreteAuxEntry.type, concreteAuxEntry.value.id), {headers: headers});
+            const deleteResponse = await axios.delete(getAuxEntriesUrlSingle(concreteAuxEntry.type, concreteAuxEntry.value.id), {headers: headers});
 
-            dispatch({type: AuxEntriesActionTypes.RESET_AUX_ENTRIES});
+            // dispatch({type: AuxEntriesActionTypes.RESET_AUX_ENTRIES});
 
             // dispatch({type: AuxEntriesActionTypes.FETCH_AUX_ENTRIES});
             // const response = await axios.get(getAuxEntriesUrlList(concreteAuxEntry.type), {headers: headers});
             // let auxEntries = state.auxEntries;
             // setAuxEntriesListByType(concreteAuxEntry.type, auxEntries, response.data);
             // dispatch({type: AuxEntriesActionTypes.FETCH_AUX_ENTRIES_SUCCESS, payload: auxEntries})
+
+            dispatch({type: AuxEntriesActionTypes.FETCH_AUX_ENTRIES});
+            const entries = await receiveAuxEntries(headers);
+            dispatch({type: AuxEntriesActionTypes.FETCH_AUX_ENTRIES_SUCCESS, payload: entries})
 
         } catch (e) {
             console.log("deleteAuxEntry Error: ", e)
@@ -182,8 +247,9 @@ export const deleteAuxEntry = (concreteAuxEntry: ConcreteAuxEntry) => {
     }
 }
 
-export const resetCars = () => {
+export const resetAuxEntries = () => {
     return async (dispatch: Dispatch<AuxEntriesAction>, getState: () => RootState) => {
         dispatch({type: AuxEntriesActionTypes.RESET_AUX_ENTRIES});
+        console.log("resetAuxEntries: end");
     }
 }

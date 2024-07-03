@@ -9,6 +9,7 @@ import { isValidAuth } from './utils/auth';
 import { localStorageIdToken } from './types/api';
 import { useTypedSelector } from './hooks/useTypedSelector';
 import HeaderMenu from './components/Header/HeaderMenu/HeaderMenu';
+import Loader from './components/UI/Loader/Loader';
 
 function App() {
     const {loginUserByToken, loginUserReset} = useActions();
@@ -48,6 +49,10 @@ function App() {
         console.log("accountInfo = ", accountInfo);
     }
     
+    if (account.loading || accountInfo.loading || (account.isLogined && !accountInfo.ready)) {
+        return <Loader/>;
+    }
+
     return (
         <BrowserRouter>
             <div className="app">

@@ -7,7 +7,7 @@ import { useTypedSelector } from "../../../hooks/useTypedSelector";
 import { useNavigate, useParams } from "react-router";
 import Loader from "../../UI/Loader/Loader";
 import MyLabeledInput from "../../UI/MyLabeledInput/MyLabeledInput";
-import { AccountType, AuxEntry, AuxEntryType, Car, defaultAuxEntry, defaultCar } from "../../../types/api";
+import { AccountType, AuxEntry, AuxEntryType, defaultAuxEntry } from "../../../types/api";
 import { useActions } from "../../../hooks/useActions";
 import { SingleElemMethod } from "../../../types/common";
 import { ModelType, isAllowedChange } from "../../../utils/permissions";
@@ -24,7 +24,7 @@ const OneAuxEntryItem: React.FC<OneAuxEntryItemProps> = ({method, type, auxEntry
     const accountInfo = useTypedSelector(state => state.accountInfo);
     const auxEntries = useTypedSelector(state => state.auxEntries);
 
-    const { createAuxEntry, updateAuxEntry, deleteAuxEntry } = useActions();
+    const { createAuxEntry, updateAuxEntry, deleteAuxEntry, resetAuxEntries } = useActions();
 
     let auxEntryInit = defaultAuxEntry;
     if (auxEntry) {
@@ -45,16 +45,19 @@ const OneAuxEntryItem: React.FC<OneAuxEntryItemProps> = ({method, type, auxEntry
     console.log("usedAuxEntry = ", usedAuxEntry);
 
     const createAuxEntryAndRefresh = (auxEntry: AuxEntry) => {
+        resetAuxEntries();
         createAuxEntry({type: type, value: auxEntry});
         navigate(`${getAuxEntriesLinkTable(type)}`);
     }
 
     const updateAuxEntryAndRefresh = (auxEntry: AuxEntry) => {
+        resetAuxEntries();
         updateAuxEntry({type: type, value: auxEntry});
-        // navigate(`${getAuxEntriesLinkTable(type)}`);
+        navigate(`${getAuxEntriesLinkTable(type)}`);
     }
 
     const deleteAuxEntryAndRefresh = (auxEntry: AuxEntry) => {
+        resetAuxEntries();
         deleteAuxEntry({type: type, value: auxEntry});
         navigate(`${getAuxEntriesLinkTable(type)}`);
     }

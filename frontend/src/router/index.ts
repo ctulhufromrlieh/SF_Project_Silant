@@ -34,7 +34,6 @@ export const privateRoutes: RouteData[] = [
 const makeAuxEntryRouteData = (type: AuxEntryType): RouteData => {
     return {
         path: getAuxEntriesLinkTable(type), 
-        // component: AuxEntryTable, 
         component: AuxEntryTable,
         caption: getAuxEntriesCaption(type), 
         isVisible: false, 

@@ -77,7 +77,7 @@ const OneCarItem: React.FC<OneCarItemProps> = ({method, car}) => {
 
     const updateCarAndRefresh = (car: Car) => {
         updateCar(car);
-        // navigate("/cars");
+        navigate("/cars");
     }
 
     const deleteCarAndRefresh = (car: Car) => {

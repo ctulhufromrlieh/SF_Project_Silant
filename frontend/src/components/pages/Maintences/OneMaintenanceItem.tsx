@@ -63,7 +63,7 @@ const OneMaintenanceItem: React.FC<OneMaintenanceItemProps> = ({method, maintena
 
     const updateMaintenanceAndRefresh = (maintenance: Maintenance) => {
         updateMaintenance(maintenance);
-        // navigate("/maintenances");
+        navigate("/maintenances");
     }
 
     const deleteMaintenanceAndRefresh = (maintenance: Maintenance) => {
