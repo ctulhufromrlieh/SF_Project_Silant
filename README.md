@@ -3,10 +3,11 @@ SkillFactory Project Silant
 
 ## Starting 
 1. Backend starting (console 1):  
-cd ./backend  
+cd backend  
 python manage.py runserver  
 2. Fronend starting (console 2):  
-cd ./frontend  
+cd frontend  
+npm install  
 npm start  
   
 ## Accounts for testing: 
@@ -29,3 +30,19 @@ sc3
   
 ### Managers 
 manager1 
+
+### Admin  
+admin
+password: admin
+
+## OpenAPI  
+OpenAPI scheme can be found on:  
+http://localhost:8000/openapi  
+  
+Full OneAPI can be found if logged before as admin in http://localhost:8000/admin/
+
+## New users
+New users can be created from  
+http://localhost:8000/admin/  
+
+You should create User and Client/ServiceCompany/Manager objects. Or admin user.  

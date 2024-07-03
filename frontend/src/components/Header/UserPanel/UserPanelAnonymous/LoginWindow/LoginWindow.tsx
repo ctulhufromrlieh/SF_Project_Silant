@@ -32,8 +32,10 @@ const LoginWindow: React.FC<LoginWindowData> = ({setVisible}) => {
     const {loginUser, loginUserReset} = useActions();
 
     const submit = () => {
-        setVisible(false);
         loginUser(username, password, navigate);
+        if (isLogined) {
+            setVisible(false);
+        }
     }
 
     let isUsernameError = false;
@@ -59,7 +61,7 @@ const LoginWindow: React.FC<LoginWindowData> = ({setVisible}) => {
     }
 
     return (
-        <div className={classes.windows}>
+        <div className={classes.window}>
             <button className={classes.menu_close_btn} onClick={() => setVisible(false)}/>
             <MyLabeledInput 
                 id="login-form__username"
@@ -71,7 +73,7 @@ const LoginWindow: React.FC<LoginWindowData> = ({setVisible}) => {
                 setValue={(value) => usernameChangeHandler(value)} 
                 isError={isUsernameError}
                 setIsError={(value) => changeErrorState(value)}
-                // addContainerClassNames={[classes.username_input]}
+                addContainerClassNames={[classes.username_input]}
             />
             <MyLabeledInput 
                 id="login-form__password"
@@ -83,13 +85,14 @@ const LoginWindow: React.FC<LoginWindowData> = ({setVisible}) => {
                 setValue={(value) => passwordChangeHandler(value)} 
                 isError={isPasswordError}
                 setIsError={(value) => changeErrorState(value)}
-                // addContainerClassNames={[classes.password_input]}
+                addContainerClassNames={[classes.password_input]}
             />
             <MyButton 
                 // sizeType={ButtonSizeType.LARGE}
                 // colorScheme={ButtonColorScheme.BLUE_WHITE}
                 addClassNames={[classes.submit_btn]}
-                disabled={!isSubmitEnabled || loading}
+                // disabled={!isSubmitEnabled || loading}
+                disabled={loading}
                 onClick={() => submit()}
             >
                 Войти{loading && <span style={{position: "absolute"}}><Loader/></span>}

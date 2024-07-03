@@ -31,7 +31,7 @@ export const loginUser = (username: string, password: string, navigate: Navigate
 
             // const navigate = useNavigate();
             // console.log("loginUser: before navigate");
-            navigate("/");
+            // navigate("/");
         } catch (e) {
             // console.log(e);
             dispatch({
