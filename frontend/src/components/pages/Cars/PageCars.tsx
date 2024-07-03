@@ -3,8 +3,6 @@ import React from "react";
 import classes from "./PageCars.module.scss";
 // import commonClasses from "../../../styles/common.module.scss";
 
-// import { Link } from "react-router-dom";
-// import { useTypedSelector } from "../../../hooks/useTypedSelector";
 import CarTable from "../Cars/CarTable/CarTable";
 
 const PageCars: React.FC = () => {

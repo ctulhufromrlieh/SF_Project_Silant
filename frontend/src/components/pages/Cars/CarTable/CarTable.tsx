@@ -144,11 +144,13 @@ const CarTable: React.FC = () => {
                     )}
                 </div>
             </div>
-            <div>
+            <div className={commonClasses.add_new_container}>
                 {
                     canAddNew 
                 ? 
-                    <Link to={`/cars/new`}>Новая машина</Link>
+                    <Link to={`/cars/new`}>
+                        <MyButton addClassNames={[commonClasses.add_new]}>Новая машина</MyButton>
+                    </Link>
                 :
                     null
                 }

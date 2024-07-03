@@ -12,22 +12,24 @@ const PageAuxEntries: React.FC = () => {
     function getLinkForAuxEntry(type: AuxEntryType): ReactElement {
         return (
             <div>
-                <Link to={getAuxEntriesLinkTable(AuxEntryType.AUX_ENTRY_TYPE_CAR_MODEL)}>{getAuxEntriesCaption(type)}</Link>
+                <Link to={getAuxEntriesLinkTable(type)}>{getAuxEntriesCaption(type)}</Link>
             </div>
         );
         
     }
 
     return (
-        <div>
-            {getLinkForAuxEntry(AuxEntryType.AUX_ENTRY_TYPE_CAR_MODEL)}
-            {getLinkForAuxEntry(AuxEntryType.AUX_ENTRY_TYPE_ENGINE_MODEL)}
-            {getLinkForAuxEntry(AuxEntryType.AUX_ENTRY_TYPE_TRANSMISSION_MODEL)}
-            {getLinkForAuxEntry(AuxEntryType.AUX_ENTRY_TYPE_MAIN_BRIDGE_MODEL)}
-            {getLinkForAuxEntry(AuxEntryType.AUX_ENTRY_TYPE_STEERABLE_BRIDGE_MODEL)}
-            {getLinkForAuxEntry(AuxEntryType.AUX_ENTRY_TYPE_MAINTENANCE_TYPE)}
-            {getLinkForAuxEntry(AuxEntryType.AUX_ENTRY_TYPE_FAILURE_NODE)}
-            {getLinkForAuxEntry(AuxEntryType.AUX_ENTRY_TYPE_RECOVERY_METHOD)}
+        <div className={classes.aux_entries_container}>
+            <div className={classes.aux_entries}>
+                {getLinkForAuxEntry(AuxEntryType.AUX_ENTRY_TYPE_CAR_MODEL)}
+                {getLinkForAuxEntry(AuxEntryType.AUX_ENTRY_TYPE_ENGINE_MODEL)}
+                {getLinkForAuxEntry(AuxEntryType.AUX_ENTRY_TYPE_TRANSMISSION_MODEL)}
+                {getLinkForAuxEntry(AuxEntryType.AUX_ENTRY_TYPE_MAIN_BRIDGE_MODEL)}
+                {getLinkForAuxEntry(AuxEntryType.AUX_ENTRY_TYPE_STEERABLE_BRIDGE_MODEL)}
+                {getLinkForAuxEntry(AuxEntryType.AUX_ENTRY_TYPE_MAINTENANCE_TYPE)}
+                {getLinkForAuxEntry(AuxEntryType.AUX_ENTRY_TYPE_FAILURE_NODE)}
+                {getLinkForAuxEntry(AuxEntryType.AUX_ENTRY_TYPE_RECOVERY_METHOD)}
+            </div>
         </div>
     );
 }

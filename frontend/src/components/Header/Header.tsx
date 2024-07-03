@@ -18,7 +18,7 @@ const Header: React.FC = () => {
                     <UserPanel />
                 </div>
                 <div className={classes.header_sub_title}>
-                    <h2>текст: Электронная сервисная книжка "МойСилант"</h2>
+                    <h2>Электронная сервисная книжка "МойСилант"</h2>
                 </div>
             </div>
         </div>

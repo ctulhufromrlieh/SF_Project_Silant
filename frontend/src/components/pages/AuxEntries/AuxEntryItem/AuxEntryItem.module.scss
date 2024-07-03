@@ -1,29 +1,18 @@
-.item {
-    display: flex;
-    flex-direction: row;
-    // gap: 5px;
-    
-    border: 1px solid purple;
+@import "../../../../styles/commonTypes.scss";
 
-    div {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
 
-    .id {
-        width: 40px;
-    }
 
-    .name {
-        width: 100px;
-    }
+.id {
+    @include table_cell;
+    width: 40px;
+}
 
-    .description {
-        width: 100px;
-    }
+.name {
+    @include table_cell;    
+    width: 100px;
+}
 
-    div {
-        border: 1px solid green;
-    }
+.description {
+    @include table_cell;
+    width: 200px;
 }

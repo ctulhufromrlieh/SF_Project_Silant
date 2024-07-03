@@ -85,6 +85,17 @@
     }
 }
 
+.add_new_container {
+    display: flex;
+    justify-content: center;
+
+    margin-bottom: 20px;
+}
+
+.add_new {
+    width: 200px;
+}
+
 .one_item_form_container {
     display: flex;
     flex-direction: row;

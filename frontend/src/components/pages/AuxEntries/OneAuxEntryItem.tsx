@@ -1,20 +1,18 @@
 import React, { useEffect, useState } from "react";
 
 import classes from "./OneAuxEntryItem.module.scss";
+import commonClasses from "../../../styles/common.module.scss";
 
-import CarTable from "../Cars/CarTable/CarTable";
 import { useTypedSelector } from "../../../hooks/useTypedSelector";
 import { useNavigate, useParams } from "react-router";
 import Loader from "../../UI/Loader/Loader";
-import { AuxEntriesToSelectOptions as auxEntriesToSelectOptions, clientsToSelectOptions, serviceCompaniesToSelectOptions } from "../../../utils/ui";
-import MyLabeledSelect, { SelectOption } from "../../UI/MyLabeledSelect/MyLabeledSelect";
-import { numberOrNullToString, stringToNumber, stringToNumberOrNull, stringToNumberListed, dateTimeToDate } from "../../../utils/convert";
 import MyLabeledInput from "../../UI/MyLabeledInput/MyLabeledInput";
 import { AccountType, AuxEntry, AuxEntryType, Car, defaultAuxEntry, defaultCar } from "../../../types/api";
 import { useActions } from "../../../hooks/useActions";
 import { SingleElemMethod } from "../../../types/common";
 import { ModelType, isAllowedChange } from "../../../utils/permissions";
 import { getAuxEntriesCaption, getAuxEntriesLinkTable } from "../../../types/auxEntries";
+import MyButton from "../../UI/MyButton/MyButton";
 
 interface OneAuxEntryItemProps {
     method: SingleElemMethod,
@@ -64,47 +62,49 @@ const OneAuxEntryItem: React.FC<OneAuxEntryItemProps> = ({method, type, auxEntry
     console.log("method = ", method);
 
     return (
-        <div className={classes.page}>
-            <h2>Запись - {getAuxEntriesCaption(type)}</h2>
-            <div className={classes.aux_entry_form}>
-                <MyLabeledInput 
-                    id="one-aux-entry-form__name"
-                    type="text"
-                    labelCaption="Название" 
-                    value={usedAuxEntry.name}
-                    setValue={(value) => setUsedAuxEntry({...usedAuxEntry, name: value})} 
-                    disabled={!canWrite}
-                />
-                <MyLabeledInput 
-                    id="one-aux-entry-form__description"
-                    type="text"
-                    labelCaption="Описание" 
-                    value={usedAuxEntry.description}
-                    setValue={(value) => setUsedAuxEntry({...usedAuxEntry, description: value})} 
-                    disabled={!canWrite}
-                />
+        <div className={commonClasses.one_item_form_container}>
+            <div className={commonClasses.one_item_form}>
+                <h2>Запись - {getAuxEntriesCaption(type)}</h2>
+                <div className={classes.aux_entry_form}>
+                    <MyLabeledInput 
+                        id="one-aux-entry-form__name"
+                        type="text"
+                        labelCaption="Название" 
+                        value={usedAuxEntry.name}
+                        setValue={(value) => setUsedAuxEntry({...usedAuxEntry, name: value})} 
+                        disabled={!canWrite}
+                    />
+                    <MyLabeledInput 
+                        id="one-aux-entry-form__description"
+                        type="text"
+                        labelCaption="Описание" 
+                        value={usedAuxEntry.description}
+                        setValue={(value) => setUsedAuxEntry({...usedAuxEntry, description: value})} 
+                        disabled={!canWrite}
+                    />
+                </div>
+                {
+                    (method == SingleElemMethod.SINGLE_ELEM_METHOD_CREATE) && canWrite
+                ?
+                    <MyButton onClick={() => createAuxEntryAndRefresh(usedAuxEntry)}>Создать</MyButton>
+                :
+                    null
+                }
+                {
+                    (method == SingleElemMethod.SINGLE_ELEM_METHOD_UPDATE) && canWrite
+                ?
+                    <MyButton onClick={() => updateAuxEntryAndRefresh(usedAuxEntry)}>Обновить</MyButton>
+                :
+                    null
+                }
+                {
+                    (method == SingleElemMethod.SINGLE_ELEM_METHOD_UPDATE) && canWrite
+                ?
+                    <MyButton onClick={() => deleteAuxEntryAndRefresh(usedAuxEntry)}>Удалить</MyButton>
+                :
+                    null
+                }
             </div>
-            {
-                (method == SingleElemMethod.SINGLE_ELEM_METHOD_CREATE) && canWrite
-            ?
-                <button onClick={() => createAuxEntryAndRefresh(usedAuxEntry)}>Создать</button>
-            :
-                null
-            }
-            {
-                (method == SingleElemMethod.SINGLE_ELEM_METHOD_UPDATE) && canWrite
-            ?
-                <button onClick={() => updateAuxEntryAndRefresh(usedAuxEntry)}>Обновить</button>
-            :
-                null
-            }
-            {
-                (method == SingleElemMethod.SINGLE_ELEM_METHOD_UPDATE) && canWrite
-            ?
-                <button onClick={() => deleteAuxEntryAndRefresh(usedAuxEntry)}>Удалить</button>
-            :
-                null
-            }
         </div>
     );
 }

@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 
-import classes from "./ReclamationTable.module.scss";
-// import commonClasses from "../../../styles/common.module.scss";
+// import classes from "./ReclamationTable.module.scss";
+import commonClasses from "../../../../styles/common.module.scss";
+import reclamationItemClasses from "./ReclamationItem/ReclamationItem.module.scss";
 
-import ReclamationItem from "./ReclamationItem/ReclamationItem";
 import { useTypedSelector } from "../../../../hooks/useTypedSelector";
 import { useActions } from "../../../../hooks/useActions";
 import Loader from "../../../UI/Loader/Loader";
@@ -12,9 +12,11 @@ import { Reclamation } from "../../../../types/api";
 import { AuxEntriesToSelectOptions } from "../../../../utils/ui";
 import MyLabeledInput from "../../../UI/MyLabeledInput/MyLabeledInput";
 import MyLabeledSelect from "../../../UI/MyLabeledSelect/MyLabeledSelect";
-import { numberOrNullToString, stringToNumberOrNull } from "../../../../utils/convert";
+import { dateTimeToDate, numberOrNullToString, reclamationToPropValues, stringToNumberOrNull } from "../../../../utils/convert";
 import { Link } from "react-router-dom";
 import { ModelType, isAllowedChange } from "../../../../utils/permissions";
+import TableItem from "../../Common/TableItem";
+import MyButton from "../../../UI/MyButton/MyButton";
 
 const ReclamationTable: React.FC = () => {
    
@@ -60,68 +62,108 @@ const ReclamationTable: React.FC = () => {
 
     return (
         <div>
-            <div className={classes.maintenance_filter}>
-                <MyLabeledInput 
-                    id="filter-reclamation-form__car-num"
-                    type="text"
-                    labelCaption="Номер" 
-                    value={car_num}
-                    setValue={(value) => setRCarNum(value)} 
-                />
-                <MyLabeledInput 
-                    id="filter-reclamation-form__service-company-name"
-                    type="text"
-                    labelCaption="Сервисная компания" 
-                    value={service_company__name}
-                    setValue={(value) => setRServiceCompanyName(value)} 
-                />
-                <MyLabeledSelect
-                    id="filter-reclamation-form__failure-node"
-                    labelCaption="Узел отказа"
-                    value={numberOrNullToString(failure_node)}
-                    setValue={(value) => setRFailureNode(stringToNumberOrNull(value))}
-                    options={failureNodes}
-                    // addContainerClassNames={[]}
-                />
-                <MyLabeledSelect
-                    id="filter-reclamation-form__recovery-method"
-                    labelCaption="Способ восстановления"
-                    value={numberOrNullToString(recovery_method)}
-                    setValue={(value) => setRRecoveryMethod(stringToNumberOrNull(value))}
-                    options={recoveryMethods}
-                    // addContainerClassNames={[]}
-                />
-                <button onClick={() => fetchReclamations()}>Search</button>
+            <div className={commonClasses.filter_form_container}>
+                <div className={commonClasses.filter_form}>
+                    <MyLabeledInput 
+                        id="filter-reclamation-form__car-num"
+                        type="text"
+                        labelCaption="Номер" 
+                        value={car_num}
+                        setValue={(value) => setRCarNum(value)} 
+                    />
+                    <MyLabeledInput 
+                        id="filter-reclamation-form__service-company-name"
+                        type="text"
+                        labelCaption="Сервисная компания" 
+                        value={service_company__name}
+                        setValue={(value) => setRServiceCompanyName(value)} 
+                    />
+                    <MyLabeledSelect
+                        id="filter-reclamation-form__failure-node"
+                        labelCaption="Узел отказа"
+                        value={numberOrNullToString(failure_node)}
+                        setValue={(value) => setRFailureNode(stringToNumberOrNull(value))}
+                        options={failureNodes}
+                        // addContainerClassNames={[]}
+                    />
+                    <MyLabeledSelect
+                        id="filter-reclamation-form__recovery-method"
+                        labelCaption="Способ восстановления"
+                        value={numberOrNullToString(recovery_method)}
+                        setValue={(value) => setRRecoveryMethod(stringToNumberOrNull(value))}
+                        options={recoveryMethods}
+                        // addContainerClassNames={[]}
+                    />
+                    <MyButton onClick={() => fetchReclamations()}>Искать</MyButton>
+                </div>
             </div>
-            <div className={classes.reclamation_table}>
-                <ReclamationItem  
-                    index={-1}
-                    id={-1} 
-                    car__num={"Зав. № машины"}
-                    car__service_company__name={"Организация, проводившая ремонт"}
-                    failure_date={"Дата отказа"}
-                    operating_time_s={"Наработка, м/час"}
-                    failure_node__name={"Узел отказа"}
-                    failure_description={"Описание отказа"}
-                    recovery_method__name={"Способ восстановления"}
-                    repair_parts={"Используемые запасные части"}
-                    recovery_date={"Дата восстановления"}
-                    downtime_s={"Время простоя техники"}
-                    sortElements={sortElems}
-                    changeSortTypeProc={changeSortTypeProc}
-                />
-                {/* {reclamations.items.map((item, index) => 
-                    <ReclamationItem key={item.id} {...item} id={index} operating_time_s={String(item.operating_time)} downtime_s={String(item.downtime)} />
-                )} */}
-                {sortedReclamations.map((item, index) => 
-                    <ReclamationItem key={item.id} {...item} index={index} id={item.id} operating_time_s={String(item.operating_time)} downtime_s={String(item.downtime)} />
-                )}
+            <div className={commonClasses.table_container}>
+                <div className={commonClasses.table}>
+                    {/* <ReclamationItem  
+                        index={-1}
+                        id={-1} 
+                        car__num={"Зав. № машины"}
+                        car__service_company__name={"Организация, проводившая ремонт"}
+                        failure_date={"Дата отказа"}
+                        operating_time_s={"Наработка, м/час"}
+                        failure_node__name={"Узел отказа"}
+                        failure_description={"Описание отказа"}
+                        recovery_method__name={"Способ восстановления"}
+                        repair_parts={"Используемые запасные части"}
+                        recovery_date={"Дата восстановления"}
+                        downtime_s={"Время простоя техники"}
+                        sortElements={sortElems}
+                        changeSortTypeProc={changeSortTypeProc}
+                    /> */}
+                    <TableItem  
+                        index={-1}
+                        id={-1} 
+                        propValues={{
+                            car__num: "Зав. № машины",
+                            car__service_company__name: "Организация, проводившая ремонт",
+                            failure_date: "Дата отказа",
+                            operating_time_s: "Наработка, м/час",
+                            failure_node__name: "Узел отказа",
+                            failure_description: "Описание отказа",
+                            recovery_method__name: "Способ восстановления",
+                            repair_parts: "Используемые запасные части",
+                            recovery_date: "Дата восстановления",
+                            downtime_s: "Время простоя техники",
+                        }}
+                        classes={reclamationItemClasses}
+                        basePath={"/reclamations"}
+                        sortElements={sortElems}
+                        changeSortTypeProc={changeSortTypeProc}
+                    />
+                    {/* {reclamations.items.map((item, index) => 
+                        <ReclamationItem key={item.id} {...item} id={index} operating_time_s={String(item.operating_time)} downtime_s={String(item.downtime)} />
+                    )} */}
+                    {/* {sortedReclamations.map((item, index) => 
+                        <ReclamationItem key={item.id} {...item} index={index} id={item.id} operating_time_s={String(item.operating_time)} downtime_s={String(item.downtime)} 
+                            failure_date={dateTimeToDate(item.failure_date)} recovery_date={dateTimeToDate(item.recovery_date)} />
+                    )} */}
+                    {sortedReclamations.map((item, index) => 
+                        <TableItem key={item.id} {...item} index={index} id={item.id} propValues={reclamationToPropValues(item)} 
+                            classes={reclamationItemClasses} basePath={"/reclamations"} />
+                    )}
+                </div>
             </div>
-            <div>
+            {/* <div>
                 {
                     canAddNew 
                 ? 
                     <Link to={`/reclamations/new`}>Новая рекламация</Link>
+                :
+                    null
+                }
+            </div> */}
+            <div className={commonClasses.add_new_container}>
+                {
+                    canAddNew 
+                ? 
+                    <Link to={`/reclamations/new`}>
+                        <MyButton addClassNames={[commonClasses.add_new]}>Новая рекламация</MyButton>
+                    </Link>
                 :
                     null
                 }

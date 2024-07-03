@@ -1,5 +1,5 @@
 import { SelectOption } from "../components/UI/MyLabeledSelect/MyLabeledSelect";
-import { Car, Maintenance, Reclamation } from "../types/api";
+import { AuxEntry, Car, Maintenance, Reclamation } from "../types/api";
 import { PropRecord } from "./tables";
 
 export const stringToNumberOrNull = (value: string): number | null => {
@@ -114,5 +114,39 @@ export const carToPropValues = (car: Car): PropRecord => {
         add_options: car.add_options,
         client__name: car.client__name,
         service_company__name: car.service_company__name,
+    }
+}
+
+export const maintenanceToPropValues = (maintenance: Maintenance): PropRecord => {
+    return {
+        car__num: maintenance.car__num,
+        type__name: maintenance.type__name,
+        maintenance_date: dateTimeToDate(maintenance.maintenance_date),
+        operating_time_s: String(maintenance.operating_time),
+        work_order_num: maintenance.work_order_num,
+        work_order_date: dateTimeToDate(maintenance.work_order_date),
+        service_company__name: maintenance.service_company__name,
+    }
+}
+
+export const reclamationToPropValues = (reclamation: Reclamation): PropRecord => {
+    return {
+        car__num: reclamation.car__num,
+        car__service_company__name: reclamation.car__service_company__name,
+        failure_date: dateTimeToDate(reclamation.failure_date),
+        operating_time_s: String(reclamation.operating_time),
+        failure_node__name: reclamation.failure_node__name,
+        failure_description: reclamation.failure_description,
+        recovery_method__name: reclamation.recovery_method__name,
+        repair_parts: reclamation.repair_parts,
+        recovery_date: dateTimeToDate(reclamation.recovery_date),
+        downtime_s: String(reclamation.downtime),
+    }
+}
+
+export const auxEntryToPropValues = (auxEntry: AuxEntry): PropRecord => {
+    return {
+        name: auxEntry.name,
+        description: auxEntry.description,
     }
 }
