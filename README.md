@@ -2,12 +2,16 @@
 SkillFactory Project Silant  
 
 ## Starting 
-1. Backend starting (console 1):  
+
+### 1. Backend starting (console 1):  
+  
 cd backend  
 python -m venv venv  
-pip install requirements.txt
-python manage.py runserver  
-2. Fronend starting (console 2):  
+.\venv\Scripts\activate  
+pip install -r requirements.txt  
+python manage.py runserver
+
+### 2. Fronend starting (console 2):  
 cd frontend  
 npm install  
 npm start  
