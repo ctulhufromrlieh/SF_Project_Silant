@@ -99,22 +99,6 @@ const ReclamationTable: React.FC = () => {
             </div>
             <div className={commonClasses.table_container}>
                 <div className={commonClasses.table}>
-                    {/* <ReclamationItem  
-                        index={-1}
-                        id={-1} 
-                        car__num={"Зав. № машины"}
-                        car__service_company__name={"Организация, проводившая ремонт"}
-                        failure_date={"Дата отказа"}
-                        operating_time_s={"Наработка, м/час"}
-                        failure_node__name={"Узел отказа"}
-                        failure_description={"Описание отказа"}
-                        recovery_method__name={"Способ восстановления"}
-                        repair_parts={"Используемые запасные части"}
-                        recovery_date={"Дата восстановления"}
-                        downtime_s={"Время простоя техники"}
-                        sortElements={sortElems}
-                        changeSortTypeProc={changeSortTypeProc}
-                    /> */}
                     <TableItem  
                         index={-1}
                         id={-1} 
@@ -135,28 +119,12 @@ const ReclamationTable: React.FC = () => {
                         sortElements={sortElems}
                         changeSortTypeProc={changeSortTypeProc}
                     />
-                    {/* {reclamations.items.map((item, index) => 
-                        <ReclamationItem key={item.id} {...item} id={index} operating_time_s={String(item.operating_time)} downtime_s={String(item.downtime)} />
-                    )} */}
-                    {/* {sortedReclamations.map((item, index) => 
-                        <ReclamationItem key={item.id} {...item} index={index} id={item.id} operating_time_s={String(item.operating_time)} downtime_s={String(item.downtime)} 
-                            failure_date={dateTimeToDate(item.failure_date)} recovery_date={dateTimeToDate(item.recovery_date)} />
-                    )} */}
                     {sortedReclamations.map((item, index) => 
                         <TableItem key={item.id} {...item} index={index} id={item.id} propValues={reclamationToPropValues(item)} 
                             classes={reclamationItemClasses} basePath={"/reclamations"} />
                     )}
                 </div>
             </div>
-            {/* <div>
-                {
-                    canAddNew 
-                ? 
-                    <Link to={`/reclamations/new`}>Новая рекламация</Link>
-                :
-                    null
-                }
-            </div> */}
             <div className={commonClasses.add_new_container}>
                 {
                     canAddNew 

@@ -10,7 +10,7 @@ import MyLabeledInput from "../../../UI/MyLabeledInput/MyLabeledInput";
 import { useTypedSelector } from "../../../../hooks/useTypedSelector";
 import { useActions } from "../../../../hooks/useActions";
 import Loader from "../../../UI/Loader/Loader";
-import SimpleCarItem from "./SimpleCarItem/SimpleCarItem";
+// import SimpleCarItem from "./SimpleCarItem/1SimpleCarItem";
 import { ChangeSortTypeProc, SortMethod, sortObjects } from "../../../../utils/sort";
 import { SimpleCar } from "../../../../types/api";
 import MyButton from "../../../UI/MyButton/MyButton";

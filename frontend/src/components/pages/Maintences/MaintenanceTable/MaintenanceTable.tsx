@@ -90,25 +90,11 @@ const MaintenanceTable: React.FC = () => {
                         options={maintenanceTypes}
                         // addContainerClassNames={[]}
                     />
-                    {/* <button onClick={() => fetchMaintenances()}>Search</button> */}
                     <MyButton onClick={() => fullRefreshMaintenances()}>Искать</MyButton>
                 </div>
             </div>
             <div className={commonClasses.table_container}>
                 <div className={commonClasses.table}>
-                    {/* <MaintenanceItem  
-                        index={-1} 
-                        id={-1} 
-                        car__num={"Зав. № машины"}
-                        type__name={"Вид ТО"}
-                        maintenance_date={"Дата проведения ТО"}
-                        operating_time_s={"Наработка, м/час"}
-                        work_order_num={"№ заказ-наряда"}
-                        work_order_date={"дата заказ-наряда"}
-                        service_company__name={"Организация, проводившая ТО"}
-                        sortElements={sortElems}
-                        changeSortTypeProc={changeSortTypeProc}
-                    /> */}
                     <TableItem  
                         index={-1} 
                         id={-1} 
@@ -126,28 +112,12 @@ const MaintenanceTable: React.FC = () => {
                         sortElements={sortElems}
                         changeSortTypeProc={changeSortTypeProc}
                     />
-                    {/* {maintenances.items.map((item, index) => 
-                        <MaintenanceItem key={item.id} {...item} index={index} id={index} operating_time_s={String(item.operating_time)} />
-                    )} */}
-                    {/* {sortedMaintenances.map((item, index) => 
-                        <MaintenanceItem key={item.id} {...item} index={index} id={item.id} operating_time_s={String(item.operating_time)} 
-                            maintenance_date={dateTimeToDate(item.maintenance_date)} work_order_date={dateTimeToDate(item.work_order_date)} />
-                    )} */}
                     {sortedMaintenances.map((item, index) => 
                         <TableItem key={item.id} {...item} index={index} id={item.id} propValues={maintenanceToPropValues(item)} 
                             classes={maintenanceItemClasses} basePath={"/maintenances"} />
                     )}
                 </div>
             </div>
-            {/* <div>
-                {
-                    canAddNew 
-                ? 
-                    <Link to={`/maintenances/new`}>Новое ТО</Link>
-                :
-                    null
-                }
-            </div> */}
             <div className={commonClasses.add_new_container}>
                 {
                     canAddNew 

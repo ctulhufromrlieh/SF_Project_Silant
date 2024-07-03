@@ -2,16 +2,15 @@
 
 .id {
     @include table_cell;
-    width: 40px;
-    // min-width: 40px;
-    // max-width: 40px;
+    // width: 40px;
+    flex: 0 0 40px;
 }
 
 .car_model__name {
     @include table_cell;
-    width: 70px;
-    // min-width: 70px;
-    // max-width: 70px;
+    // width: 70px;
+    flex: 1 1 70px;
+
     @media (max-width: 410px) {
         display: none;
     }
@@ -19,12 +18,15 @@
 
 .car_num {
     @include table_cell;
-    width: 60px;
+    // width: 60px;
+    flex: 1 1 60px;
 }
 
 .engine_model__name {
     @include table_cell;
-    width: 90px;
+    // width: 90px;
+    flex: 1 1 90px;
+
     @media (max-width: 560px) {
         display: none;
     }
@@ -32,7 +34,9 @@
 
 .engine_num {
     @include table_cell;
-    width: 60px;
+    // width: 60px;
+    flex: 1 1 60px;
+
     @media (max-width: 560px) {
         display: none;
     }
@@ -40,7 +44,8 @@
 
 .transmission_model__name {
     @include table_cell;
-    width: 100px;
+    // width: 100px;
+    flex: 1 1 100px;
 
     @media (max-width: 1140px) {
         display: none;
@@ -49,7 +54,9 @@
 
 .transmission_num {
     @include table_cell;
-    width: 90px;
+    // width: 90px;
+    flex: 1 1 90px;
+
     @media (max-width: 1140px) {
         display: none;
     }
@@ -57,7 +64,9 @@
 
 .main_bridge_model__name {
     @include table_cell;
-    width: 100px;
+    // width: 100px;
+    flex: 1 1 100px;
+
     @media (max-width: 750px) {
         display: none;
     }
@@ -65,7 +74,9 @@
 
 .main_bridge_num {
     @include table_cell;
-    width: 90px;
+    // width: 90px;
+    flex: 1 1 90px;
+
     @media (max-width: 750px) {
         display: none;
     }
@@ -73,7 +84,9 @@
 
 .steerable_bridge_model__name {
     @include table_cell;
-    width: 100px;
+    // width: 100px;
+    flex: 1 1 100px;
+
     @media (max-width: 950px) {
         display: none;
     }
@@ -81,7 +94,9 @@
 
 .steerable_bridge_num {
     @include table_cell;
-    width: 100px;
+    // width: 100px;
+    flex: 1 1 100px;
+
     @media (max-width: 950px) {
         display: none;
     }
@@ -89,7 +104,8 @@
 
 .factory_shipment_date {
     @include table_cell;
-    width: 100px;
+    // width: 100px;
+    flex: 1 1 100px;
 
     @media (max-width: 1240px) {
         display: none;
@@ -98,7 +114,8 @@
 
 .consignee {
     @include table_cell;
-    width: 120px;
+    // width: 120px;
+    flex: 1 1 120px;
 
     @media (max-width: 1340px) {
         display: none;
@@ -107,7 +124,8 @@
 
 .shipment_address {
     @include table_cell;
-    width: 100px;
+    // width: 100px;
+    flex: 1 1 100px;
 
     @media (max-width: 1440px) {
         display: none;
@@ -116,16 +134,21 @@
 
 .add_options {
     @include table_cell;
-    width: 140px;
+    // width: 140px;
+    flex: 1 1 140px;
+
+    // off always
     display: none;
 } 
 
 .client__name {
     @include table_cell;
-    width: 100px;
+    // width: 100px;
+    flex: 1 1 100px;
 } 
 
 .service_company__name {
     @include table_cell;
-    width: 100px;
+    // width: 100px;
+    flex: 1 1 100px;
 }

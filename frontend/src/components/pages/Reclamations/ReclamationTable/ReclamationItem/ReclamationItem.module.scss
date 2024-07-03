@@ -2,22 +2,26 @@
 
 .id {
     @include table_cell;
-    width: 40px;
+    // width: 40px;
+    flex: 0 0 40px;
 }
 
 .car__num {
     @include table_cell;
-    width: 70px;
+    // width: 70px;
+    flex: 1 1 70px;
 }
 
 .car__service_company__name {
     @include table_cell;
-    width: 100px;
+    // width: 100px;
+    flex: 1 1 100px;
 }
 
 .failure_date {
     @include table_cell;
-    width: 100px;
+    // width: 100px;
+    flex: 1 1 100px;
 
     @media (max-width: 650px) {
         display: none;
@@ -26,7 +30,8 @@
 
 .operating_time_s {
     @include table_cell;
-    width: 100px;
+    // width: 100px;
+    flex: 1 1 100px;
 
     @media (max-width: 1090px) {
         display: none;
@@ -35,12 +40,14 @@
 
 .failure_node__name {
     @include table_cell;
-    width: 100px;
+    // width: 100px;
+    flex: 1 1 100px;
 }
 
 .failure_description {
     @include table_cell;
-    width: 100px;
+    // width: 100px;
+    flex: 1 1 100px;
 
     @media (max-width: 430px) {
         display: none;
@@ -49,7 +56,8 @@
 
 .recovery_method__name {
     @include table_cell;
-    width: 120px;
+    // width: 120px;
+    flex: 1 1 120px;
 
     @media (max-width: 770px) {
         display: none;
@@ -58,7 +66,8 @@
 
 .repair_parts {
     @include table_cell;
-    width: 120px;
+    // width: 120px;
+    flex: 1 1 120px;
 
     @media (max-width: 890px) {
         display: none;
@@ -67,7 +76,8 @@
 
 .recovery_date {
     @include table_cell;
-    width: 120px;
+    // width: 120px;
+    flex: 1 1 120px;
 
     @media (max-width: 550px) {
         display: none;
@@ -76,7 +86,8 @@
 
 .downtime_s {
     @include table_cell;
-    width: 100px;
+    // width: 100px;
+    flex: 1 1 120px;
 
     @media (max-width: 990px) {
         display: none;
