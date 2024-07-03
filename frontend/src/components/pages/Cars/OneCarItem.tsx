@@ -11,11 +11,12 @@ import { AuxEntriesToSelectOptions as auxEntriesToSelectOptions, clientsToSelect
 import MyLabeledSelect, { SelectOption } from "../../UI/MyLabeledSelect/MyLabeledSelect";
 import { numberOrNullToString, stringToNumber, stringToNumberOrNull, stringToNumberListed, dateTimeToDate } from "../../../utils/convert";
 import MyLabeledInput from "../../UI/MyLabeledInput/MyLabeledInput";
-import { AccountType, Car, defaultCar } from "../../../types/api";
+import { AccountType, Car } from "../../../types/api";
 import { useActions } from "../../../hooks/useActions";
 import { SingleElemMethod } from "../../../types/common";
 import { ModelType, isAllowedChange } from "../../../utils/permissions";
 import MyButton from "../../UI/MyButton/MyButton";
+import { getDefaultCar } from "../../../utils/defaultObjects";
 
 interface OneCarItemProps {
     method: SingleElemMethod,
@@ -29,13 +30,14 @@ const OneCarItem: React.FC<OneCarItemProps> = ({method, car}) => {
 
     const { createCar, updateCar, deleteCar } = useActions();
 
-    let carInit = defaultCar;
+    let carInit = getDefaultCar(auxEntries);
     if (car) {
         carInit = car;
     }
 
     const [usedCar, setUsedCar] = useState(carInit);
     const navigate = useNavigate();
+
 
     if (!auxEntries.isReady && !auxEntries.loading) {
         return (

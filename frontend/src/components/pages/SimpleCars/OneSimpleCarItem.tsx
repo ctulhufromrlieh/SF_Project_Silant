@@ -11,7 +11,7 @@ import { AuxEntriesToSelectOptions as auxEntriesToSelectOptions, clientsToSelect
 import MyLabeledSelect, { SelectOption } from "../../UI/MyLabeledSelect/MyLabeledSelect";
 import { numberOrNullToString, stringToNumber, stringToNumberOrNull, stringToNumberListed, dateTimeToDate } from "../../../utils/convert";
 import MyLabeledInput from "../../UI/MyLabeledInput/MyLabeledInput";
-import { AccountType, Car, SimpleCar, defaultCar, defaultSimpleCar } from "../../../types/api";
+import { AccountType, Car, SimpleCar, defaultSimpleCar } from "../../../types/api";
 import { useActions } from "../../../hooks/useActions";
 import { SingleElemMethod } from "../../../types/common";
 import { ModelType, isAllowedChange } from "../../../utils/permissions";

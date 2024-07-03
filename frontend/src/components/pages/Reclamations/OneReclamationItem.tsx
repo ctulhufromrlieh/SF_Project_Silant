@@ -10,11 +10,12 @@ import { AuxEntriesToSelectOptions as auxEntriesToSelectOptions, carsToSelectOpt
 import MyLabeledSelect, { SelectOption } from "../../UI/MyLabeledSelect/MyLabeledSelect";
 import { numberOrNullToString, stringToNumber, stringToNumberOrNull, stringToNumberListed, dateTimeToDate } from "../../../utils/convert";
 import MyLabeledInput from "../../UI/MyLabeledInput/MyLabeledInput";
-import { Reclamation, defaultReclamation } from "../../../types/api";
+import { Reclamation } from "../../../types/api";
 import { useActions } from "../../../hooks/useActions";
 import { SingleElemMethod } from "../../../types/common";
 import { ModelType, isAllowedChange } from "../../../utils/permissions";
 import MyButton from "../../UI/MyButton/MyButton";
+import { getDefaultReclamation } from "../../../utils/defaultObjects";
 
 interface OneReclamationItemProps {
     method: SingleElemMethod,
@@ -22,13 +23,13 @@ interface OneReclamationItemProps {
 }
 
 const OneReclamationItem: React.FC<OneReclamationItemProps> = ({method, reclamation}) => {
-    const carList = useTypedSelector(state => state.cars);
+    const carsState = useTypedSelector(state => state.cars);
     const accountInfo = useTypedSelector(state => state.accountInfo);
     const auxEntries = useTypedSelector(state => state.auxEntries);
 
     const { createReclamation, updateReclamation, deleteReclamation } = useActions();
 
-    let reclamationInit = defaultReclamation;
+    let reclamationInit = getDefaultReclamation(auxEntries, carsState);
     if (reclamation) {
         reclamationInit = reclamation;
     }
@@ -37,7 +38,7 @@ const OneReclamationItem: React.FC<OneReclamationItemProps> = ({method, reclamat
     const navigate = useNavigate();
 
     // if (!auxEntries.isReady && !auxEntries.loading &&  !carList.ready && !carList.loading) {
-    if (!auxEntries.isReady || auxEntries.loading || !carList.ready || carList.loading) {
+    if (!auxEntries.isReady || auxEntries.loading || !carsState.ready || carsState.loading) {
         return (
             <Loader/>
         );
@@ -51,7 +52,7 @@ const OneReclamationItem: React.FC<OneReclamationItemProps> = ({method, reclamat
     let recovery_methods: SelectOption[] = [{ value: String(usedReclamation.recovery_method), caption: usedReclamation.recovery_method__name }];
     // let serviceCompanies: SelectOption[] = [{ value: String(usedReclamation.service_company), caption: usedReclamation.service_company__name }];
     if (canWrite) {
-        cars = carsToSelectOptions(carList.items, false).sort((a, b) => a.caption.localeCompare(b.caption));
+        cars = carsToSelectOptions(carsState.items, false).sort((a, b) => a.caption.localeCompare(b.caption));
         failureNodes = auxEntriesToSelectOptions(auxEntries.failureNodes, false);
         recovery_methods = auxEntriesToSelectOptions(auxEntries.recoveryMethods, false);
         // serviceCompanies.unshift({ value: String(-1), caption: "Самостоятельно"});
@@ -68,7 +69,7 @@ const OneReclamationItem: React.FC<OneReclamationItemProps> = ({method, reclamat
 
     const updateMaintenanceAndRefresh = (reclamation: Reclamation) => {
         updateReclamation(reclamation);
-        navigate("/reclamation");
+        navigate("/reclamations");
     }
 
     const deleteMaintenanceAndRefresh = (reclamation: Reclamation) => {

@@ -1,4 +1,4 @@
-import { AuxEntry, AuxEntries, Client, ServiceCompany, AuxEntryType, baseApiUrl } from "./api";
+import { AuxEntry, AuxEntries, Client, ServiceCompany, AuxEntryType, baseApiUrl, defaultMaintenance, defaultReclamation, defaultCar, Car, Reclamation, Maintenance } from "./api";
 
 export interface AuxEntriesState {
     carModels: AuxEntry[];

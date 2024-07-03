@@ -10,11 +10,12 @@ import { AuxEntriesToSelectOptions as auxEntriesToSelectOptions, carsToSelectOpt
 import MyLabeledSelect, { SelectOption } from "../../UI/MyLabeledSelect/MyLabeledSelect";
 import { numberOrNullToString, stringToNumber, stringToNumberOrNull, stringToNumberListed, dateTimeToDate } from "../../../utils/convert";
 import MyLabeledInput from "../../UI/MyLabeledInput/MyLabeledInput";
-import { Maintenance, defaultMaintenance } from "../../../types/api";
+import { Maintenance } from "../../../types/api";
 import { useActions } from "../../../hooks/useActions";
 import { SingleElemMethod } from "../../../types/common";
 import { ModelType, isAllowedChange } from "../../../utils/permissions";
 import MyButton from "../../UI/MyButton/MyButton";
+import { getDefaultMaintenance } from "../../../utils/defaultObjects";
 
 interface OneMaintenanceItemProps {
     method: SingleElemMethod,
@@ -22,13 +23,13 @@ interface OneMaintenanceItemProps {
 }
 
 const OneMaintenanceItem: React.FC<OneMaintenanceItemProps> = ({method, maintenance}) => {
-    const carList = useTypedSelector(state => state.cars);
+    const carsState = useTypedSelector(state => state.cars);
     const accountInfo = useTypedSelector(state => state.accountInfo);
     const auxEntries = useTypedSelector(state => state.auxEntries);
 
     const { createMaintenance, updateMaintenance, deleteMaintenance } = useActions();
 
-    let maintenanceInit = defaultMaintenance;
+    let maintenanceInit = getDefaultMaintenance(auxEntries, carsState);
     if (maintenance) {
         maintenanceInit = maintenance;
     }
@@ -36,7 +37,7 @@ const OneMaintenanceItem: React.FC<OneMaintenanceItemProps> = ({method, maintena
     const [usedMaintenance, setUsedMaintenance] = useState(maintenanceInit);
     const navigate = useNavigate();
 
-    if (!auxEntries.isReady || auxEntries.loading || !carList.ready || carList.loading) {
+    if (!auxEntries.isReady || auxEntries.loading || !carsState.ready || carsState.loading) {
         return (
             <Loader/>
         );
@@ -48,7 +49,7 @@ const OneMaintenanceItem: React.FC<OneMaintenanceItemProps> = ({method, maintena
     let types: SelectOption[] = [{ value: String(usedMaintenance.type), caption: usedMaintenance.type__name }];
     let serviceCompanies: SelectOption[] = [{ value: String(usedMaintenance.service_company), caption: usedMaintenance.service_company__name }];
     if (canWrite) {
-        cars = carsToSelectOptions(carList.items, false).sort((a, b) => a.caption.localeCompare(b.caption));
+        cars = carsToSelectOptions(carsState.items, false).sort((a, b) => a.caption.localeCompare(b.caption));
         types = auxEntriesToSelectOptions(auxEntries.maintenanceTypes, false);
         serviceCompanies = serviceCompaniesToSelectOptions(auxEntries.serviceCompanies, false);
         serviceCompanies.unshift({ value: String(-1), caption: "Самостоятельно"});
