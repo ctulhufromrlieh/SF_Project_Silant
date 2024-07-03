@@ -8,6 +8,10 @@ $fontname: "Astra";
     width: 320px;
 }
 
+@mixin table_cell () {
+    display: flex;
+}
+
 // @mixin only_desktop {
 //     display: none;
 //     @media screen and (min-width: $mobile_width)  {

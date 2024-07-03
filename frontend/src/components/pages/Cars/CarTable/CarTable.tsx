@@ -111,36 +111,38 @@ const CarTable: React.FC = () => {
                     <MyButton onClick={() => fullRefreshCars()}>Искать</MyButton>
                 </div>
             </div>
-            <div className={commonClasses.table}>
-                <TableItem  
-                    index={-1} 
-                    id={-1} 
-                    propValues={{
-                        car_model__name: "Модель техники",
-                        car_num: "Зав. № машины",
-                        engine_model__name: "Модель двигателя",
-                        engine_num: "Зав. № двигателя",
-                        transmission_model__name: "Модель трансмиссии (производитель, артикул)",
-                        transmission_num: "Зав. № трансмиссии",
-                        main_bridge_model__name: "Модель ведущего моста",
-                        main_bridge_num: "Зав. № ведущего моста",
-                        steerable_bridge_model__name: "Модель управляемого моста",
-                        steerable_bridge_num: "Зав. № управляемого моста",
-                        factory_shipment_date: "Дата отгрузки с завода",
-                        consignee: "Грузополучатель (конечный потребитель)",
-                        shipment_address: "Адрес поставки (эксплуатации)",
-                        add_options: "Комплектация (доп. опции)",
-                        client__name: "Покупатель",
-                        service_company__name: "Сервисная компания",
-                    }}
-                    classes={carItemClasses}
-                    basePath={"/cars"}
-                    sortElements={sortElems}
-                    changeSortTypeProc={changeSortTypeProc}
-                />
-                {sortedCars.map((item, index) => 
-                    <TableItem key={item.id} {...item} index={index} id={item.id} propValues={carToPropValues(item)} classes={carItemClasses} basePath={"/cars"} />
-                )}
+            <div className={commonClasses.table_container}>
+                <div className={commonClasses.table}>
+                    <TableItem  
+                        index={-1} 
+                        id={-1} 
+                        propValues={{
+                            car_model__name: "Модель техники",
+                            car_num: "Зав. № машины",
+                            engine_model__name: "Модель двигателя",
+                            engine_num: "Зав. № двигателя",
+                            transmission_model__name: "Модель трансмиссии (производитель, артикул)",
+                            transmission_num: "Зав. № трансмиссии",
+                            main_bridge_model__name: "Модель ведущего моста",
+                            main_bridge_num: "Зав. № ведущего моста",
+                            steerable_bridge_model__name: "Модель управляемого моста",
+                            steerable_bridge_num: "Зав. № управляемого моста",
+                            factory_shipment_date: "Дата отгрузки с завода",
+                            consignee: "Грузополучатель (конечный потребитель)",
+                            shipment_address: "Адрес поставки (эксплуатации)",
+                            add_options: "Комплектация (доп. опции)",
+                            client__name: "Покупатель",
+                            service_company__name: "Сервисная компания",
+                        }}
+                        classes={carItemClasses}
+                        basePath={"/cars"}
+                        sortElements={sortElems}
+                        changeSortTypeProc={changeSortTypeProc}
+                    />
+                    {sortedCars.map((item, index) => 
+                        <TableItem key={item.id} {...item} index={index} id={item.id} propValues={carToPropValues(item)} classes={carItemClasses} basePath={"/cars"} />
+                    )}
+                </div>
             </div>
             <div>
                 {
