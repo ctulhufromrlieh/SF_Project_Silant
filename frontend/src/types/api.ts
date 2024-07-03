@@ -153,6 +153,20 @@ export const defaultAuxEntry: AuxEntry = {
     description: "",
 }
 
+export const defaultSimpleCar: SimpleCar = {
+    id: -1,
+    car_model__name: "",
+    car_num: "",
+    engine_model__name: "",
+    engine_num: "",
+    transmission_model__name: "",
+    transmission_num: "",
+    main_bridge_model__name: "",
+    main_bridge_num: "",
+    steerable_bridge_model__name: "",
+    steerable_bridge_num: "",
+}
+
 export const defaultCar: Car = {
     id: -1,
     car_model: -1,

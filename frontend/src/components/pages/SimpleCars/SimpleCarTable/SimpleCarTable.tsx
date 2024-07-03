@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 
 import classes from "./SimpleCarTable.module.scss";
 // import commonClasses from "../../../styles/common.module.scss";
+import commonClasses from "../../../../styles/common.module.scss";
+import simpleCarItemClasses from "./SimpleCarItem/SimpleCarItem.module.scss";
 
 import { Link } from "react-router-dom";
 import MyLabeledInput from "../../../UI/MyLabeledInput/MyLabeledInput";
@@ -11,6 +13,9 @@ import Loader from "../../../UI/Loader/Loader";
 import SimpleCarItem from "./SimpleCarItem/SimpleCarItem";
 import { ChangeSortTypeProc, SortMethod, sortObjects } from "../../../../utils/sort";
 import { SimpleCar } from "../../../../types/api";
+import MyButton from "../../../UI/MyButton/MyButton";
+import TableItem from "../../Common/TableItem";
+import { simpleCarToPropValues } from "../../../../utils/convert";
 
 const SimpleCarTable: React.FC = () => {
     const {car_num} = useTypedSelector(state => state.filterCar);
@@ -54,17 +59,19 @@ const SimpleCarTable: React.FC = () => {
 
     return (
         <div>
-            <div className={classes.car_filter}>
-                <MyLabeledInput 
-                    id="filter-car-form__car-num"
-                    type="text"
-                    labelCaption="Номер:" 
-                    value={car_num}
-                    setValue={(value) => setCarNum(value)} 
-                />
-                <button onClick={() => fetchSimpleCars()}>Search</button>
+            <div className={commonClasses.filter_form_container}>
+                <div className={commonClasses.filter_form}>
+                    <MyLabeledInput 
+                        id="filter-car-form__car-num"
+                        type="text"
+                        labelCaption="Номер:" 
+                        value={car_num}
+                        setValue={(value) => setCarNum(value)} 
+                    />
+                    <MyButton onClick={() => fetchSimpleCars()}>Искать</MyButton>
+                </div>
             </div>
-            <div className={classes.car_table}>
+            {/* <div className={classes.car_table}>
                 <SimpleCarItem  
                     index={-1}
                     id={-1} 
@@ -81,12 +88,37 @@ const SimpleCarTable: React.FC = () => {
                     sortElements={sortElems}
                     changeSortTypeProc={changeSortTypeProc}
                 />
-                {/* {items.map((item, index) => 
-                    <SimpleCarItem key={item.id} {...item} id={index} />
-                )} */}
                 {sortedCars.map((item, index) => 
                     <SimpleCarItem key={item.id} {...item} index={index} id={item.id} />
                 )}
+            </div> */}
+            <div className={commonClasses.table_container}>
+                <div className={commonClasses.table}>
+                    <TableItem  
+                        index={-1} 
+                        id={-1} 
+                        propValues={{
+                            car_model__name: "Модель техники",
+                            car_num: "Зав. № машины",
+                            engine_model__name: "Модель двигателя",
+                            engine_num: "Зав. № двигателя",
+                            transmission_model__name: "Модель трансмиссии (производитель, артикул)",
+                            transmission_num: "Зав. № трансмиссии",
+                            main_bridge_model__name: "Модель ведущего моста",
+                            main_bridge_num: "Зав. № ведущего моста",
+                            steerable_bridge_model__name: "Модель управляемого моста",
+                            steerable_bridge_num: "Зав. № управляемого моста",
+                        }}
+                        classes={simpleCarItemClasses}
+                        basePath={"/simple_cars"}
+                        sortElements={sortElems}
+                        changeSortTypeProc={changeSortTypeProc}
+                    />
+                    {sortedCars.map((item, index) => 
+                        <TableItem key={item.id} {...item} index={index} id={item.id} propValues={simpleCarToPropValues(item)} 
+                            classes={simpleCarItemClasses} basePath={"/simple_cars"} />
+                    )}
+                </div>
             </div>
         </div>
     );

@@ -17,6 +17,7 @@ import AuxEntryTable from "../components/pages/AuxEntries/AuxEntryTable";
 import OneAuxEntryItem from "../components/pages/AuxEntries/OneAuxEntryItem";
 import PageOneAuxEntry from "../components/pages/AuxEntries/PageOneAuxEntry";
 import PageAuxEntries from "../components/pages/AuxEntries/PageAuxEntries";
+import PageOneSimpleCar from "../components/pages/SimpleCars/PageOneSimpleCar";
 
 export const privateRoutes: RouteData[] = [
     {path: "/cars", component: PageCars, caption: "Машины", isVisible: true},
@@ -93,5 +94,7 @@ export const auxEntryRoutes: RouteData[] = [
 ]
 
 export const publicRoutes: RouteData[] = [
-    {path: "/", component: PageMain, caption: "Главная", isVisible: true},
+    // {path: "/", component: PageMain, caption: "Главная", isVisible: false},
+    {path: "/simple_cars", component: PageMain, caption: "Главная", isVisible: false},
+    {path: "/simple_cars/:id", component: PageOneSimpleCar, caption: "Машина", isVisible: false},
 ]

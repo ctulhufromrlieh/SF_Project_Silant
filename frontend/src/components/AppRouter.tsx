@@ -50,7 +50,7 @@ const AppRouter = () => {
                 )}
                 <Route 
                     path="*" 
-                    element={<Navigate to="/" replace />} 
+                    element={<Navigate to="/simple_cars" replace />} 
                 />
             </Routes>
     );

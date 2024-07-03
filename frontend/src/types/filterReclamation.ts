@@ -11,7 +11,7 @@ export enum FilterReclamationActionTypes {
     SET_FAILURE_NODE = "SET_FAILURE_NODE",
     SET_RECOVERY_METHOD = "SET_RECOVERY_METHOD",
 }
-111
+
 interface FilterReclamationSetCarNumAction {
     type: FilterReclamationActionTypes.SET_CAR_NUM;
     payload: string;
